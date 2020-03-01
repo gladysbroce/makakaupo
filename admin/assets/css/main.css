@@ -4,29 +4,26 @@
 	box-sizing: border-box;
 }
 
-/*[ Slick3 ]
-///////////////////////////////////////////////////////////
-*/
-
+/* Seat Layout Creator */
+.layout {
+	max-width: 100%;
+	background-color: yellow;
+}
 .wrap-slick3-dots {
   width: 14.5%;
 }
-
 .slick3 {
   width: 80.64%;
 }
-
 .slick3-dots li {
   display: block;
   position: relative;
   width: 100%;
   margin-bottom: 15px;
 }
-
 .slick3-dots li img {
   width: 100%;
 }
-
 .slick3-dot-overlay {
   position: absolute;
   width: 100%;
@@ -40,11 +37,9 @@
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
-
 .slick3-dot-overlay:hover {
   border: 3px solid #888888;
 }
-
 .slick3-dots .slick-active .slick3-dot-overlay {
   border: 3px solid #888888;
 }
