@@ -1,3 +1,42 @@
+<style>
+    .slick-track {
+		width: 500px;
+		height: 600px;
+	}
+	.workspace {
+		width:100%;
+		height:100%;
+		background-color:yellow;
+	}
+	.cell {
+		background-color: white;
+		width: 4%;
+		height: 3%;
+		border: 1px solid gray;
+		display: inline-block;
+	}
+	.seat {
+		background-color: green;
+	}
+</style>
+<script>
+$(document).ready(function () {
+	/* Add or remove seat */
+    $('.cell').on('click', function(){
+		if($(this).hasClass('seat')){
+			$(this).removeClass('seat');
+		}else{
+			$(this).addClass('seat');
+		}
+    });
+	/* Save seat layout */
+    $('#save').on('click', function(){
+		$('.seat').each(function() {
+            console.log($(this).attr('id'));
+        });
+    });
+});
+</script>
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
@@ -16,21 +55,34 @@
 	<div class="wrap-slick3 flex-sb flex-w">
 		<div class="wrap-slick3-dots"></div>
 		<div class="slick3">
-			<div class="item-slick3" data-thumb="assets/images/thumb-item-01.jpg">
-				<div class="wrap-pic-w">
-					<img src="assets/images/product-detail-01.jpg" alt="IMG-PRODUCT">
+			<div class="item-slick3 floor1" data-thumb="assets/images/thumb-item-01.jpg">
+				<div class="workspace">
+					<?php
+					for($x=1; $x<=25; $x++){
+					    for($y=1; $y<=20; $y++){ ?>
+					        <div class="cell" id="<?php echo "1_".$x."_".$y;?>"></div>
+					<?php }} ?>
 				</div>
 			</div>
-			<div class="item-slick3" data-thumb="assets/images/thumb-item-02.jpg">
-				<div class="wrap-pic-w">
-					<img src="assets/images/product-detail-02.jpg" alt="IMG-PRODUCT">
+			<div class="item-slick3 floor2" data-thumb="assets/images/thumb-item-02.jpg">
+				<div class="workspace">
+					<?php
+					for($x=1; $x<=25; $x++){
+					    for($y=1; $y<=20; $y++){ ?>
+					        <div class="cell" id="<?php echo "2_".$x."_".$y;?>"></div>
+					<?php }} ?>
 				</div>
 			</div>
-			<div class="item-slick3" data-thumb="assets/images/thumb-item-03.jpg">
-				<div class="wrap-pic-w">
-					<img src="assets/images/product-detail-03.jpg" alt="IMG-PRODUCT">
+			<div class="item-slick3 floor3" data-thumb="assets/images/thumb-item-03.jpg">
+				<div class="workspace">
+					<?php
+					for($x=1; $x<=25; $x++){
+					    for($y=1; $y<=20; $y++){ ?>
+					        <div class="cell" id="<?php echo "3_".$x."_".$y;?>"></div>
+					<?php }} ?>
 				</div>
 			</div>
 		</div>
 	</div>
+	<button class="mb-2 mr-2 btn btn-focus" id="save">Save</button>
 </div>
