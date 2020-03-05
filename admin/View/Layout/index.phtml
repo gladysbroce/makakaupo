@@ -31,8 +31,26 @@ $(document).ready(function () {
     });
 	/* Save seat layout */
     $('#save').on('click', function(){
-		$('.seat').each(function() {
+		//$.post("<?php echo $this->getControllerURL('layout','update') ?>", {restaurant_id:1}, function(data){
+        //    console.log(data);
+        //});
+		/*$('.seat').each(function() {
             console.log($(this).attr('id'));
+        });*/
+		var param = {restaurant_id: 1};
+		$.ajax({
+            url: "<?php echo $this->getControllerURL('layout','update') ?>",
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(param),
+			success:
+			    function(data){
+                   alert("ok!");
+                },
+			error:
+			    function(data){
+                   alert("error!");
+                }
         });
     });
 });
