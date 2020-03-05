@@ -1,4 +1,4 @@
-<?phprequire_once('SystemConstants.php');class Application {	const		HOST = 'localhost',		USER = 'lornamak_syslorn',		PW = 'L0rNDataB4s32018',		DB = 'lornamak_sysdb';
+<?phprequire_once('SystemConstants.php');class Application {	const		HOST = 'localhost',		USER = 'root',		PW = 'root',		DB = 'makakaupo';
 	private $_controller = '',		$_action = '',		$_args = array();	private static $_instance = NULL;	private static $_db = NULL;
 	public static function GetInstance() {		if (null === self::$_instance)			self::$_instance = new self();		return self::$_instance;	}
 	public function setController($controller) {

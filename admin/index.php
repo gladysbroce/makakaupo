@@ -1,4 +1,5 @@
 <?php
+const IS_LIVE = false; // true = prod, false = localhost
 require_once('Application.php');
 spl_autoload_register(function($className) {
 	$modelFile = "Model/".$className.".php";	
