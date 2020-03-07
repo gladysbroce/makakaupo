@@ -1,48 +1,64 @@
-<style>
-    .slick-track {
-		width: 500px;
-		height: 600px;
-	}
-	.workspace {
-		width:100%;
-		height:100%;
-		background-color:yellow;
-	}
-	.cell {
-		background-color: white;
-		width: 4%;
-		height: 3%;
-		border: 1px solid gray;
-		display: inline-block;
-	}
-	.seat {
-		background-color: green;
-	}
-</style>
 <script>
 $(document).ready(function () {
+	/* Initialize seat status */
+    var floors = <?php echo json_encode($this->floors); ?>;
+	$.each(floors, function(floor_id, floor){
+		$.each(floor, function(index, seat){
+			var seat_id = floor_id+"_"+seat["row_no"]+"_"+seat["col_no"];
+			$("#"+seat_id).addClass("seat-orig seat-add");
+		});
+	});
 	/* Add or remove seat */
-    $('.cell').on('click', function(){
-		if($(this).hasClass('seat')){
-			$(this).removeClass('seat');
-		}else{
-			$(this).addClass('seat');
+    $(".seat-cell").on("click", function(){
+		if ($(this).hasClass("seat-add")) {
+			$(this).removeClass("seat-add");
+			$(this).addClass("seat-del");
+		} else {
+			$(this).removeClass("seat-del");
+			$(this).addClass("seat-add");
 		}
     });
 	/* Save seat layout */
-    $('#save').on('click', function(){
-		//$.post("<?php echo $this->getControllerURL('layout','update') ?>", {restaurant_id:1}, function(data){
-        //    console.log(data);
-        //});
-		/*$('.seat').each(function() {
-            console.log($(this).attr('id'));
-        });*/
-		var param = {restaurant_id: 1};
+    $("#save").on("click", function(){
+		/* Add new seat */
+		var added_seats = [];
+		$(".seat-add").each(function(i) {
+			if (!$(this).hasClass("seat-orig")){
+                var seat_data = $(this).attr('id').split("_");
+			    console.log(seat_data[0]);
+			    added_seats[i] = {"floor_id": seat_data[0],
+			                "row_no": seat_data[1],
+			                "col_no": seat_data[2]};
+			}
+        });
 		$.ajax({
-            url: "<?php echo $this->getControllerURL('layout','update') ?>",
+            url: "<?php echo $this->getBaseURL()."layout/add" ?>",
             type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(param),
+			data: {"restaurant_id": 1, "seats": added_seats},
+			success:
+			    function(data){
+                   alert("ok!");
+                },
+			error:
+			    function(data){
+                   alert("error!");
+                }
+        });
+		/* Delete original seats */
+		var deleted_seats = [];
+		$(".seat-del").each(function(i) {
+			if ($(this).hasClass("seat-orig")){
+                var seat_data = $(this).attr('id').split("_");
+			    console.log(seat_data[0]);
+			    deleted_seats[i] = {"floor_id": seat_data[0],
+			                "row_no": seat_data[1],
+			                "col_no": seat_data[2]};
+			}
+        });
+		$.ajax({
+            url: "<?php echo $this->getBaseURL()."layout/delete" ?>",
+            type: 'POST',
+            data: {"restaurant_id": 1, "seats": deleted_seats},
 			success:
 			    function(data){
                    alert("ok!");
@@ -78,7 +94,7 @@ $(document).ready(function () {
 					<?php
 					for($x=1; $x<=25; $x++){
 					    for($y=1; $y<=20; $y++){ ?>
-					        <div class="cell" id="<?php echo "1_".$x."_".$y;?>"></div>
+					        <div class="seat-cell" id="<?php echo "1_".$x."_".$y;?>"></div>
 					<?php }} ?>
 				</div>
 			</div>
@@ -87,7 +103,7 @@ $(document).ready(function () {
 					<?php
 					for($x=1; $x<=25; $x++){
 					    for($y=1; $y<=20; $y++){ ?>
-					        <div class="cell" id="<?php echo "2_".$x."_".$y;?>"></div>
+					        <div class="seat-cell" id="<?php echo "2_".$x."_".$y;?>"></div>
 					<?php }} ?>
 				</div>
 			</div>
@@ -96,7 +112,7 @@ $(document).ready(function () {
 					<?php
 					for($x=1; $x<=25; $x++){
 					    for($y=1; $y<=20; $y++){ ?>
-					        <div class="cell" id="<?php echo "3_".$x."_".$y;?>"></div>
+					        <div class="seat-cell" id="<?php echo "3_".$x."_".$y;?>"></div>
 					<?php }} ?>
 				</div>
 			</div>
