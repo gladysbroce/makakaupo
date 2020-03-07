@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2020 at 03:34 PM
+-- Generation Time: Mar 07, 2020 at 05:43 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -48,19 +48,41 @@ CREATE TABLE `restaurant` (
 CREATE TABLE `seat` (
   `seat_id` int(10) NOT NULL,
   `restaurant_id` int(10) NOT NULL,
-  `floor_name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `floor_id` int(10) NOT NULL,
   `row_no` int(5) NOT NULL,
   `col_no` int(5) NOT NULL,
-  `statud_id` int(5) NOT NULL,
-  `date_modified` date NOT NULL
+  `status_id` int(5) NOT NULL DEFAULT '0',
+  `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `seat`
 --
 
-INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_name`, `row_no`, `col_no`, `statud_id`, `date_modified`) VALUES
-(1, 1, '', 5, 0, 0, '0000-00-00');
+INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, `status_id`, `date_modified`) VALUES
+(8, 1, 1, 1, 1, 0, '2020-03-08 01:37:07'),
+(12, 1, 2, 2, 2, 0, '2020-03-08 01:37:39'),
+(13, 1, 3, 3, 3, 0, '2020-03-08 01:37:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seat_status`
+--
+
+CREATE TABLE `seat_status` (
+  `seat_status_id` int(10) NOT NULL,
+  `seat_status_name` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `seat_status`
+--
+
+INSERT INTO `seat_status` (`seat_status_id`, `seat_status_name`) VALUES
+(0, 'vacant'),
+(1, 'occupied'),
+(2, 'reserved');
 
 --
 -- Indexes for dumped tables
@@ -79,6 +101,12 @@ ALTER TABLE `seat`
   ADD PRIMARY KEY (`seat_id`);
 
 --
+-- Indexes for table `seat_status`
+--
+ALTER TABLE `seat_status`
+  ADD PRIMARY KEY (`seat_status_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -92,7 +120,7 @@ ALTER TABLE `restaurant`
 -- AUTO_INCREMENT for table `seat`
 --
 ALTER TABLE `seat`
-  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
