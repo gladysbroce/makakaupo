@@ -1,3 +1,15 @@
+<script>
+$(document).ready(function () {
+	/* Initialize seat status */
+    var floors = <?php echo json_encode($this->floors); ?>;
+	$.each(floors, function(floor_id, floor){
+		$.each(floor, function(index, seat){
+			var seat_id = floor_id+"_"+seat["row_no"]+"_"+seat["col_no"];
+			$("#"+seat_id).addClass("seat-"+seat["seat_status_name"]);
+		});
+	});
+});
+</script>
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
@@ -7,6 +19,7 @@
             </div>
             <div>Seat Status
                 <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+				<?php foreach ($this->floors as $floor => $value){ echo $floor; }?>
                 </div>
             </div>
         </div>
@@ -16,21 +29,17 @@
 	<div class="wrap-slick3 flex-sb flex-w">
 		<div class="wrap-slick3-dots"></div>
 		<div class="slick3">
-			<div class="item-slick3" data-thumb="assets/images/thumb-item-01.jpg">
-				<div class="wrap-pic-w">
-					<img src="assets/images/product-detail-01.jpg" alt="IMG-PRODUCT">
-				</div>
-			</div>
-			<div class="item-slick3" data-thumb="assets/images/thumb-item-02.jpg">
-				<div class="wrap-pic-w">
-					<img src="assets/images/product-detail-02.jpg" alt="IMG-PRODUCT">
-				</div>
-			</div>
-			<div class="item-slick3" data-thumb="assets/images/thumb-item-03.jpg">
-				<div class="wrap-pic-w">
-					<img src="assets/images/product-detail-03.jpg" alt="IMG-PRODUCT">
-				</div>
-			</div>
+		    <?php foreach ($this->floors  as $floor => $seats): ?>
+				<div class="item-slick3" data-thumb="assets/images/thumb-item.jpg">
+			    	<div class="workspace">
+			    		<?php for ($x=1; $x<=25; $x++) { ?>
+			    		    <?php for ($y=1; $y<=20; $y++) { ?>
+									<div class="seat-space" id="<?php echo $floor."_".$x."_".$y;?>"></div>
+			    		<?php }} ?>
+			    	</div>
+			    </div>
+			<?php endforeach ?>
 		</div>
 	</div>
+	<button class="mb-2 mr-2 btn btn-focus" id="save">Save</button>
 </div>
