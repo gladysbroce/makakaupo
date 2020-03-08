@@ -27,17 +27,13 @@ class Seats {
 			SELECT DISTINCT
 				`floor_id`
 			FROM `seat`
-			WHERE `restaurant_id` = ?;
+			WHERE `restaurant_id` = ?
+			ORDER BY `floor_id` ASC;
 		");
 		$stmt->bind_param("i", $restaurant_id);
 		$stmt->execute();
 		$floors = $stmt->get_result();
 		return $floors;
-		/*$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
-			$floors[] = $row;
-		}
-		return $floors;*/
 	}
 	public function addSeat($restaurant_id, $floor_id, $row_no, $col_no){
 		$response = false;
@@ -64,6 +60,40 @@ class Seats {
 				WHERE `restaurant_id` = ? AND `floor_id` = ? AND `row_no` = ? AND `col_no` = ?;
 		    ");
 			$stmt->bind_param("iiii", $restaurant_id, $floor_id, $row_no, $col_no);
+			$result = $stmt->execute();
+			if($result){
+				$response = true;
+			}
+		}
+		return $response;
+	}
+	public function updateSeat($restaurant_id, $floor_id, $row_no, $col_no, $status){
+		$response = false;
+		if ($restaurant_id && $floor_id && $row_no && $col_no) {
+			$stmt = Application::DBPrepQuery( "
+				UPDATE 
+					`seat`
+				SET `status_id` = ?
+				WHERE `restaurant_id` = ? AND `floor_id` = ? AND `row_no` = ? AND `col_no` = ?;
+		    ");
+			$stmt->bind_param("iiiii", $status, $restaurant_id, $floor_id, $row_no, $col_no);
+			$result = $stmt->execute();
+			if($result){
+				$response = true;
+			}
+		}
+		return $response;
+	}
+	public function updateAllSeatsByFloor($restaurant_id, $floor_id, $status){
+		$response = false;
+		if ($restaurant_id && $floor_id) {
+			$stmt = Application::DBPrepQuery( "
+				UPDATE 
+					`seat`
+				SET `status_id` = ?
+				WHERE `restaurant_id` = ? AND `floor_id` = ?;
+		    ");
+			$stmt->bind_param("iii", $status, $restaurant_id, $floor_id);
 			$result = $stmt->execute();
 			if($result){
 				$response = true;
