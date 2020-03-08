@@ -25,7 +25,6 @@ $(document).ready(function () {
 		$(".seat-add").each(function(i) {
 			if (!$(this).hasClass("seat-orig")){
                 var seat_data = $(this).attr('id').split("_");
-			    console.log(seat_data[0]);
 			    added_seats[i] = {"floor_id": seat_data[0],
 			                "row_no": seat_data[1],
 			                "col_no": seat_data[2]};
