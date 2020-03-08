@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2020 at 05:43 PM
+-- Generation Time: Mar 08, 2020 at 08:34 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -60,9 +60,12 @@ CREATE TABLE `seat` (
 --
 
 INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, `status_id`, `date_modified`) VALUES
-(8, 1, 1, 1, 1, 0, '2020-03-08 01:37:07'),
-(12, 1, 2, 2, 2, 0, '2020-03-08 01:37:39'),
-(13, 1, 3, 3, 3, 0, '2020-03-08 01:37:39');
+(18, 1, 2, 1, 1, 2, '2020-03-08 15:39:40'),
+(19, 1, 1, 1, 1, 1, '2020-03-08 15:42:15'),
+(20, 1, 1, 1, 20, 2, '2020-03-08 15:42:15'),
+(21, 1, 1, 25, 1, 2, '2020-03-08 15:42:15'),
+(22, 1, 1, 25, 20, 2, '2020-03-08 15:42:15'),
+(23, 1, 3, 1, 1, 1, '2020-03-08 16:20:16');
 
 -- --------------------------------------------------------
 
@@ -120,7 +123,7 @@ ALTER TABLE `restaurant`
 -- AUTO_INCREMENT for table `seat`
 --
 ALTER TABLE `seat`
-  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
