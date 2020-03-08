@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+Options +FollowSymLinks
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l 
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://localhost/is295b/admin/$1 [R=301,L]
+RewriteRule ^(status|layout)/(.*)$ index.php?request=$1/$2 [L]
+RewriteRule ^(status|layout|profile|report)$ index.php?request=$1/index [L]
+ErrorDocument 404 https://localhost/is295b/admin?request=notfound/index
+</IfModule>
