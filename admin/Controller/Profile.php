@@ -1,13 +1,67 @@
 <?php
 class Profile extends System {
 	public function __construct() {
-		//$this->_users = new Users();
-		//$this->_products = new Products();
+		$this->_restaurants = new Restaurants();
 	}
-	
 	public function index()	{
-		//$this->featProducts = $this->_products->getFeaturedProducts();
-        //$this->products = $this->_products->getProductsForHome();
-		$this->setTemplate( 'View/Profile/index.phtml' );
+		$restaurantId = 1;
+		$this->restaurant = $this->_restaurants->getRestaurant($restaurantId);
+		$this->setTemplate('View/Profile/index.phtml');
+	}
+	public function update() {
+		$restaurantId = 1;
+		$restaurantName = $this->_getRestaurantName();
+		$branchName = $this->_getBranchName();
+		$desc = $this->_getDesc();
+		$hours = $this->_getBusinessHours();
+		$address = $this->_getAddress();
+		$website = $this->_getWebsite();
+		$phoneno = $this->_getPhoneNo();
+		//echo $restaurantId+$restaurantName+$branchName+$desc+$hours+$address+$website+$phoneno;
+		$this->restaurant = $this->_restaurants->updateRestaurant($restaurantId, $restaurantName, $branchName, $desc, $hours, $address, $website, $phoneno);
+		//$this->setTemplate('View/Status/index.phtml');
+		//$this->redirect('profile/index/');
+	}
+	private function _getRestaurantName() {
+		if (!empty($_POST['name']) && $name = trim($_POST['name'])) {
+			return $name;
+		}
+		return false;
+	}
+	private function _getBranchName() {
+		if (!empty($_POST['branch']) && $branch = trim($_POST['branch'])) {
+			return $branch;
+		}
+		return false;
+	}
+	private function _getDesc() {
+		if (!empty($_POST['desc']) && $desc = trim($_POST['desc'])) {
+			return $desc;
+		}
+		return false;
+	}
+	private function _getBusinessHours() {
+		if (!empty($_POST['hours']) && $hours = trim($_POST['hours'])) {
+			return $hours;
+		}
+		return false;
+	}
+	private function _getAddress() {
+		if (!empty($_POST['address']) && $address = trim($_POST['address'])) {
+			return $address;
+		}
+		return false;
+	}
+	private function _getWebsite() {
+		if (!empty($_POST['website']) && $website = trim($_POST['website'])) {
+			return $website;
+		}
+		return false;
+	}
+	private function _getPhoneNo() {
+		if (!empty($_POST['phoneno']) && $phoneno = trim($_POST['phoneno'])) {
+			return $phoneno;
+		}
+		return false;
 	}
 }

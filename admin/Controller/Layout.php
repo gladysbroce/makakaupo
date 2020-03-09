@@ -6,6 +6,7 @@ class Layout extends System {
 	public function index()	{
 		$restaurant_id = 1;
 		$floors = $this->_seats->getFloors($restaurant_id);
+		$this->floors = array();
 		foreach ($floors as $floor) {
 			$this->floors[$floor['floor_id']] = $this->_seats->getSeats($restaurant_id, $floor['floor_id']);
 		}
