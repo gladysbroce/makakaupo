@@ -1,7 +1,6 @@
 <?php
-
 class Seats {
-	public function getSeats($restaurant_id, $floor_id) {
+	public function getSeats($restaurantId, $floorId) {
 		$seats = array();
 		$stmt = Application::DBPrepQuery( "
 			SELECT 
@@ -13,7 +12,7 @@ class Seats {
 			 	ON `seat_status`.`seat_status_id` = `seat`.`status_id`
 			WHERE `seat`.`restaurant_id` = ? AND `seat`.`floor_id` = ?;
 		");
-		$stmt->bind_param("ii", $restaurant_id, $floor_id);
+		$stmt->bind_param("ii", $restaurantId, $floorId);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {
@@ -21,7 +20,7 @@ class Seats {
 		}
 		return $seats;
 	}
-	public function getFloors($restaurant_id) {
+	public function getFloors($restaurantId) {
 		$floors = array();
 		$stmt = Application::DBPrepQuery( "
 			SELECT DISTINCT
@@ -30,72 +29,72 @@ class Seats {
 			WHERE `restaurant_id` = ?
 			ORDER BY `floor_id` ASC;
 		");
-		$stmt->bind_param("i", $restaurant_id);
+		$stmt->bind_param("i", $restaurantId);
 		$stmt->execute();
 		$floors = $stmt->get_result();
 		return $floors;
 	}
-	public function addSeat($restaurant_id, $floor_id, $row_no, $col_no){
+	public function addSeat($restaurantId, $floorId, $rowNo, $colNo){
 		$response = false;
-		if ($restaurant_id && $floor_id && $row_no && $col_no) {
+		if ($restaurantId && $floorId && $rowNo && $colNo) {
 			$stmt = Application::DBPrepQuery( "
 			    INSERT INTO 
 			    	`seat`(`restaurant_id`, `floor_id`, `row_no`, `col_no`, `status_id`)
 			    VALUES (?, ?, ?, ?, 0);
 		    ");
-			$stmt->bind_param("iiii", $restaurant_id, $floor_id, $row_no, $col_no);
+			$stmt->bind_param("iiii", $restaurantId, $floorId, $rowNo, $colNo);
 			$result = $stmt->execute();
-			if($result){
+			if ($result) {
 				$response = true;
 			}
 		}
 		return $response;
 	}
-	public function deleteSeat($restaurant_id, $floor_id, $row_no, $col_no){
+	public function deleteSeat($restaurantId, $floorId, $rowNo, $colNo){
 		$response = false;
-		if ($restaurant_id && $floor_id && $row_no && $col_no) {
+		if ($restaurantId && $floorId && $rowNo && $colNo) {
 			$stmt = Application::DBPrepQuery( "
 			    DELETE
 				FROM `seat`
 				WHERE `restaurant_id` = ? AND `floor_id` = ? AND `row_no` = ? AND `col_no` = ?;
 		    ");
-			$stmt->bind_param("iiii", $restaurant_id, $floor_id, $row_no, $col_no);
+			$stmt->bind_param("iiii", $restaurantId, $floorId, $rowNo, $colNo);
 			$result = $stmt->execute();
-			if($result){
+			if ($result) {
 				$response = true;
 			}
 		}
 		return $response;
 	}
-	public function updateSeat($restaurant_id, $floor_id, $row_no, $col_no, $status){
+	public function updateSeat($restaurantId, $floorId, $rowNo, $colNo, $status){
 		$response = false;
-		if ($restaurant_id && $floor_id && $row_no && $col_no) {
+		if ($restaurantId && $floorId && $rowNo && $colNo) {
 			$stmt = Application::DBPrepQuery( "
 				UPDATE 
 					`seat`
 				SET `status_id` = ?
 				WHERE `restaurant_id` = ? AND `floor_id` = ? AND `row_no` = ? AND `col_no` = ?;
 		    ");
-			$stmt->bind_param("iiiii", $status, $restaurant_id, $floor_id, $row_no, $col_no);
+			$stmt->bind_param("iiiii", $status, $restaurantId, $floorId, $rowNo, $colNo);
 			$result = $stmt->execute();
-			if($result){
+			if ($result) {
 				$response = true;
 			}
 		}
 		return $response;
 	}
-	public function updateAllSeatsByFloor($restaurant_id, $floor_id, $status){
+	public function updateAllSeatsByFloor($restaurantId, $floorId, $status){
 		$response = false;
-		if ($restaurant_id && $floor_id) {
+		if ($restaurantId && $floorId) {
 			$stmt = Application::DBPrepQuery( "
 				UPDATE 
 					`seat`
 				SET `status_id` = ?
 				WHERE `restaurant_id` = ? AND `floor_id` = ?;
 		    ");
-			$stmt->bind_param("iii", $status, $restaurant_id, $floor_id);
+			$stmt->bind_param("iii", $status, $restaurantId, $floorId);
 			$result = $stmt->execute();
-			if($result){
+			if ($result) {
 				$response = true;
 			}
 		}
