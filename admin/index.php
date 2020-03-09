@@ -11,7 +11,7 @@ spl_autoload_register(function($className) {
         require $controllerFile;
     }
 });
-$request = explode('/', (!empty($_GET['request']) ? $_GET['request'] : 'Status/index'));
+$request = explode('/', (!empty($_GET['request']) ? $_GET['request'] : 'status/index'));
 $controller = ucfirst(strtolower($request[0]));
 $action = strtolower($request[1]);
 $args = array_slice($request,2);
