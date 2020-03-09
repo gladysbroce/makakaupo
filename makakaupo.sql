@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2020 at 08:34 AM
+-- Generation Time: Mar 09, 2020 at 01:57 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -39,6 +39,13 @@ CREATE TABLE `restaurant` (
   `phone_no` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `restaurant`
+--
+
+INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `description`, `business_hours`, `address`, `website`, `phone_no`) VALUES
+(1, 'jobee', 'Makati', 'testttt', '10AM', 'Makati City', 'www', '090');
+
 -- --------------------------------------------------------
 
 --
@@ -61,7 +68,6 @@ CREATE TABLE `seat` (
 
 INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, `status_id`, `date_modified`) VALUES
 (18, 1, 2, 1, 1, 2, '2020-03-08 15:39:40'),
-(19, 1, 1, 1, 1, 1, '2020-03-08 15:42:15'),
 (20, 1, 1, 1, 20, 2, '2020-03-08 15:42:15'),
 (21, 1, 1, 25, 1, 2, '2020-03-08 15:42:15'),
 (22, 1, 1, 25, 20, 2, '2020-03-08 15:42:15'),
@@ -117,7 +123,7 @@ ALTER TABLE `seat_status`
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `seat`
