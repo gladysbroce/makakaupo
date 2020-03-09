@@ -1,3 +1,25 @@
+<script type="text/javascript">
+$(document).ready(function () {
+	/* Update profile information */
+    $("form").submit(function(e){
+		e.preventDefault();
+        var form = $(this);
+		$.ajax({
+            url: "<?php echo $this->getBaseURL()."profile/update" ?>",
+            type: 'POST',
+			data: form.serialize(),
+			success:
+			    function(data){
+                   alert("ok!");
+                },
+			error:
+			    function(data){
+                   alert("error!");
+                }
+        });
+    });
+});
+</script>
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
@@ -10,36 +32,36 @@
 </div>
 <div class="main-card mb-3 card">
     <div class="card-body"><h5 class="card-title">Restaurant Information</h5>
-        <form class="">
+        <form action="">
 		    <div class="form-row">
 		        <div class="col-md-7 mb-2">
                     <label for="name" class="">Restaurant Name</label>
-                    <input id="name" type="text" class="mb-2 form-control">
+                    <input id="name" name="name" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['restaurant_name']; ?>">
                 </div>
 		        <div class="col-md-5 mb-2">
 			        <label for="branch" class="">Branch Name</label>
-		            <input id="branch" type="text" class="mb-2 form-control">
+		            <input id="branch" name="branch" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['branch_name']; ?>">
                 </div>
 			</div>
 			<div class="position-relative form-group">
-			    <label for="description" class="">Description</label>
-		        <textarea id="description" class="form-control"></textarea>
+			    <label for="desc" class="">Description</label>
+		        <textarea id="desc" name="desc" class="form-control"><?php echo $this->restaurant['description']; ?></textarea>
 			</div>
 			<div class="position-relative form-group">
 			    <label for="hours" class="">Business Hours</label>
-		        <input id="hours" type="text" class="mb-2 form-control">
+		        <input id="hours" name="hours" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['business_hours']; ?>">
 			</div>
 			<div class="position-relative form-group">
 			    <label for="address" class="">Address</label>
-		        <input id="address" type="text" class="mb-2 form-control">
+		        <input id="address" name="address" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['address']; ?>">
 			</div>
 			<div class="position-relative form-group">
 			    <label for="website" class="">Website</label>
-		        <input id="website" type="text" class="mb-2 form-control">
+		        <input id="website" name="website" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>">
 			</div>
 			<div class="position-relative form-group">
 			    <label for="phoneno" class="">Phone Number</label>
-		        <input id="phoneno" type="text" class="mb-2 form-control">
+		        <input id="phoneno" name="phoneno" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>">
 			</div>
             <button class="mt-1 btn btn-primary">Submit</button>
         </form>
