@@ -5,7 +5,7 @@ $(document).ready(function () {
 		e.preventDefault();
         var form = $(this);
 		$.ajax({
-            url: "<?php echo $this->getBaseURL()."profile/update" ?>",
+			url: "<?php echo $this->getControllerURL('profile', 'update')?>",
             type: 'POST',
 			data: form.serialize(),
 			success:
@@ -44,8 +44,12 @@ $(document).ready(function () {
                 </div>
 			</div>
 			<div class="position-relative form-group">
-			    <label for="desc" class="">Description</label>
-		        <textarea id="desc" name="desc" class="form-control"><?php echo $this->restaurant['description']; ?></textarea>
+			    <label for="shortDesc" class="">Short Description</label>
+		        <textarea id="shortDesc" name="shortDesc" class="form-control"><?php echo $this->restaurant['short_desc']; ?></textarea>
+			</div>
+			<div class="position-relative form-group">
+			    <label for="fullDesc" class="">Full Description</label>
+		        <textarea id="fullDesc" name="fullDesc" class="form-control"><?php echo $this->restaurant['full_desc']; ?></textarea>
 			</div>
 			<div class="position-relative form-group">
 			    <label for="hours" class="">Business Hours</label>
@@ -55,13 +59,15 @@ $(document).ready(function () {
 			    <label for="address" class="">Address</label>
 		        <input id="address" name="address" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['address']; ?>">
 			</div>
-			<div class="position-relative form-group">
-			    <label for="website" class="">Website</label>
-		        <input id="website" name="website" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>">
-			</div>
-			<div class="position-relative form-group">
-			    <label for="phoneno" class="">Phone Number</label>
-		        <input id="phoneno" name="phoneno" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>">
+			<div class="form-row">
+			    <div class="col-md-6 mb-2 form-group">
+			        <label for="website" class="">Website</label>
+		            <input id="website" name="website" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>">
+			    </div>
+			    <div class="col-md-6 mb-2 form-group">
+			        <label for="phoneno" class="">Phone Number</label>
+		            <input id="phoneno" name="phoneno" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>">
+			    </div>
 			</div>
             <button class="mt-1 btn btn-primary">Submit</button>
         </form>
