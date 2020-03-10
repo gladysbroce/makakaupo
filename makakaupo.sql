@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2020 at 01:57 PM
+-- Generation Time: Mar 10, 2020 at 02:18 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -32,7 +32,8 @@ CREATE TABLE `restaurant` (
   `restaurant_id` int(10) NOT NULL,
   `restaurant_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `branch_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `short_desc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `full_desc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   `business_hours` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `website` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -43,8 +44,8 @@ CREATE TABLE `restaurant` (
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `description`, `business_hours`, `address`, `website`, `phone_no`) VALUES
-(1, 'jobee', 'Makati', 'testttt', '10AM', 'Makati City', 'www', '090');
+INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `short_desc`, `full_desc`, `business_hours`, `address`, `website`, `phone_no`) VALUES
+(1, 'jobee', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090');
 
 -- --------------------------------------------------------
 
@@ -71,7 +72,8 @@ INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, 
 (20, 1, 1, 1, 20, 2, '2020-03-08 15:42:15'),
 (21, 1, 1, 25, 1, 2, '2020-03-08 15:42:15'),
 (22, 1, 1, 25, 20, 2, '2020-03-08 15:42:15'),
-(23, 1, 3, 1, 1, 1, '2020-03-08 16:20:16');
+(23, 1, 3, 1, 1, 1, '2020-03-08 16:20:16'),
+(25, 1, 1, 1, 1, 0, '2020-03-10 21:51:12');
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,7 @@ ALTER TABLE `restaurant`
 -- AUTO_INCREMENT for table `seat`
 --
 ALTER TABLE `seat`
-  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
