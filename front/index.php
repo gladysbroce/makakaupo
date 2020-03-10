@@ -1,4 +1,5 @@
 <?php
+const IS_LIVE = false; // true = prod, false = localhost
 require_once('Application.php');
 spl_autoload_register(function($className) {
 	$modelFile = "Model/".$className.".php";	
@@ -10,7 +11,7 @@ spl_autoload_register(function($className) {
         require $controllerFile;
     }
 });
-$request = explode('/', (!empty($_GET['request']) ? $_GET['request'] : 'Home/index'));
+$request = explode('/', (!empty($_GET['request']) ? $_GET['request'] : 'home/index'));
 $controller = ucfirst(strtolower($request[0]));
 $action = strtolower($request[1]);
 $args = array_slice($request,2);
