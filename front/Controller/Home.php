@@ -1,6 +1,7 @@
 <?php
 class Home extends System {
 	public function __construct() {
+		parent::__construct();
 		//$this->_users = new Users();
 		//$this->_products = new Products();
 	}

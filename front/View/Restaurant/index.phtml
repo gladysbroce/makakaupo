@@ -1,3 +1,16 @@
+<script type="text/javascript">
+$(document).ready(function () {
+	/* Set seat status */
+    var floors = <?php echo json_encode($this->floors); ?>;
+	$.each(floors, function(floor_id, floor){
+		$.each(floor, function(index, seat){
+			var seat_id = floor_id+"_"+seat["row_no"]+"_"+seat["col_no"];
+			$("#"+seat_id).addClass("seat-assign seat-"+seat["seat_status_name"]);
+			console.log(seat_id+":"+seat["seat_status_name"]);
+		});
+	});
+});
+</script>
 <!-- breadcrumb -->
 <div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
 	<a href="index.html" class="s-text16">Home
@@ -9,38 +22,32 @@
 	<a href="#" class="s-text16">T-Shirt
 		<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
 	</a>
-	<span class="s-text17">Restaurant Name</span>
+	<span class="s-text17"><?php echo $this->restaurant['restaurant_name']; ?></span>
 </div>
 <!-- Product Detail -->
 <div class="container bgwhite p-t-35 p-b-80">
 	<div class="flex-w flex-sb">
 		<div class="w-size13 p-t-30 respon5">
-			<div class="wrap-slick3 flex-sb flex-w">
-				<div class="wrap-slick3-dots"></div>
-				<div class="slick3">
-					<div class="item-slick3" data-thumb="assets/images/thumb-item-01.jpg">
-						<div class="wrap-pic-w">
-							<img src="assets/images/product-detail-01.jpg" alt="IMG-PRODUCT">
-						</div>
-					</div>
-					<div class="item-slick3" data-thumb="assets/images/thumb-item-02.jpg">
-						<div class="wrap-pic-w">
-							<img src="assets/images/product-detail-02.jpg" alt="IMG-PRODUCT">
-						</div>
-					</div>
-					<div class="item-slick3" data-thumb="assets/images/thumb-item-03.jpg">
-						<div class="wrap-pic-w">
-							<img src="assets/images/product-detail-03.jpg" alt="IMG-PRODUCT">
-						</div>
-					</div>
-				</div>
-			</div>
+	        <div class="wrap-slick3 flex-sb flex-w">
+	        	<div class="wrap-slick3-dots"></div>
+	        	<div class="slick3">
+	        	    <?php foreach ($this->floors  as $floor => $seats): ?>
+	        			<div class="item-slick3" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item.jpg">
+	        		    	<div class="workspace">
+	        		    		<?php for ($x=1; $x<=25; $x++) { ?>
+	        		    		    <?php for ($y=1; $y<=20; $y++) { ?>
+	        								<div class="seat-space" id="<?php echo $floor."_".$x."_".$y;?>"></div>
+	        		    		<?php }} ?>
+	        		    	</div>
+	        		    </div>
+	        		<?php endforeach ?>
+	        	</div>
+	        </div>
 		</div>
 		<div class="w-size14 p-t-30 respon5">
-			<h4 class="product-detail-name m-text16 p-b-13">Restaurant Name</h4>
-			<p class="s-text8 p-t-10">
-				Short description.... Lalalalala lalalala lalalalala.. lorem lorem lorem lorem lorem loremmmm.
-			</p>
+			<h4 class="product-detail-name m-text16 p-b-13"><?php echo $this->restaurant['restaurant_name']; ?></h4>
+			<p class="s-text8 p-t-10"><?php echo $this->restaurant['branch_name']; ?></p>
+			<p class="s-text8 p-t-10"><?php echo $this->restaurant['short_desc']; ?></p>
 			<div class="p-b-45">
 				<span class="s-text8 m-r-35">SKU: MUG-01</span>
 				<span class="s-text8">Categories: Mug, Design</span>
@@ -52,9 +59,7 @@
 					<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
 				</h5>
 				<div class="dropdown-content dis-none p-t-15 p-b-23">
-					<p class="s-text8">
-						Long description. Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris placerat
-					</p>
+					<p class="s-text8"><?php echo $this->restaurant['full_desc']; ?></p>
 				</div>
 			</div>
 			<div class="wrap-dropdown-content bo7 p-t-15 p-b-14">
@@ -64,8 +69,8 @@
 					<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
 				</h5>
 				<div class="dropdown-content dis-none p-t-15 p-b-23">
-					<p class="s-text8">Address: Manila</p>
-					<p class="s-text8">Business Hours: 10:00~17:00</p>
+					<p class="s-text8">Address: <?php echo $this->restaurant['address']; ?></p>
+					<p class="s-text8">Business Hours: <?php echo $this->restaurant['business_hours']; ?></p>
 				</div>
 			</div>
 			<div class="wrap-dropdown-content bo7 p-t-15 p-b-14">
@@ -75,8 +80,8 @@
 					<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
 				</h5>
 				<div class="dropdown-content dis-none p-t-15 p-b-23">
-					<p class="s-text8">Email Address: abc@gmail.com</p>
-					<p class="s-text8">Phone number : 012-0000-1234</p>
+					<p class="s-text8">Website: <?php echo $this->restaurant['website']; ?></p>
+					<p class="s-text8">Phone number : <?php echo $this->restaurant['full_desc']; ?></p>
 				</div>
 			</div>
 		</div>
