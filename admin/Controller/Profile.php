@@ -1,6 +1,7 @@
 <?php
 class Profile extends System {
 	public function __construct() {
+		parent::__construct();
 		$this->_restaurants = new Restaurants();
 	}
 	public function index()	{
@@ -12,15 +13,13 @@ class Profile extends System {
 		$restaurantId = 1;
 		$restaurantName = $this->_getRestaurantName();
 		$branchName = $this->_getBranchName();
-		$desc = $this->_getDesc();
+		$shortDesc = $this->_getShortDesc();
+		$fullDesc = $this->_getFullDesc();
 		$hours = $this->_getBusinessHours();
 		$address = $this->_getAddress();
 		$website = $this->_getWebsite();
 		$phoneno = $this->_getPhoneNo();
-		//echo $restaurantId+$restaurantName+$branchName+$desc+$hours+$address+$website+$phoneno;
-		$this->restaurant = $this->_restaurants->updateRestaurant($restaurantId, $restaurantName, $branchName, $desc, $hours, $address, $website, $phoneno);
-		//$this->setTemplate('View/Status/index.phtml');
-		//$this->redirect('profile/index/');
+		$this->restaurant = $this->_restaurants->updateRestaurant($restaurantId, $restaurantName, $branchName, $shortDesc, $fullDesc, $hours, $address, $website, $phoneno);
 	}
 	private function _getRestaurantName() {
 		if (!empty($_POST['name']) && $name = trim($_POST['name'])) {
@@ -34,8 +33,14 @@ class Profile extends System {
 		}
 		return false;
 	}
-	private function _getDesc() {
-		if (!empty($_POST['desc']) && $desc = trim($_POST['desc'])) {
+	private function _getShortDesc() {
+		if (!empty($_POST['shortDesc']) && $desc = trim($_POST['shortDesc'])) {
+			return $desc;
+		}
+		return false;
+	}
+	private function _getFullDesc() {
+		if (!empty($_POST['fullDesc']) && $desc = trim($_POST['fullDesc'])) {
 			return $desc;
 		}
 		return false;
