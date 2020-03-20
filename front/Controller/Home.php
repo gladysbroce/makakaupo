@@ -2,13 +2,11 @@
 class Home extends System {
 	public function __construct() {
 		parent::__construct();
-		//$this->_users = new Users();
-		//$this->_products = new Products();
+		$this->_restaurants = new Restaurants();
 	}
-	
 	public function index()	{
-		//$this->featProducts = $this->_products->getFeaturedProducts();
-        //$this->products = $this->_products->getProductsForHome();
+		$this->newRestaurants = $this->_restaurants->getRestaurants('date_created', 'DESC', 3);
 		$this->setTemplate( 'View/Home/index.phtml' );
 	}
+	
 }
