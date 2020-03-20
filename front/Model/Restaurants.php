@@ -3,15 +3,15 @@ class Restaurants {
 	public function getRestaurant($restaurantId) {
 		$stmt = Application::DBPrepQuery( "
 			SELECT 
-				`restaurant_id`,
-				`restaurant_name`,
-				`branch_name`,
-				`short_desc`,
-				`full_desc`,
-				`business_hours`,
-				`address`,
-				`website`,
-				`phone_no`
+				`restaurant`.`restaurant_id`,
+				`restaurant`.`restaurant_name`,
+				`restaurant`.`branch_name`,
+				`restaurant`.`short_desc`,
+				`restaurant`.`full_desc`,
+				`restaurant`.`business_hours`,
+				`restaurant`.`address`,
+				`restaurant`.`website`,
+				`restaurant`.`phone_no`
 			FROM `restaurant`
 			WHERE `restaurant_id` = ?;
 		");
@@ -22,5 +22,19 @@ class Restaurants {
 			return $row;
 		}
 		return false;
+	}
+	public function getRestaurants($sort = 'date_created', $order = 'DESC', $limit = '3') {
+		$restaurants = array();
+		$result = Application::DBQuery( "
+			SELECT 
+				`restaurant`.*
+			FROM `restaurant`
+			ORDER BY `restaurant`.`$sort` $order
+			LIMIT $limit;
+		");
+		while ($row = $result->fetch_assoc()) {
+			$restaurants[] = $row;
+		}
+		return $restaurants;
 	}
 }
