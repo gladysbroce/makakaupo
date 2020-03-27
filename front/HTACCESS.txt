@@ -7,6 +7,6 @@ RewriteCond %{REQUEST_FILENAME} !-l
 RewriteCond %{HTTPS} off
 RewriteRule (.*) https://localhost/is295b/front/$1 [R=301,L]
 RewriteRule ^(restaurant)/(.*)$ index.php?request=$1/index/$2 [L]
-RewriteRule ^(about|home|catalog|restaurant)(.*)$ index.php?request=$1/index [L]
+RewriteRule ^(about|home|catalog|restaurant)(.*)$ index.php?request=$1/index [QSA,L]
 ErrorDocument 404 https://localhost/is295b/front?request=notfound/index
 </IfModule>
