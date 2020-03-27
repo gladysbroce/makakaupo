@@ -23,7 +23,7 @@ class Restaurants {
 		}
 		return false;
 	}
-	public function getRestaurants($sort = 'date_created', $order = 'DESC', $limit = '3') {
+	public function getNewRestaurants($sort = 'date_created', $order = 'DESC', $limit = '3') {
 		$restaurants = array();
 		$result = Application::DBQuery( "
 			SELECT 
@@ -32,6 +32,25 @@ class Restaurants {
 			ORDER BY `restaurant`.`$sort` $order
 			LIMIT $limit;
 		");
+		while ($row = $result->fetch_assoc()) {
+			$restaurants[] = $row;
+		}
+		return $restaurants;
+	}
+	public function getRestaurants($filter = '', $sort = '') {
+		$restaurants = array();
+		$filter = '%'.$filter.'%';
+		$limit = 15;
+		$stmt = Application::DBPrepQuery( "
+			SELECT 
+				`restaurant`.*
+			FROM `restaurant`
+			WHERE `restaurant`.`restaurant_name` LIKE ? OR 
+			      `restaurant`.`address` LIKE ?;
+		");
+		$stmt->bind_param("ss", $filter, $filter);
+		$stmt->execute();
+		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {
 			$restaurants[] = $row;
 		}
