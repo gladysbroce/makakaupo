@@ -34,20 +34,15 @@
 					<a href="#" class="topbar-social-item fa fa-youtube-play"></a>
 				</div>
 				<div class="topbar-child2">
-					<span class="topbar-email">
-						fashe@example.com
-					</span>
-
-					<div class="topbar-language rs1-select2">
-						<select class="selection-1" name="time">
-							<option>USD</option>
-							<option>EUR</option>
-						</select>
-					</div>
+                    <form id="login" class="form-inline">
+                        <div class="position-relative form-group"><label for="username" class="sr-only">Username</label><input name="username" id="username" placeholder="Username" type="username" class="mr-2 form-control"></div>
+                        <div class="position-relative form-group"><label for="password" class="sr-only">Password</label><input name="password" id="password" placeholder="Password" type="password" class="mr-2 form-control"></div>
+                        <button class="btn btn-dark">Login</button>
+                    </form>
 				</div>
 			</div>
     		<div class="wrap_header">
-    			<a href="index.html" class="logo">
+    			<a href="<?php echo $this->getBaseURL();?>" class="logo">
     				<img src="<?php echo $this->getAssetsURL();?>/images/icons/logo.png" alt="IMG-LOGO">
     			</a>
     			<div class="header-icons">
@@ -342,6 +337,28 @@
         $('.parallax100').parallax100();
 	</script>
 	<script src="<?php echo $this->getAssetsURL();?>/js/main.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function () {
+		/* Login */
+		$("#login").submit(function(e){
+		    e.preventDefault();
+            var form = $(this);
+		    $.ajax({
+		    	url: "<?php echo $this->getControllerURL('login', 'check'); ?>",
+                type: 'POST',
+		    	data: form.serialize(),
+		    	success:
+		    	    function(result){
+						if (result == "ok") {
+							$(location).attr('href', '<?php echo $this->getSiteURL();?>/admin');
+						} else {
+							alert("Incorrect username/password. Please try again.");
+						}
+                    }
+            });
+        });
+    });
+</script>
 </body>
 </html>
 
