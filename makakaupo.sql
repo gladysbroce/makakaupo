@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2020 at 02:18 PM
+-- Generation Time: Mar 28, 2020 at 08:13 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -37,15 +37,19 @@ CREATE TABLE `restaurant` (
   `business_hours` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `website` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `phone_no` varchar(20) COLLATE utf8_unicode_ci NOT NULL
+  `phone_no` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `short_desc`, `full_desc`, `business_hours`, `address`, `website`, `phone_no`) VALUES
-(1, 'jobee', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090');
+INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `short_desc`, `full_desc`, `business_hours`, `address`, `website`, `phone_no`, `date_created`) VALUES
+(1, 'Jobee', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090', '0000-00-00 00:00:00'),
+(2, 'Mang Donaldo', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090', '2020-03-16 20:00:00'),
+(3, 'KMC', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090', '2020-03-16 18:00:00'),
+(4, 'Wendies', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090', '2020-03-16 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -95,6 +99,26 @@ INSERT INTO `seat_status` (`seat_status_id`, `seat_status_name`) VALUES
 (1, 'occupied'),
 (2, 'reserved');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password`, `last_login`) VALUES
+(1, 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '2020-03-28 04:48:35');
+
 --
 -- Indexes for dumped tables
 --
@@ -118,6 +142,12 @@ ALTER TABLE `seat_status`
   ADD PRIMARY KEY (`seat_status_id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -125,13 +155,19 @@ ALTER TABLE `seat_status`
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `seat`
 --
 ALTER TABLE `seat`
   MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
