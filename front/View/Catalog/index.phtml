@@ -1,3 +1,27 @@
+<script type="text/javascript">
+$(document).ready(function () {
+	/* Get Search Result */
+	$("#filterBtn").on("click", function(){
+		search();
+    });
+    $("#filter, #sort").on("change", function(){
+		search();
+    });
+	function search(){
+		var filter = $("#filter").val();
+		var sort = $("#sort").val();
+		$.ajax({
+            url: "<?php echo $this->getBaseURL()."/catalog/search"; ?>",
+            type: 'get',
+			data : {"filter": filter, "sort": sort},
+			success:
+			    function(data){
+					$("#result").html(data);
+                }
+        });
+	}
+});
+</script>
 <!-- Title Page -->
 <section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(assets/images/heading-pages-02.jpg);">
 	<h2 class="l-text2 t-center">Makakaupo</h2>
@@ -7,54 +31,52 @@
 <section class="bgwhite p-t-55 p-b-65">
 	<div class="container">
 		<div class="row">
-
 			<div class="col-sm-6 col-md-8 col-lg-12 p-b-50">
 				<div class="flex-sb-m flex-w p-b-35">
-				<form id="search" action="<?php echo $this->getBaseURL()."/catalog"; ?>" method="get">
 					<div class="flex-w">
 						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 pos-relative">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="filter" value="<?php echo $this->filter;?>" placeholder="Name or Location">
-							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+							<input id="filter" class="sizefull s-text7 p-l-22 p-r-22" type="text" value="<?php echo $this->filter;?>" placeholder="Name or Location">
+							<button id="filterBtn" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
 								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
 							</button>
 						</div>
 						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-							<select class="selection-1" name="sort">
+							<select id="sort" class="selection-1">
 							    <option disabled>Sort by:</option>
-								<option value="1">Available Seats</option>
-								<option value="2">Total No. of Seats</option>
+								<option value="vacant">Vacant Seats</option>
+								<option value="total">Total No. of Seats</option>
 							</select>
 						</div>
 					</div>
-				</form>
-					<span class="s-text8 p-t-5 p-b-5">
-						Showing 1–12 of 16 results
-					</span>
 				</div>
-				<!-- Restaurants -->
-				<div class="row">
-				    <?php foreach($this->restaurants as $restaurant):?>
-					    <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
-						    <div class="block2">
-						        <a href="restaurant">
-						        	<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-						        	    <img src="assets/images/item-02.jpg" alt="IMG-PRODUCT">
-						    			<div class="block2-overlay trans-0-4"></div>
-						        	</div>
-						        	<div class="block2-txt p-t-20">
-						        	    <span class="block2-price s-text3 dis-block"><?php echo $restaurant['restaurant_name'];?></span>
-						        		<span class="block2-price s-text3"><?php echo $restaurant['address'];?></span>
-						        	</div>
-						    	</a>
-						    </div>
-						
-					    </div>
-					<?php endforeach ?>
-				</div>
-				<!-- Pagination -->
-				<div class="pagination flex-m flex-w p-t-26">
-					<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-					<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+				<!-- Search Result -->
+				<div id="result">
+				    <span class="s-text8 p-t-5 p-b-5">Showing 1–12 of 16 results</span>
+			        <!-- Restaurants -->
+				    <div class="row">
+				        <?php foreach($this->restaurants as $restaurant):?>
+				    	    <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+				    		    <div class="block2">
+				    		        <a href="restaurant">
+				    		        	<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+				    		        	    <img src="assets/images/item-02.jpg" alt="IMG-PRODUCT">
+				    		    			<div class="block2-overlay trans-0-4"></div>
+				    		        	</div>
+				    		        	<div class="block2-txt p-t-20">
+				    		        	    <span class="block2-price s-text3 dis-block"><?php echo $restaurant['restaurant_name'];?></span>
+				    		        		<span class="block2-price s-text3"><?php echo $restaurant['address'];?></span>
+				    		        	</div>
+				    		    	</a>
+				    		    </div>
+				    		
+				    	    </div>
+				    	<?php endforeach ?>
+				    </div>
+				    <!-- Pagination -->
+				    <div class="pagination flex-m flex-w p-t-26">
+				    	<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
+				    	<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+				    </div>
 				</div>
 			</div>
 		</div>

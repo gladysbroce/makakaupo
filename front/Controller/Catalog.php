@@ -6,9 +6,15 @@ class Catalog extends System {
 	}
 	public function index(){
 		$filter = isset($_GET["filter"]) ? $_GET["filter"] : "";
-		$sort = isset($_GET["sort"]) ? $_GET["sort"] : "";
+		$sort = "vacant";
 		$this->filter = $filter;
 		$this->restaurants = $this->_restaurants->getRestaurants($filter, $sort);
-		$this->setTemplate( 'View/Catalog/index.phtml' );
+		$this->setTemplate('View/Catalog/index.phtml');
+	}
+	public function search(){
+		$filter = isset($_GET["filter"]) ? $_GET["filter"] : "";
+		$sort = isset($_GET["sort"]) ? $_GET["sort"] : "";
+		$this->restaurants = $this->_restaurants->getRestaurants($filter, $sort);
+		$this->setTemplate('View/Catalog/search.phtml', false);
 	}
 }

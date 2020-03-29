@@ -40,13 +40,24 @@ class Restaurants {
 	public function getRestaurants($filter = '', $sort = '') {
 		$restaurants = array();
 		$filter = '%'.$filter.'%';
-		$limit = 15;
+		$limit = 12;
+		$is_vacant = "";
+		if ($sort == "vacant") {
+			$is_vacant = " AND `seat`.`status_id` = 0";
+		}
 		$stmt = Application::DBPrepQuery( "
 			SELECT 
-				`restaurant`.*
+				`restaurant`.*,
+				`seat`.*,
+				count(`seat`.`seat_id`) AS `count`
 			FROM `restaurant`
-			WHERE `restaurant`.`restaurant_name` LIKE ? OR 
-			      `restaurant`.`address` LIKE ?;
+			LEFT JOIN `seat` on `seat`.`restaurant_id` = `restaurant`.`restaurant_id`
+			WHERE (`restaurant`.`restaurant_name` LIKE ? OR 
+			      `restaurant`.`address` LIKE ?)
+				  $is_vacant
+		    GROUP BY `restaurant`.`restaurant_id`
+			ORDER BY `count` DESC
+			LIMIT 0, $limit;
 		");
 		$stmt->bind_param("ss", $filter, $filter);
 		$stmt->execute();
