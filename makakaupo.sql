@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2020 at 08:13 AM
+-- Generation Time: Mar 29, 2020 at 11:18 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -46,7 +46,7 @@ CREATE TABLE `restaurant` (
 --
 
 INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `short_desc`, `full_desc`, `business_hours`, `address`, `website`, `phone_no`, `date_created`) VALUES
-(1, 'Jobee', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090', '0000-00-00 00:00:00'),
+(1, 'Jobee', 'Makati', 'short', 'long', '10AM', 'Quezon City', 'www', '090', '0000-00-00 00:00:00'),
 (2, 'Mang Donaldo', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090', '2020-03-16 20:00:00'),
 (3, 'KMC', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090', '2020-03-16 18:00:00'),
 (4, 'Wendies', 'Makati', 'short', 'long', '10AM', 'Makati City', 'www', '090', '2020-03-16 21:00:00');
@@ -72,12 +72,12 @@ CREATE TABLE `seat` (
 --
 
 INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, `status_id`, `date_modified`) VALUES
-(18, 1, 2, 1, 1, 2, '2020-03-08 15:39:40'),
+(18, 1, 2, 1, 1, 1, '2020-03-08 15:39:40'),
 (20, 1, 1, 1, 20, 2, '2020-03-08 15:42:15'),
-(21, 1, 1, 25, 1, 2, '2020-03-08 15:42:15'),
-(22, 1, 1, 25, 20, 2, '2020-03-08 15:42:15'),
-(23, 1, 3, 1, 1, 1, '2020-03-08 16:20:16'),
-(25, 1, 1, 1, 1, 0, '2020-03-10 21:51:12');
+(21, 2, 1, 25, 1, 0, '2020-03-08 15:42:15'),
+(22, 2, 1, 25, 20, 2, '2020-03-08 15:42:15'),
+(23, 4, 3, 1, 1, 1, '2020-03-08 16:20:16'),
+(25, 4, 1, 1, 1, 0, '2020-03-10 21:51:12');
 
 -- --------------------------------------------------------
 
