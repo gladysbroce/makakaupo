@@ -43,4 +43,42 @@
 .slick3-dots .slick-active .slick3-dot-overlay {
   border: 3px solid #888888;
 }
-
+.slick-track {
+	width: 500px;
+	height: 600px;
+}
+.workspace {
+	width:100%;
+	height:100%;
+	background-color:yellow;
+}
+.seat-cell {
+	background-color: white;
+	width: 4%;
+	height: 3%;
+	border: 1px solid gray;
+	display: inline-block;
+}
+.seat-space {
+	width: 4%;
+	height: 3%;
+	display: inline-block;
+}
+.seat-vacant {
+	background-color: green;
+}
+.seat-occupied {
+	background-color: red;
+}
+.seat-reserved {
+	background-color: orange;
+}
+.seat-add {
+	background-color: blue;
+}
+.seat-del {
+	background-color: white;
+}
+.dropdown-menu {
+	min-width: 7rem;
+}
