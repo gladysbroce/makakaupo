@@ -4,6 +4,7 @@ class Status extends System {
 		$this->_seats = new Seats();
 	}
 	public function index()	{
+		$this->menu = "status";
 		$restaurant_id = 1;
 		$floors = $this->_seats->getFloors($restaurant_id);
 		$this->floors = array();

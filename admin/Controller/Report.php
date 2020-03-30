@@ -4,6 +4,7 @@ class Report extends System {
 	}
 	
 	public function index()	{
+		$this->menu = "report";
 		$this->setTemplate( 'View/Report/index.phtml' );
 	}
 }

@@ -6,7 +6,8 @@ class Restaurants {
 				`restaurant_id`,
 				`restaurant_name`,
 				`branch_name`,
-				`description`,
+				`short_desc`,
+                `full_desc`,
 				`business_hours`,
 				`address`,
 				`website`,
@@ -22,7 +23,7 @@ class Restaurants {
 		}
 		return false;
 	}
-	public function updateRestaurant($restaurantId, $restaurantName, $branchName, $desc, $hours, $address, $website, $phoneno){
+	public function updateRestaurant($restaurantId, $restaurantName, $branchName, $shortDesc, $longDesc, $hours, $address, $website, $phoneno){
 		$response = false;
 		if ($restaurantId) {
 			$stmt = Application::DBPrepQuery( "
@@ -30,14 +31,15 @@ class Restaurants {
 					`restaurant`
 				SET `restaurant_name` = ?,
 				    `branch_name` = ?,
-					`description` = ?,
+					`short_desc` = ?,
+					`full_desc` = ?,
 					`business_hours` = ?,
 					`address` = ?,
 					`website` = ?,
 					`phone_no` = ?
 				WHERE `restaurant_id` = ?;
 		    ");
-			$stmt->bind_param("sssssssi", $restaurantName, $branchName, $desc, $hours, $address, $website, $phoneno, $restaurantId);
+			$stmt->bind_param("ssssssssi", $restaurantName, $branchName, $shortDesc, $longDesc, $hours, $address, $website, $phoneno, $restaurantId);
 			$result = $stmt->execute();
 			if ($result) {
 				$response = true;

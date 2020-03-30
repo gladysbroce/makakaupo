@@ -5,6 +5,7 @@ class Profile extends System {
 		$this->_restaurants = new Restaurants();
 	}
 	public function index()	{
+		$this->menu = "profile";
 		$restaurantId = 1;
 		$this->restaurant = $this->_restaurants->getRestaurant($restaurantId);
 		$this->setTemplate('View/Profile/index.phtml');

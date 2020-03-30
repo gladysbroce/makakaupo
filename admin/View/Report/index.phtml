@@ -13,29 +13,79 @@
 	</div>
 </div>
 <div class="row">
-    <div class="col-md-12 col-lg-6">
-        <div class="mb-3 card">
-            <div class="card-header-tab card-header-tab-animation card-header">
-                <div class="card-header-title">
-                    <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                    Sales Report
-                </div>
-                <ul class="nav">
-                    <li class="nav-item"><a href="javascript:void(0);" class="active nav-link">Last</a></li>
-                    <li class="nav-item"><a href="javascript:void(0);" class="nav-link second-tab-toggle">Current</a></li>
-                </ul>
-            </div>
+    <div class="col-lg-6">
+        <div class="main-card mb-3 card">
             <div class="card-body">
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="tabs-eg-77">
-                        <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
-                            <div class="widget-chat-wrapper-outer">
-                                <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
-                                    <canvas id="canvas"></canvas>
-                                </div>
-                            </div>
+			    <h5 class="card-title">
+				    Customers
+			        <div class="dropdown d-inline-block float-r">
+                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light btn-sm">This Week</button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+                            <button type="button" tabindex="0" class="dropdown-item">This Week</button>
+                            <button type="button" tabindex="0" class="dropdown-item">This Month</button>
+							<button type="button" tabindex="0" class="dropdown-item">This Year</button>
+							<button type="button" tabindex="0" class="dropdown-item">All Time</button>
                         </div>
                     </div>
+				</h5>
+                <div class="table-responsive">
+                    <table class="mb-0 table">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Date</th>
+                            <th>No. of Customers</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+						<?php for($i=0; $i<10; $i++){ ?>
+                        <tr>
+                            <th scope="row"><?=$i+1?></th>
+                            <td>Table cell</td>
+                            <td>Table cell</td>
+                        </tr>
+						<?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="col-lg-6">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+			    <h5 class="card-title">
+			        Top Seats
+				 	 <div class="dropdown d-inline-block float-r">
+                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light btn-sm">Today</button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+                            <button type="button" tabindex="0" class="dropdown-item">This Week</button>
+                            <button type="button" tabindex="0" class="dropdown-item">This Month</button>
+							<button type="button" tabindex="0" class="dropdown-item">This Year</button>
+							<button type="button" tabindex="0" class="dropdown-item">All Time</button>
+                        </div>
+                    </div>
+			    </h5>
+                <div class="table-responsive">
+                    <table class="mb-0 table">
+                        <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Row</th>
+							<th>Column</th>
+                            <th>No. of Customers</th>
+                        </tr>
+                        </thead>
+						<?php for($i=0; $i<10; $i++){ ?>
+                        <tr>
+                            <th scope="row"><?=$i+1?></th>
+                            <td>Table cell</td>
+                            <td>Table cell</td>
+							<td>Table cell</td>
+                        </tr>
+						<?php } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

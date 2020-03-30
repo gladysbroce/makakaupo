@@ -1,9 +1,11 @@
 <?php
 class Layout extends System {
 	public function __construct() {
+		parent::__construct();
 		$this->_seats = new Seats();
 	}
 	public function index()	{
+		$this->menu = "layout";
 		$restaurant_id = 1;
 		$floors = $this->_seats->getFloors($restaurant_id);
 		$this->floors = array();

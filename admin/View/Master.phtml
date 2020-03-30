@@ -120,22 +120,22 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">Dashboards</li>
 							<li>
-                                <a href="<?php echo $this->getBaseURL()."status"; ?>"  class="mm-active">
-                                    <i class="metismenu-icon pe-7s-mouse"></i>Seat Status
+                                <a class="<?=($this->menu == "status")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."status"; ?>">
+                                    <i class="metismenu-icon pe-7s-mouse"></i>Seat Status 
                                 </a>
                             </li>
                             <li>
-							    <a href="<?php echo $this->getBaseURL()."layout"; ?>">
+							    <a class="<?=($this->menu == "layout")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."layout"; ?>">
 								    <i class="metismenu-icon pe-7s-pen"></i>Seat Layout Creator
 								</a>
 							</li>
                             <li>
-							    <a href="<?php echo $this->getBaseURL()."profile"; ?>">
+							    <a class="<?=($this->menu == "profile")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."profile"; ?>">
 							        <i class="metismenu-icon pe-7s-note2"></i>Restaurant Profile
 								</a>
 							</li>
 							<li>
-                                <a href="<?php echo $this->getBaseURL()."report"; ?>">
+                                <a class="<?=($this->menu == "report")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."report"; ?>">
                                     <i class="metismenu-icon pe-7s-display2"></i>Reports
                                 </a>
                             </li>
@@ -188,7 +188,6 @@
         </div>
     </div>
 	<!-- JS File-->
-
     <script type="text/javascript" src="assets/vendor/slick/slick.min.js"></script>
 	<script type="text/javascript" src="assets/js/slick-custom.js"></script>
 	<script type="text/javascript" src="assets/js/main.js"></script>
