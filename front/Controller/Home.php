@@ -8,5 +8,4 @@ class Home extends System {
 		$this->newRestaurants = $this->_restaurants->getNewRestaurants('date_created', 'DESC', 3);
 		$this->setTemplate( 'View/Home/index.phtml' );
 	}
-	
 }

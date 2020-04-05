@@ -35,10 +35,17 @@
 				</div>
 				<div class="topbar-child2">
                     <form id="login" class="form-inline">
-                        <div class="position-relative form-group"><label for="username" class="sr-only">Username</label><input name="username" id="username" placeholder="Username" type="username" class="mr-2 form-control"></div>
-                        <div class="position-relative form-group"><label for="password" class="sr-only">Password</label><input name="password" id="password" placeholder="Password" type="password" class="mr-2 form-control"></div>
-                        <button class="btn btn-dark">Login</button>
-                    </form>
+                        <div class="position-relative form-group">
+                            <label for="username" class="sr-only">Username</label>
+                            <input name="username" id="username" placeholder="Username" type="username" class="mr-2 form-control">
+                        </div>
+                        <div class="position-relative form-group">
+                            <label for="password" class="sr-only">Password</label>
+                            <input name="password" id="password" placeholder="Password" type="password" class="mr-2 form-control">
+                        </div>
+                        <button class="btn btn-dark mr-2">Login</button>
+                    </form>                    
+                    <button onclick="location.href='<?php echo $this->getControllerURL('register', 'index'); ?>'" class="btn btn-dark">Register</button>
 				</div>
 			</div>
     		<div class="wrap_header">
@@ -358,7 +365,7 @@
             });
         });
     });
-</script>
+    </script>
 </body>
 </html>
 
