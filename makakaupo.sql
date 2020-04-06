@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2020 at 11:18 AM
+-- Generation Time: Apr 06, 2020 at 04:02 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -72,7 +72,7 @@ CREATE TABLE `seat` (
 --
 
 INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, `status_id`, `date_modified`) VALUES
-(18, 1, 2, 1, 1, 1, '2020-03-08 15:39:40'),
+(18, 1, 2, 1, 1, 0, '2020-03-08 15:39:40'),
 (20, 1, 1, 1, 20, 2, '2020-03-08 15:42:15'),
 (21, 2, 1, 25, 1, 0, '2020-03-08 15:42:15'),
 (22, 2, 1, 25, 20, 2, '2020-03-08 15:42:15'),
@@ -109,6 +109,7 @@ CREATE TABLE `user` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -116,8 +117,10 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `username`, `password`, `last_login`) VALUES
-(1, 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '2020-03-28 04:48:35');
+INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `last_login`) VALUES
+(1, 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', '2020-03-28 04:48:35'),
+(13, 'test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'test@gmail.com', '2020-04-06 13:47:29'),
+(14, 'glad', 'c6aa1595f76142b8020e7f7ec2ddaa8ef62a4254a5819095f4f8ed4816d96123', 'gladysbroce@gmail.com', '2020-04-06 14:00:40');
 
 --
 -- Indexes for dumped tables
@@ -167,7 +170,7 @@ ALTER TABLE `seat`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
