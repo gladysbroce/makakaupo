@@ -45,7 +45,7 @@
                         </div>
                         <button class="btn btn-dark mr-2">Login</button>
                     </form>                    
-                    <button onclick="location.href='<?php echo $this->getControllerURL('register', 'index'); ?>'" class="btn btn-dark">Register</button>
+                    <button onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'" class="btn btn-dark">Register</button>
 				</div>
 			</div>
     		<div class="wrap_header">
@@ -351,15 +351,21 @@
 		    e.preventDefault();
             var form = $(this);
 		    $.ajax({
-		    	url: "<?php echo $this->getControllerURL('login', 'check'); ?>",
+		    	url: "<?php echo $this->getControllerURL('user', 'checkLogin'); ?>",
                 type: 'POST',
 		    	data: form.serialize(),
 		    	success:
 		    	    function(result){
-						if (result == "ok") {
-							$(location).attr('href', '<?php echo $this->getSiteURL();?>/admin');
-						} else {
-							alert("Incorrect username/password. Please try again.");
+						switch(result){
+							case "0":
+							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin');
+								break;
+						    case "1":
+							    alert("Incorrect username/password.");
+								break;
+							case "2":
+							    alert("Please enter both username and password.");
+							default: break;
 						}
                     }
             });
