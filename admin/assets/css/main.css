@@ -82,3 +82,7 @@
 .dropdown-menu {
 	min-width: 7rem;
 }
+#profile-msg {
+	margin-left: 10px;
+	color: green;
+}
