@@ -1,22 +1,28 @@
 <script type="text/javascript">
 $(document).ready(function () {
 	/* Update profile information */
-    $("form").submit(function(e){
+    $("#form-profile").submit(function(e){
 		e.preventDefault();
-        var form = $(this);
-		$.ajax({
-			url: "<?php echo $this->getControllerURL('profile', 'update')?>",
-            type: 'POST',
-			data: form.serialize(),
-			success:
-			    function(data){
-                   alert("ok!");
-                },
-			error:
-			    function(data){
-                   alert("error!");
-                }
-        });
+		var form = document.getElementById("form-profile");
+		if (form.checkValidity() != false){
+		    $.ajax({
+		    	url: "<?php echo $this->getControllerURL('profile', 'update')?>",
+                type: 'POST',
+		    	//data: $(this).serialize(),
+				data: new FormData(this),
+			    processData: false,
+                contentType: false,
+		    	success:
+		    	    function(data){
+                       $("#profile-msg").text("Successfully updated!");
+                    }
+            });
+		}else {
+			$("#profile-msg").text("");
+        	e.preventDefault();
+            e.stopPropagation();
+		}
+		form.classList.add('was-validated');
     });
 });
 </script>
@@ -31,43 +37,49 @@ $(document).ready(function () {
 	</div>
 </div>
 <div class="main-card mb-3 card">
-    <div class="card-body"><h5 class="card-title">Restaurant Information</h5>
-        <form action="">
-		    <div class="form-row">
-		        <div class="col-md-7 mb-2">
-                    <label for="name" class="">Restaurant Name</label>
-                    <input id="name" name="name" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['restaurant_name']; ?>">
+    <div class="card-body"><h5 class="card-title">Restaurant Information <span id="profile-msg"></span></h5>
+        <form action="" id="form-profile" enctype="multipart/form-data" class="needs-validation" novalidate>
+		    <div action="" class="form-row">
+		        <div class="col-md-6 mb-2">
+                    <label for="name">Restaurant Name *</label>
+                    <input id="name" name="name" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['restaurant_name']; ?>" required>
+					<div class="invalid-feedback">Please provide a restaurant name.</div>
                 </div>
-		        <div class="col-md-5 mb-2">
-			        <label for="branch" class="">Branch Name</label>
+		        <div class="col-md-3 mb-2">
+			        <label for="branch">Branch Name</label>
 		            <input id="branch" name="branch" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['branch_name']; ?>">
                 </div>
+				<div class="col-md-3 mb-2 form-group">
+			        <label for="photo">Photo</label>
+		            <input name="photo" id="photo" type="file" class="form-control-file">
+			    </div>
 			</div>
 			<div class="position-relative form-group">
-			    <label for="shortDesc" class="">Short Description</label>
+			    <label for="address">Address *</label>
+		        <input id="address" name="address" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['address']; ?>" required>
+				<div class="invalid-feedback">Please provide a valid address.</div>
+			</div>
+			<div class="form-row">
+			    <div class="col-md-4 mb-2 form-group">
+			        <label for="website">Website</label>
+		            <input id="website" name="website" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>">
+			    </div>
+			    <div class="col-md-4 mb-2 form-group">
+			        <label for="phoneno">Phone Number</label>
+		            <input id="phoneno" name="phoneno" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>">
+			    </div>
+				<div class="col-md-4 mb-2 form-group">
+			        <label for="hours">Business Hours</label>
+		            <input id="hours" name="hours" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['business_hours']; ?>">
+			    </div>
+			</div>
+			<div class="position-relative form-group">
+			    <label for="shortDesc">Short Description</label>
 		        <textarea id="shortDesc" name="shortDesc" class="form-control"><?php echo $this->restaurant['short_desc']; ?></textarea>
 			</div>
 			<div class="position-relative form-group">
-			    <label for="fullDesc" class="">Full Description</label>
+			    <label for="fullDesc">Full Description</label>
 		        <textarea id="fullDesc" name="fullDesc" class="form-control"><?php echo $this->restaurant['full_desc']; ?></textarea>
-			</div>
-			<div class="position-relative form-group">
-			    <label for="hours" class="">Business Hours</label>
-		        <input id="hours" name="hours" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['business_hours']; ?>">
-			</div>
-			<div class="position-relative form-group">
-			    <label for="address" class="">Address</label>
-		        <input id="address" name="address" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['address']; ?>">
-			</div>
-			<div class="form-row">
-			    <div class="col-md-6 mb-2 form-group">
-			        <label for="website" class="">Website</label>
-		            <input id="website" name="website" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>">
-			    </div>
-			    <div class="col-md-6 mb-2 form-group">
-			        <label for="phoneno" class="">Phone Number</label>
-		            <input id="phoneno" name="phoneno" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>">
-			    </div>
 			</div>
             <button class="mt-1 btn btn-primary">Submit</button>
         </form>

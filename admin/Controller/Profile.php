@@ -12,6 +12,16 @@ class Profile extends System {
 	}
 	public function update() {
 		$restaurantId = 1;
+		if(!empty( $_FILES['photo'] )){
+			$dirname = $this->getImagesPath().'restaurants';
+			$sourceFile = !empty( $_FILES['photo']['tmp_name'] ) ? $_FILES['photo']['tmp_name'] : $_FILES['photo']['name'];
+			$extension  = pathinfo( $_FILES["photo"]["name"], PATHINFO_EXTENSION );
+			$targetFile =  $dirname.'/'.$restaurantId.'.'.$extension;
+			move_uploaded_file( $sourceFile, $targetFile );
+			$this->compress($targetFile, $targetFile, 75);
+			//echo $this->_images->addImage( $restaurantId, $filename );
+		}
+		
 		$restaurantName = $this->_getRestaurantName();
 		$branchName = $this->_getBranchName();
 		$shortDesc = $this->_getShortDesc();
