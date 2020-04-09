@@ -31,7 +31,7 @@
 				<?php echo $newRestaurant['restaurant_name'];?>
 				<div class="block1 hov-img-zoom pos-relative m-b-30">
 				    <a href="restaurant">
-					    <img src="assets/images/banner-05.jpg" alt="IMG-BENNER">
+					    <img src="<?php echo $this->getAssetsURL().'/images/restaurants/'.$newRestaurant['image']; ?>" alt="IMG-BENNER">
 					</a>
 				</div>
 			</div>

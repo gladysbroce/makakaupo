@@ -6,7 +6,7 @@ class Catalog extends System {
 	}
 	public function index(){
 		$filter = isset($_GET["filter"]) ? $_GET["filter"] : "";
-		$sort = "vacant";
+		$sort = "total";
 		$this->filter = $filter;
 		$this->restaurants = $this->_restaurants->getRestaurants($filter, $sort);
 		$this->setTemplate('View/Catalog/index.phtml');
