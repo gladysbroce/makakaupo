@@ -1,6 +1,7 @@
 <?php
 class Status extends System {
 	public function __construct() {
+		parent::__construct();
 		$this->_seats = new Seats();
 	}
 	public function index()	{

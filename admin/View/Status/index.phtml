@@ -102,13 +102,19 @@ $(document).ready(function () {
 		<div class="wrap-slick3-dots"></div>
 		<div class="slick3">
 		    <?php foreach ($this->floors  as $floor => $seats): ?>
-				<div class="item-slick3" data-thumb="assets/images/thumb-item.jpg">
-			    	<div class="workspace">
-			    		<?php for ($x=1; $x<=25; $x++) { ?>
-			    		    <?php for ($y=1; $y<=20; $y++) { ?>
-									<div class="seat-space" id="<?php echo $floor."_".$x."_".$y;?>"></div>
-			    		<?php }} ?>
-			    	</div>
+				<div class="item-slick3" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $floor?>.jpg">
+					<div class="workspace">
+				    	<?php for($x=1; $x<=25; $x++){ ?>
+				    	    <?php for($y=1; $y<=20; $y++){ ?>
+				    	        <div class="seat-space 
+				    			            <?php echo ($x == 25) ? "seat-last-row": ""; ?>
+				    						<?php echo ($y == 20) ? "seat-last-col": ""; ?>" 
+				    			     id="<?php echo $floor."_".$x."_".$y;?>">
+				    			</div>
+				    	    <?php } ?>
+				    		<br />
+				    	<?php } ?>
+				    </div>
 			    </div>
 			<?php endforeach ?>
 		</div>

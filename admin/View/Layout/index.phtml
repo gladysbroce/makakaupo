@@ -88,33 +88,22 @@ $(document).ready(function () {
 	<div class="wrap-slick3 flex-sb flex-w">
 		<div class="wrap-slick3-dots"></div>
 		<div class="slick3">
-			<div class="item-slick3 floor1" data-thumb="assets/images/thumb-item-01.jpg">
+		    <?php for ($i = 1; $i <= 4; $i++){?>
+			<div class="item-slick3 floor<?php echo $x?>" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $i?>.jpg">
 				<div class="workspace">
-					<?php
-					for($x=1; $x<=25; $x++){
-					    for($y=1; $y<=20; $y++){ ?>
-					        <div class="seat-cell" id="<?php echo "1_".$x."_".$y;?>"></div>
-					<?php }} ?>
+					<?php for($x=1; $x<=25; $x++){ ?>
+					    <?php for($y=1; $y<=20; $y++){ ?>
+					        <div class="seat-cell 
+							            <?php echo ($x == 25) ? "seat-last-row": ""; ?>
+										<?php echo ($y == 20) ? "seat-last-col": ""; ?>" 
+							     id="<?php echo $i."_".$x."_".$y;?>">
+							</div>
+					    <?php } ?>
+						<br />
+					<?php } ?>
 				</div>
 			</div>
-			<div class="item-slick3 floor2" data-thumb="assets/images/thumb-item-02.jpg">
-				<div class="workspace">
-					<?php
-					for($x=1; $x<=25; $x++){
-					    for($y=1; $y<=20; $y++){ ?>
-					        <div class="seat-cell" id="<?php echo "2_".$x."_".$y;?>"></div>
-					<?php }} ?>
-				</div>
-			</div>
-			<div class="item-slick3 floor3" data-thumb="assets/images/thumb-item-03.jpg">
-				<div class="workspace">
-					<?php
-					for($x=1; $x<=25; $x++){
-					    for($y=1; $y<=20; $y++){ ?>
-					        <div class="seat-cell" id="<?php echo "3_".$x."_".$y;?>"></div>
-					<?php }} ?>
-				</div>
-			</div>
+			<?php } ?>
 		</div>
 	</div>
 	<button class="mb-2 mr-2 btn btn-focus" id="save">Save</button>
