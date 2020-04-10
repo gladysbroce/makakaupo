@@ -11,7 +11,8 @@ class Restaurants {
 				`restaurant`.`business_hours`,
 				`restaurant`.`address`,
 				`restaurant`.`website`,
-				`restaurant`.`phone_no`
+				`restaurant`.`phone_no`,
+				`restaurant`.`image`
 			FROM `restaurant`
 			WHERE `restaurant_id` = ?;
 		");
