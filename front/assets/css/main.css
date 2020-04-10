@@ -628,7 +628,7 @@ iframe {
 .logo {
   display: block;
   position: absolute;
-  left: 52px;
+  left: 20px;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -638,7 +638,7 @@ iframe {
 }
 
 .logo img {
-  max-height: 27px;
+  max-height: 55px;
 }
 
 
