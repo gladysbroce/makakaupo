@@ -1987,13 +1987,6 @@ li.sale-noti > a {
   width: 80.64%;
 }
 
-.slick3-dots li {
-  display: block;
-  position: relative;
-  width: 100%;
-  margin-bottom: 15px;
-}
-
 .slick3-dots li img {
   width: 100%;
 }
@@ -2351,27 +2344,83 @@ input.num-product::-webkit-inner-spin-button {
 	max-width: 100%;
 	background-color: yellow;
 }
+
+.wrap-slick3-dots {
+  width: 100%;
+}
+.slick3 {
+  width: 80.64%;
+}
+.slick3-dots {
+	margin-bottom: 10px;
+}
+.slick3-dots li {
+	display: inline-block;
+	margin-right: 6.66%;
+	width: 20%;
+    position: relative;
+}
+.slick3-dots li:last-child {
+	margin-right: 0px;
+}
+.slick3-dots li img {
+    width: 100%;
+    float: left;
+}
+.slick-slider {
+	width: 100%;
+}
+.slick-track {
+	width: 100%;
+}
+.slick3-dot-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  border: 3px solid transparent;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+.slick3-dot-overlay:hover {
+  border: 3px solid #3AAFA9;
+}
+.slick3-dots .slick-active .slick3-dot-overlay {
+  border: 3px solid #3AAFA9;
+}
 .slick-track {
 	width: 500px;
 	height: 600px;
 }
 
 .workspace {
-	width:100%;
-	height:100%;
-	background-color:yellow;
+	width: 100%;
+	height: 100%;
+	background-color: #DEF2F1;
 }
 .seat-space {
 	width: 4%;
-	height: 2%;
-	display: inline-block;
+	height: 3.5%;
+	margin-right: 1.05%;
+	margin-bottom: 3px;
+	float: left;
+}
+.seat-last-row {
+	margin-bottom: 0px;
+}
+.seat-last-col {
+	margin-right: 0px;
 }
 .seat-vacant {
-	background-color: green;
+	background-color: #14A76C;  /* green */
 }
 .seat-occupied {
-	background-color: red;
+	background-color: #FC4445;  /* red */
 }
 .seat-reserved {
-	background-color: orange;
+	background-color: #F4976C;  /* orange */
 }
