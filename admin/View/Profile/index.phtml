@@ -1,3 +1,74 @@
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon"><i class="pe-7s-car icon-gradient bg-mean-fruit"></i></div>
+            <div>Restaurant Profile
+                <div class="page-title-subheading">Tell us about your restaurant.</div>
+            </div>
+        </div>
+	</div>
+</div>
+<div class="main-card mb-3 card">
+    <div class="card-body"><h5 class="card-title">Restaurant Information <span id="profile-msg"></span></h5>
+        <form action="" id="form-profile" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <div class="form-row">
+            	<!-- Basic Info -->
+	            <div class="col-md-6">
+				    <div class="form-row">
+				        <div class="col-md-6 mb-2">
+		                    <label for="name">Restaurant Name *</label>
+		                    <input id="name" name="name" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['restaurant_name']; ?>" required>
+							<div class="invalid-feedback">Please provide a restaurant name.</div>
+		                </div>
+				        <div class="col-md-6 mb-2">
+					        <label for="branch">Branch Name</label>
+				            <input id="branch" name="branch" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['branch_name']; ?>">
+		                </div>
+					</div>
+					<div class="form-row">
+					    <div class="col-md-6 mb-2 form-group">
+					        <label for="website">Website</label>
+				            <input id="website" name="website" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>">
+					    </div>
+					    <div class="col-md-6 mb-2 form-group">
+					        <label for="phoneno">Phone Number</label>
+				            <input id="phoneno" name="phoneno" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>">
+					    </div>
+					</div>
+					<div class="form-row">
+						<div class="col-md-6 mb-2 form-group">
+					        <label for="hours">Business Hours</label>
+				            <input id="hours" name="hours" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['business_hours']; ?>">
+					    </div>
+					    <div class="col-md-6 mb-2 form-group">
+					        <label for="image">Restaurant Photo</label>
+				            <input name="image" id="image" type="file" class="form-control-file">
+					    </div>
+					</div>
+					<div class="position-relative form-group">
+					    <label for="shortDesc">Short Description</label>
+				        <textarea id="shortDesc" name="shortDesc" class="form-control"><?php echo $this->restaurant['short_desc']; ?></textarea>
+					</div>
+					<div class="position-relative form-group">
+					    <label for="fullDesc">Full Description</label>
+				        <textarea id="fullDesc" name="fullDesc" class="form-control"><?php echo $this->restaurant['full_desc']; ?></textarea>
+					</div>
+		            <button class="mt-1 btn btn-primary">Submit</button>
+	            </div>
+	            <!-- Map -->
+	            <div class="col-md-6">
+	                <!--<div class="position-relative form-group">
+				        <label for="address">Address *</label>
+			            <input id="address" name="address" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['address']; ?>" required>
+					    <div class="invalid-feedback">Please provide a valid address.</div>
+				    </div>-->
+				    <div id="map"></div>
+	            </div>
+	        </div>
+        </form>
+    </div>
+</div>
+<!-- Save data -->
 <script type="text/javascript">
 $(document).ready(function () {
 	/* Update profile information */
@@ -8,7 +79,6 @@ $(document).ready(function () {
 		    $.ajax({
 		    	url: "<?php echo $this->getControllerURL('profile', 'update')?>",
                 type: 'POST',
-		    	//data: $(this).serialize(),
 				data: new FormData(this),
 			    processData: false,
                 contentType: false,
@@ -26,62 +96,39 @@ $(document).ready(function () {
     });
 });
 </script>
-<div class="app-page-title">
-    <div class="page-title-wrapper">
-        <div class="page-title-heading">
-            <div class="page-title-icon"><i class="pe-7s-car icon-gradient bg-mean-fruit"></i></div>
-            <div>Restaurant Profile
-                <div class="page-title-subheading">Tell us about your restaurant.</div>
-            </div>
-        </div>
-	</div>
-</div>
-<div class="main-card mb-3 card">
-    <div class="card-body"><h5 class="card-title">Restaurant Information <span id="profile-msg"></span></h5>
-        <form action="" id="form-profile" enctype="multipart/form-data" class="needs-validation" novalidate>
-		    <div action="" class="form-row">
-		        <div class="col-md-6 mb-2">
-                    <label for="name">Restaurant Name *</label>
-                    <input id="name" name="name" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['restaurant_name']; ?>" required>
-					<div class="invalid-feedback">Please provide a restaurant name.</div>
-                </div>
-		        <div class="col-md-3 mb-2">
-			        <label for="branch">Branch Name</label>
-		            <input id="branch" name="branch" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['branch_name']; ?>">
-                </div>
-				<div class="col-md-3 mb-2 form-group">
-			        <label for="image">Restaurant Photo</label>
-		            <input name="image" id="image" type="file" class="form-control-file">
-			    </div>
-			</div>
-			<div class="position-relative form-group">
-			    <label for="address">Address *</label>
-		        <input id="address" name="address" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['address']; ?>" required>
-				<div class="invalid-feedback">Please provide a valid address.</div>
-			</div>
-			<div class="form-row">
-			    <div class="col-md-4 mb-2 form-group">
-			        <label for="website">Website</label>
-		            <input id="website" name="website" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>">
-			    </div>
-			    <div class="col-md-4 mb-2 form-group">
-			        <label for="phoneno">Phone Number</label>
-		            <input id="phoneno" name="phoneno" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>">
-			    </div>
-				<div class="col-md-4 mb-2 form-group">
-			        <label for="hours">Business Hours</label>
-		            <input id="hours" name="hours" type="text" class="mb-2 form-control" value="<?php echo $this->restaurant['business_hours']; ?>">
-			    </div>
-			</div>
-			<div class="position-relative form-group">
-			    <label for="shortDesc">Short Description</label>
-		        <textarea id="shortDesc" name="shortDesc" class="form-control"><?php echo $this->restaurant['short_desc']; ?></textarea>
-			</div>
-			<div class="position-relative form-group">
-			    <label for="fullDesc">Full Description</label>
-		        <textarea id="fullDesc" name="fullDesc" class="form-control"><?php echo $this->restaurant['full_desc']; ?></textarea>
-			</div>
-            <button class="mt-1 btn btn-primary">Submit</button>
-        </form>
-    </div>
-</div>
+<!-- Mapbox Geocoding -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+<link
+rel="stylesheet"
+href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
+type="text/css"
+/>
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZ2xhZHlzYnJvY2UiLCJhIjoiY2s4dm12a3d3MGpjNjNqbzd1NDVnN3NkeCJ9.6MLAKKbn0ssuw6JtUT9DKA';
+	var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v11',
+		center: [-79.4512, 43.6568],
+		zoom: 13
+	});
+	var geocoder = new MapboxGeocoder({
+			accessToken: mapboxgl.accessToken,
+			mapboxgl: mapboxgl
+		});
+	map.addControl(geocoder);
+	geocoder.on('result', function(result) {
+	   console.log(result);
+	   console.log("latitude:"+result["result"]["center"][0]);
+	   console.log("longitude:"+result["result"]["center"][1]);
+	   console.log("address:"+result["result"]["place_name"]);
+	});
+</script>
