@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2020 at 10:19 AM
+-- Generation Time: Apr 12, 2020 at 11:22 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -49,7 +49,7 @@ CREATE TABLE `restaurant` (
 --
 
 INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `short_desc`, `full_desc`, `business_hours`, `address`, `longitude`, `latitude`, `website`, `phone_no`, `image`, `date_created`) VALUES
-(1, 'Sukiya', 'Fuchu', 'short', 'long', '10AM', 'Makati, Philippines', '121.033330', '14.550000', 'www', '090', '1.jpg', '0000-00-00 00:00:00'),
+(1, 'Jobee', 'Fuchu', 'short', 'long', '10AM', 'Makati, Philippines', '121.033330', '14.550000', 'www', '090', '1.jpg', '0000-00-00 00:00:00'),
 (2, 'Mang Donaldo', 'Makati', 'short', 'long', '10AM', 'Fuchu Driver\'s License Center, 多磨町3-1-1, Fuchu Shi, Tokyo Prefecture, Japan', NULL, NULL, 'www', '090', '2.jpg', '2020-03-16 20:00:00'),
 (3, 'KMC', 'Makati', 'short', 'long', '10AM', 'Makati, Philippines', '121.033330', '14.550000', 'www', '090', '3.jpg', '2020-03-16 18:00:00'),
 (4, 'Wendies', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '4.jpg', '2020-03-16 21:00:00'),
