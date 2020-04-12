@@ -38,9 +38,10 @@ class Restaurants {
 		}
 		return $restaurants;
 	}
-	public function getRestaurants($filter = '', $sort = '') {
+	public function getRestaurants($name = '', $address, $sort = '') {
 		$restaurants = array();
-		$filter = '%'.$filter.'%';
+		$name = '%'.$name.'%';
+		$address = '%'.$address.'%';
 		$limit = 12;
 		$is_vacant = "";
 		if ($sort == "vacant") {
@@ -53,14 +54,14 @@ class Restaurants {
 				count(`seat`.`seat_id`) AS `count`
 			FROM `restaurant`
 			LEFT JOIN `seat` on `seat`.`restaurant_id` = `restaurant`.`restaurant_id`
-			WHERE (`restaurant`.`restaurant_name` LIKE ? OR 
+			WHERE (`restaurant`.`restaurant_name` LIKE ? AND 
 			      `restaurant`.`address` LIKE ?)
 				  $is_vacant
 		    GROUP BY `restaurant`.`restaurant_id`
 			ORDER BY `count` DESC
 			LIMIT 0, $limit;
 		");
-		$stmt->bind_param("ss", $filter, $filter);
+		$stmt->bind_param("ss", $name, $address);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {

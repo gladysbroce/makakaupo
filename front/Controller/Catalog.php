@@ -5,16 +5,20 @@ class Catalog extends System {
 		$this->_restaurants = new Restaurants();
 	}
 	public function index(){
-		$filter = isset($_GET["filter"]) ? $_GET["filter"] : "";
-		$sort = "total";
-		$this->filter = $filter;
-		$this->restaurants = $this->_restaurants->getRestaurants($filter, $sort);
+		$name    = isset($_GET["name"])    ? trim($_GET["name"])    : "";
+		$address = isset($_GET["address"]) ? trim($_GET["address"]) : "";
+		$sort    = "total";
+		$this->name = $name;
+		$this->address = $address;
+		$this->sort = $sort;
+		$this->restaurants = $this->_restaurants->getRestaurants($name, $address, $sort);
 		$this->setTemplate('View/Catalog/index.phtml');
 	}
 	public function search(){
-		$filter = isset($_GET["filter"]) ? $_GET["filter"] : "";
-		$sort = isset($_GET["sort"]) ? $_GET["sort"] : "";
-		$this->restaurants = $this->_restaurants->getRestaurants($filter, $sort);
+		$name    = isset($_GET["name"])    ? trim($_GET["name"])    : "";
+		$address = isset($_GET["address"]) ? trim($_GET["address"]) : "";
+		$sort    = isset($_GET["sort"])    ? $_GET["sort"]          : "";
+		$this->restaurants = $this->_restaurants->getRestaurants($name, $address, $sort);
 		$this->setTemplate('View/Catalog/search.phtml', false);
 	}
 }

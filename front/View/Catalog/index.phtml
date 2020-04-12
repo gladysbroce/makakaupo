@@ -4,16 +4,17 @@ $(document).ready(function () {
 	$("#filterBtn").on("click", function(){
 		search();
     });
-    $("#filter, #sort").on("change", function(){
+    $("#name, #address, #sort").on("change", function(){
 		search();
     });
 	function search(){
-		var filter = $("#filter").val();
-		var sort = $("#sort").val();
+		var name    = $("#name").val();
+		var address = $("#address").val();
+		var sort    = $("#sort").val();
 		$.ajax({
             url: "<?php echo $this->getBaseURL()."/catalog/search"; ?>",
             type: 'get',
-			data : {"filter": filter, "sort": sort},
+			data : {"name": name, 'address': address, "sort": sort},
 			success:
 			    function(data){
 					$("#result").html(data);
@@ -35,7 +36,13 @@ $(document).ready(function () {
 				<div class="flex-sb-m flex-w p-b-35">
 					<div class="flex-w">
 						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 pos-relative">
-							<input id="filter" class="sizefull s-text7 p-l-22 p-r-22" type="text" value="<?php echo $this->filter;?>" placeholder="Name or Location">
+							<input type="text" id="name" class="sizefull s-text7 p-l-22 p-r-22" value="<?php echo $this->name;?>" placeholder="Restaurant Name">
+							<button id="filterBtn" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
+							</button>
+						</div>
+						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 pos-relative">
+							<input type="text" id="address" class="sizefull s-text7 p-l-22 p-r-22" value="<?php echo $this->address;?>" placeholder="Location">
 							<button id="filterBtn" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
 								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
 							</button>
@@ -43,8 +50,8 @@ $(document).ready(function () {
 						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
 							<select id="sort" class="selection-1">
 							    <option disabled>Sort by:</option>
-								<option value="vacant">Vacant Seats</option>
-								<option value="total">Total No. of Seats</option>
+								<option value="vacant" <?php echo ($this->sort == "vacant") ? "selected" : ""; ?>>Vacant Seats</option>
+								<option value="total" <?php echo ($this->sort == "total") ? "selected" : ""; ?>>Total No. of Seats</option>
 							</select>
 						</div>
 					</div>
