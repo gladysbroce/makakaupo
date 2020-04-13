@@ -1,0 +1,110 @@
+<script>
+$(document).ready(function () {
+	/* Initialize seat status */
+    var floors = <?php echo json_encode($this->floors); ?>;
+	$.each(floors, function(floor_id, floor){
+		$.each(floor, function(index, seat){
+			var seat_id = floor_id+"_"+seat["row_no"]+"_"+seat["col_no"];
+			$("#"+seat_id).addClass("seat-orig seat-add");
+		});
+	});
+	/* Add or remove seat */
+    $(".seat-cell").on("click", function(){
+		if ($(this).hasClass("seat-add")) {
+			$(this).removeClass("seat-add");
+			$(this).addClass("seat-del");
+		} else {
+			$(this).removeClass("seat-del");
+			$(this).addClass("seat-add");
+		}
+    });
+	/* Save seat layout */
+    $("#save").on("click", function(){
+		/* Add new seat */
+		var added_seats = [];
+		$(".seat-add").each(function(i) {
+			if (!$(this).hasClass("seat-orig")){
+                var seat_data = $(this).attr('id').split("_");
+			    added_seats[i] = {"floor_id": seat_data[0],
+			                "row_no": seat_data[1],
+			                "col_no": seat_data[2]};
+			}
+        });
+		$.ajax({
+            url: "<?php echo $this->getBaseURL()."layout/add" ?>",
+            type: 'POST',
+			data: {"restaurant_id": 1, "seats": added_seats},
+			success:
+			    function(data){
+                   alert("ok!");
+                },
+			error:
+			    function(data){
+                   alert("error!");
+                }
+        });
+		/* Delete original seats */
+		var deleted_seats = [];
+		$(".seat-del").each(function(i) {
+			if ($(this).hasClass("seat-orig")){
+                var seat_data = $(this).attr('id').split("_");
+			    console.log(seat_data[0]);
+			    deleted_seats[i] = {"floor_id": seat_data[0],
+			                "row_no": seat_data[1],
+			                "col_no": seat_data[2]};
+			}
+        });
+		$.ajax({
+            url: "<?php echo $this->getBaseURL()."layout/delete" ?>",
+            type: 'POST',
+            data: {"restaurant_id": 1, "seats": deleted_seats},
+			success:
+			    function(data){
+                   alert("ok!");
+                },
+			error:
+			    function(data){
+                   alert("error!");
+                }
+        });
+    });
+});
+</script>
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>Seat Layout Creator
+                <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<div class="w-size28 respon5">
+	<div class="wrap-slick3 flex-sb flex-w">
+		<div class="wrap-slick3-dots"></div>
+		<div class="slick3">
+		    <?php for ($i = 1; $i <= 4; $i++){?>
+			<div class="item-slick3 floor<?php echo $x?>" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $i?>.jpg">
+				<div class="workspace">
+					<?php for($x=1; $x<=25; $x++){ ?>
+					    <?php for($y=1; $y<=20; $y++){ ?>
+					        <div class="seat-cell 
+							            <?php echo ($x == 25) ? "seat-last-row": ""; ?>
+										<?php echo ($y == 20) ? "seat-last-col": ""; ?>" 
+							     id="<?php echo $i."_".$x."_".$y;?>">
+							</div>
+					    <?php } ?>
+						<br />
+					<?php } ?>
+				</div>
+			</div>
+			<?php } ?>
+		</div>
+	</div>
+	<button class="mb-2 mr-2 btn btn-focus" id="save">Save</button>
+</div>

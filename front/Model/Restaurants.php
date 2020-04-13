@@ -3,16 +3,17 @@ class Restaurants {
 	public function getRestaurant($restaurantId) {
 		$stmt = Application::DBPrepQuery( "
 			SELECT 
-				`restaurant`.`restaurant_id`,
-				`restaurant`.`restaurant_name`,
-				`restaurant`.`branch_name`,
-				`restaurant`.`short_desc`,
-				`restaurant`.`full_desc`,
-				`restaurant`.`business_hours`,
-				`restaurant`.`address`,
-				`restaurant`.`website`,
-				`restaurant`.`phone_no`,
-				`restaurant`.`image`
+				`restaurant_id`,
+				`restaurant_name`,
+				`branch_name`,
+				`short_desc`,
+                `full_desc`,
+				`business_hours`,
+				`address`,
+				`latitude`,
+				`longitude`,
+				`website`,
+				`phone_no`
 			FROM `restaurant`
 			WHERE `restaurant_id` = ?;
 		");
@@ -24,49 +25,31 @@ class Restaurants {
 		}
 		return false;
 	}
-	public function getNewRestaurants($sort = 'date_created', $order = 'DESC', $limit = '3') {
-		$restaurants = array();
-		$result = Application::DBQuery( "
-			SELECT 
-				`restaurant`.*
-			FROM `restaurant`
-			ORDER BY `restaurant`.`$sort` $order
-			LIMIT $limit;
-		");
-		while ($row = $result->fetch_assoc()) {
-			$restaurants[] = $row;
+	public function updateRestaurant($restaurantId, $restaurantName, $branchName, $shortDesc, $longDesc, $hours, $address, $longitude, $latitude, $website, $phoneno, $image){
+		$response = false;
+		if ($restaurantId) {
+			$stmt = Application::DBPrepQuery( "
+				UPDATE 
+					`restaurant`
+				SET `restaurant_name` = ?,
+				    `branch_name` = ?,
+					`short_desc` = ?,
+					`full_desc` = ?,
+					`business_hours` = ?,
+					`address` = ?,
+					`longitude` = ?,
+					`latitude` = ?,
+					`website` = ?,
+					`phone_no` = ?,
+					`image` = ?
+				WHERE `restaurant_id` = ?;
+		    ");
+			$stmt->bind_param("ssssssddsssi", $restaurantName, $branchName, $shortDesc, $longDesc, $hours, $address, $longitude, $latitude, $website, $phoneno, $image, $restaurantId);
+			$result = $stmt->execute();
+			if ($result) {
+				$response = true;
+			}
 		}
-		return $restaurants;
-	}
-	public function getRestaurants($name = '', $address, $sort = '') {
-		$restaurants = array();
-		$name = '%'.$name.'%';
-		$address = '%'.$address.'%';
-		$limit = 12;
-		$is_vacant = "";
-		if ($sort == "vacant") {
-			$is_vacant = " AND `seat`.`status_id` = 0";
-		}
-		$stmt = Application::DBPrepQuery( "
-			SELECT 
-				`restaurant`.*,
-				`seat`.*,
-				count(`seat`.`seat_id`) AS `count`
-			FROM `restaurant`
-			LEFT JOIN `seat` on `seat`.`restaurant_id` = `restaurant`.`restaurant_id`
-			WHERE (`restaurant`.`restaurant_name` LIKE ? AND 
-			      `restaurant`.`address` LIKE ?)
-				  $is_vacant
-		    GROUP BY `restaurant`.`restaurant_id`
-			ORDER BY `count` DESC
-			LIMIT 0, $limit;
-		");
-		$stmt->bind_param("ss", $name, $address);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		while ($row = $result->fetch_assoc()) {
-			$restaurants[] = $row;
-		}
-		return $restaurants;
+		return $response;
 	}
 }

@@ -1,0 +1,126 @@
+<script type="text/javascript">
+$(document).ready(function () {
+	/* Initialize seat status */
+    var floors = <?php echo json_encode($this->floors); ?>;
+	$.each(floors, function(floor_id, floor){
+		$.each(floor, function(index, seat){
+			var seat_id = floor_id+"_"+seat["row_no"]+"_"+seat["col_no"];
+			$("#"+seat_id).addClass("seat-assign seat-"+seat["seat_status_name"]);
+		});
+	});
+	/* Set seat status */
+    $(".seat-assign").on("click", function(){
+		// Update seat color
+		var status;
+		if ($(this).hasClass("seat-vacant")) {
+			status = 1;
+			$(this).removeClass("seat-vacant");
+			$(this).addClass("seat-occupied");
+		} else if ($(this).hasClass("seat-occupied")) {
+			status = 2;
+			$(this).removeClass("seat-occupied");
+			$(this).addClass("seat-reserved");
+		} else {
+			status = 0;
+			$(this).removeClass("seat-reserved");
+			$(this).addClass("seat-vacant");
+		}
+		console.log(status);
+		// Update status in db
+		var seat_data = $(this).attr('id').split("_");
+	    var seat = {"floor_id": seat_data[0],
+			        "row_no": seat_data[1],
+			        "col_no": seat_data[2]};
+		$.ajax({
+            url: "<?php echo $this->getBaseURL()."status/update" ?>",
+            type: 'POST',
+			data: {"restaurant_id": 1, "seat": seat, "status": status},
+			success:
+			    function(data){
+                   alert("ok!");
+                },
+			error:
+			    function(data){
+                   alert("error!");
+                }
+        });
+    });
+	/* Set all seats to vacant/occupied/reserved */
+    $(".btn-all").on("click", function(){
+		var status;
+		var btn = $(this).attr('id');
+		switch (btn) {
+			case "vacant":   status = 0; break;
+			case "occupied": status = 1; break;
+			case "reserved": status = 2; break;
+			default: status = 0; break;
+		}
+		// Get floor id
+		var sel_floor = $('.slick-current').attr("data-slick-index");
+		var floor_id = Object.keys(floors)[sel_floor];
+		$.ajax({
+            url: "<?php echo $this->getBaseURL()."status/updateAll" ?>",
+            type: 'POST',
+			data: {"restaurant_id": 1, "floor_id": floor_id, "status": status},
+			success:
+			    function(data){
+					// Update all seats in the current floor
+                    $(".seat-assign").each(function(i) {
+						var seat_data = $(this).attr('id').split("_");
+						if (floor_id == seat_data[0]) {
+						    $(this).removeClass("seat-vacant");
+						    $(this).removeClass("seat-occupied");
+						    $(this).removeClass("seat-reserved");
+						    $(this).addClass("seat-"+btn);
+						}
+                    });
+                },
+			error:
+			    function(data){
+                   alert("error!");
+                }
+        });
+	});
+});
+</script>
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                </i>
+            </div>
+            <div>Seat Status
+                <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<div class="w-size28 respon5">
+	<div class="wrap-slick3 flex-sb flex-w">
+		<div class="wrap-slick3-dots"></div>
+		<div class="slick3">
+		    <?php foreach ($this->floors  as $floor => $seats): ?>
+				<div class="item-slick3" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $floor?>.jpg">
+					<div class="workspace">
+				    	<?php for($x=1; $x<=25; $x++){ ?>
+				    	    <?php for($y=1; $y<=20; $y++){ ?>
+				    	        <div class="seat-space 
+				    			            <?php echo ($x == 25) ? "seat-last-row": ""; ?>
+				    						<?php echo ($y == 20) ? "seat-last-col": ""; ?>" 
+				    			     id="<?php echo $floor."_".$x."_".$y;?>">
+				    			</div>
+				    	    <?php } ?>
+				    		<br />
+				    	<?php } ?>
+				    </div>
+			    </div>
+			<?php endforeach ?>
+		</div>
+	</div>
+	Set all to:
+	<button class="mb-2 mr-2 btn btn-focus btn-all" id="vacant">Vacant</button>
+	<button class="mb-2 mr-2 btn btn-focus btn-all" id="occupied">Occupied</button>
+	<button class="mb-2 mr-2 btn btn-focus btn-all" id="reserved">Reserved</button>
+</div>
