@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2020 at 11:22 AM
+-- Generation Time: Apr 13, 2020 at 04:19 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -49,24 +49,24 @@ CREATE TABLE `restaurant` (
 --
 
 INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `short_desc`, `full_desc`, `business_hours`, `address`, `longitude`, `latitude`, `website`, `phone_no`, `image`, `date_created`) VALUES
-(1, 'Jobee', 'Fuchu', 'short', 'long', '10AM', 'Makati, Philippines', '121.033330', '14.550000', 'www', '090', '1.jpg', '0000-00-00 00:00:00'),
-(2, 'Mang Donaldo', 'Makati', 'short', 'long', '10AM', 'Fuchu Driver\'s License Center, 多磨町3-1-1, Fuchu Shi, Tokyo Prefecture, Japan', NULL, NULL, 'www', '090', '2.jpg', '2020-03-16 20:00:00'),
+(1, 'Jobee', 'tanauan', 'short', 'long', '10AM', 'Tanauan, Batangas, Philippines', '121.150000', '14.083330', 'www', '090', '1.jpg', '0000-00-00 00:00:00'),
+(2, 'Mang Donaldo', 'Makati', 'short', 'long', '10AM', 'Shibuya, Tokyo, Tokyo Prefecture, Japan', '139.702400', '35.669800', 'www', '090', '2.jpg', '2020-03-16 20:00:00'),
 (3, 'KMC', 'Makati', 'short', 'long', '10AM', 'Makati, Philippines', '121.033330', '14.550000', 'www', '090', '3.jpg', '2020-03-16 18:00:00'),
-(4, 'Wendies', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '4.jpg', '2020-03-16 21:00:00'),
-(5, 'ABC', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '5.jpg', '2020-03-16 21:00:00'),
-(6, 'A', 'Makati', 'short', 'long', '10AM', 'a', NULL, NULL, 'www', '090', '6.jpg', '0000-00-00 00:00:00'),
-(7, 'B', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '7.jpg', '2020-03-16 20:00:00'),
-(8, 'C', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '8.jpg', '2020-03-16 18:00:00'),
-(9, 'D', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '9.jpg', '2020-03-16 21:00:00'),
-(10, 'E', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '10.jpg', '2020-03-16 21:00:00'),
-(11, 'F', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '11.jpg', '2020-03-16 21:00:00'),
-(12, 'G', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '12.jpg', '2020-03-16 21:00:00'),
-(13, 'X', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '13.jpg', '2020-03-16 20:00:00'),
-(14, 'Y', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '14.jpg', '2020-03-16 18:00:00'),
-(15, 'Z', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '15.jpg', '2020-03-16 21:00:00'),
-(16, 'Q', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '16.jpg', '2020-03-16 21:00:00'),
-(17, 'R', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '17.jpg', '2020-03-16 21:00:00'),
-(18, 'S', 'Makati', 'short', 'long', '10AM', 'Makati City', NULL, NULL, 'www', '090', '18.jpg', '2020-03-16 21:00:00');
+(4, 'Wendies', 'Makati', 'short', 'long', '10AM', 'Mandaluyong, Philippines', '121.033330', '14.583330', 'www', '090', '4.jpg', '2020-03-16 21:00:00'),
+(5, 'ABC', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '5.jpg', '2020-03-16 21:00:00'),
+(6, 'A', 'Makati', 'short', 'long', '10AM', 'Shibuya, Tokyo, Tokyo Prefecture, Japan', '139.702400', '35.669800', 'www', '090', '6.jpg', '0000-00-00 00:00:00'),
+(7, 'B', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '7.jpg', '2020-03-16 20:00:00'),
+(8, 'C', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '8.jpg', '2020-03-16 18:00:00'),
+(9, 'D', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '9.jpg', '2020-03-16 21:00:00'),
+(10, 'E', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '10.jpg', '2020-03-16 21:00:00'),
+(11, 'F', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '11.jpg', '2020-03-16 21:00:00'),
+(12, 'G', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '12.jpg', '2020-03-16 21:00:00'),
+(13, 'X', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '13.jpg', '2020-03-16 20:00:00'),
+(14, 'Y', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '14.jpg', '2020-03-16 18:00:00'),
+(15, 'Z', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '15.jpg', '2020-03-16 21:00:00'),
+(16, 'Q', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '16.jpg', '2020-03-16 21:00:00'),
+(17, 'R', 'Makati', 'short', 'long', '10AM', 'Batangas City, Batangas, Philippines', '121.050000', '13.750000', 'www', '090', '17.jpg', '2020-03-16 21:00:00'),
+(18, 'S', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '18.jpg', '2020-03-16 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, 
 (33, 1, 2, 2, 3, 0, '2020-04-10 20:56:08'),
 (34, 1, 2, 2, 4, 0, '2020-04-10 20:56:08'),
 (35, 1, 2, 3, 3, 0, '2020-04-10 20:56:08'),
-(36, 1, 2, 3, 4, 0, '2020-04-10 20:56:08'),
+(36, 2, 2, 3, 4, 0, '2020-04-10 20:56:08'),
 (37, 1, 3, 2, 4, 2, '2020-04-10 20:56:08'),
 (38, 1, 3, 2, 5, 2, '2020-04-10 20:56:08'),
 (39, 1, 3, 3, 4, 2, '2020-04-10 20:56:08'),
