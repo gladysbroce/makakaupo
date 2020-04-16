@@ -1,28 +1,3 @@
-<script type="text/javascript">
-$(document).ready(function () {
-	/* Get Search Result */
-	$("#filterBtn").on("click", function(){
-		search();
-    });
-    $("#name, #address, #sort").on("change", function(){
-		search();
-    });
-	function search(){
-		var name    = $("#name").val();
-		var address = $("#address").val();
-		var sort    = $("#sort").val();
-		$.ajax({
-            url: "<?php echo $this->getBaseURL()."/catalog/search"; ?>",
-            type: 'get',
-			data : {"name": name, 'address': address, "sort": sort},
-			success:
-			    function(data){
-					$("#result").html(data);
-                }
-        });
-	}
-});
-</script>
 <!-- Title Page -->
 <section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(assets/images/banner-catalog.jpg);">
 	<h2 class="l-text2 t-center">Makakaupo</h2>
@@ -35,23 +10,26 @@ $(document).ready(function () {
 			<div class="col-sm-6 col-md-8 col-lg-12 p-b-50">
 				<div class="flex-sb-m flex-w p-b-35">
 					<div class="flex-w">
-						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 pos-relative">
+						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 size11 pos-relative">
 							<input type="text" id="name" class="sizefull s-text7 p-l-22 p-r-22" value="<?php echo $this->name;?>" placeholder="Restaurant Name">
-							<button id="filterBtn" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+							<button id="filterBtn" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4" style="height:45px;">
 								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
 							</button>
 						</div>
-						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 pos-relative">
-							<input type="text" id="address" class="sizefull s-text7 p-l-22 p-r-22" value="<?php echo $this->address;?>" placeholder="Location">
-							<button id="filterBtn" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
-							</button>
+						<!--<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 size11 pos-relative">-->
+						<div class="m-r-10">
+							<div id="map"></div>
+                            <div id="geocoder" class="geocoder"></div>
+						    <input type="hidden" id="address"   name="address"   />
+	            	        <input type="hidden" id="longitude" name="longitude" />
+	            	        <input type="hidden" id="latitude"  name="latitude"  />
 						</div>
-						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 size11">
 							<select id="sort" class="selection-1">
 							    <option disabled>Sort by:</option>
-								<option value="vacant" <?php echo ($this->sort == "vacant") ? "selected" : ""; ?>>Vacant Seats</option>
-								<option value="total" <?php echo ($this->sort == "total") ? "selected" : ""; ?>>Total No. of Seats</option>
+								<option value="nearest" <?php echo ($this->sort == "nearest") ? "selected" : ""; ?>>Nearest Restaurants</option>
+								<option value="vacant"  <?php echo ($this->sort == "vacant")  ? "selected" : ""; ?>>Vacant Seats</option>
+								<option value="total"   <?php echo ($this->sort == "total")   ? "selected" : ""; ?>>Total No. of Seats</option>
 							</select>
 						</div>
 					</div>
@@ -104,3 +82,71 @@ $(document).ready(function () {
 <script type="text/javascript" src="vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/slick-custom.js"></script>
 <script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	/* Get Search Result */
+	$("#filterBtn").on("click", function(){
+		search();
+    });
+    $("#name, #geocoder input[type=text], #sort").on("change", function(){
+		search();
+    });
+	function search(){
+		var name      = $("#name").val();
+		var longitude = $("#longitude").val();
+		var latitude  = $("#latitude").val();
+		var sort      = $("#sort").val();
+		$.ajax({
+            url: "<?php echo $this->getBaseURL()."/catalog/search"; ?>",
+            type: 'get',
+			data : {"name": name, 'longitude': longitude, 'latitude': latitude,  "sort": sort},
+			success:
+			    function(data){
+					$("#result").html(data);
+                }
+        });
+	}
+});
+</script>
+<!-- Mapbox -->
+<style>
+	#map { 
+	    width: 0px;
+	}
+	.geocoder {
+    	width: 100%;
+    }
+    .mapboxgl-ctrl-geocoder {
+        min-width: 100%;
+    }
+	.rs2-select2 .select2-container .select2-selection--single {
+		height: 45px;
+	}
+</style>
+<script>
+$(document).ready(function () {	
+	$("#geocoder input[type=text]").attr("value", "<?php echo ($this->address);?>");
+});
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZ2xhZHlzYnJvY2UiLCJhIjoiY2s4dm12a3d3MGpjNjNqbzd1NDVnN3NkeCJ9.6MLAKKbn0ssuw6JtUT9DKA';
+    var lng = "<?php echo ($this->longitude);?>";
+	var lat = "<?php echo ($this->latitude);?>";
+	// Default: Manila
+	if (lng == ""){lng = 121.000000;}
+	if (lat == ""){lat = 14.583330;}
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [lng, lat],  // Default: Manila
+        zoom: 13
+    });
+    var geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+    });
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+	geocoder.on('result', function(data) {
+		$("#address").attr("value", data["result"]["place_name"]);
+		$("#longitude").attr("value", data["result"]["center"][0]);
+		$("#latitude").attr("value", data["result"]["center"][1]);
+	});
+</script>

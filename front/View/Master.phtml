@@ -1,205 +1,346 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Makakaupo - Administrator Tool</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
-    <meta name="msapplication-tap-highlight" content="no">
-    <link href="assets/main.css" rel="stylesheet">
-    <link href="assets/css/main.css" rel="stylesheet">
-	<link href="assets/css/util.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/slick/slick.css">
-	<script type="text/javascript" src="assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<title>Makakaupo</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="<?php echo $this->getAssetsURL();?>/images/icons/favicon.png"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/themify/themify-icons.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/elegant-font/html-css/style.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/lightbox2/css/lightbox.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/css/util.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/css/main.css">
+    <script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
 </head>
 <body>
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow">
-            <div class="app-header__logo">
-                <div class="logo-src"></div>
-                <div class="header__pane ml-auto">
-                    <div>
-                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="app-header__mobile-menu">
-                <div>
-                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                        <span class="hamburger-box">
-                            <span class="hamburger-inner"></span>
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div class="app-header__menu">
-                <span>
-                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                        <span class="btn-icon-wrapper">
-                            <i class="fa fa-ellipsis-v fa-w-6"></i>
-                        </span>
-                    </button>
-                </span>
-            </div>
-			<div class="app-header__content">
-                <div class="app-header-right">
-                    <div class="header-btn-lg pr-0">
-                        <div class="widget-content p-0">
-                            <div class="widget-content-wrapper">
-                                <div class="widget-content-left">
-                                    <div class="btn-group">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
-                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
-                                        </a>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">User Account</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="widget-content-left  ml-3 header-user-info">
-                                    <div class="widget-heading">
-                                        Alina Mclourd
-                                    </div>
-                                    <div class="widget-subheading">
-                                        VP People Manager
-                                    </div>
-                                </div>
-                                <div class="widget-content-right header-user-info ml-3">
-                                    <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
-                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
-                                    </button>
-                                </div>
-                            </div>
+ <!-- HEADER -->
+    <header class="header1">
+    	<div class="container-menu-header">
+			<div class="topbar">
+				<div class="topbar-child2">
+                    <form id="login" class="form-inline">
+                        <div class="position-relative form-group">
+                            <label for="username" class="sr-only">Username</label>
+                            <input name="username" id="username" placeholder="Username" type="username" class="mr-2 form-control">
                         </div>
-                    </div>
+                        <div class="position-relative form-group">
+                            <label for="password" class="sr-only">Password</label>
+                            <input name="password" id="password" placeholder="Password" type="password" class="mr-2 form-control">
+                        </div>
+                        <button class="btn btn-dark mr-2">Login</button>
+                    </form>                    
+                    <button onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'" class="btn btn-dark">Register</button>
 				</div>
-            </div>
-        </div>
-		<div class="app-main">
-            <div class="app-sidebar sidebar-shadow">
-                <div class="app-header__logo">
-                    <div class="logo-src"></div>
-                    <div class="header__pane ml-auto">
-                        <div>
-                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                                <span class="hamburger-box">
-                                    <span class="hamburger-inner"></span>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="app-header__mobile-menu">
-                    <div>
-                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <div class="app-header__menu">
-                    <span>
-                        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                            <span class="btn-icon-wrapper">
-                                <i class="fa fa-ellipsis-v fa-w-6"></i>
-                            </span>
-                        </button>
-                    </span>
-                </div>    <div class="scrollbar-sidebar">
-                    <div class="app-sidebar__inner">
-                        <ul class="vertical-nav-menu">
-                            <li class="app-sidebar__heading">Dashboards</li>
-							<li>
-                                <a class="<?=($this->menu == "status")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."status"; ?>">
-                                    <i class="metismenu-icon pe-7s-mouse"></i>Seat Status 
-                                </a>
-                            </li>
-                            <li>
-							    <a class="<?=($this->menu == "layout")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."layout"; ?>">
-								    <i class="metismenu-icon pe-7s-pen"></i>Seat Layout Creator
-								</a>
-							</li>
-                            <li>
-							    <a class="<?=($this->menu == "profile")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."profile"; ?>">
-							        <i class="metismenu-icon pe-7s-note2"></i>Restaurant Profile
-								</a>
-							</li>
-							<li>
-                                <a class="<?=($this->menu == "report")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."report"; ?>">
-                                    <i class="metismenu-icon pe-7s-display2"></i>Reports
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-			<div class="app-main__outer">
-	            <!-- MAIN CONTENT -->
-				<div class="app-main__inner"><?php echo $this->contents; ?></div>
-				<!-- FOOTER -->
-                <div class="app-wrapper-footer">
-                    <div class="app-footer">
-                        <div class="app-footer__inner">
-                            <div class="app-footer-left">
-                                <ul class="nav">
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            Footer Link 1
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            Footer Link 2
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="app-footer-right">
-                                <ul class="nav">
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            Footer Link 3
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link">
-                                            <div class="badge badge-success mr-1 ml-0">
-                                                <small>NEW</small>
-                                            </div>
-                                            Footer Link 4
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 			</div>
-        </div>
+    		<div class="wrap_header">
+    			<a href="<?php echo $this->getBaseURL();?>" class="logo">
+    				<img src="<?php echo $this->getAssetsURL();?>/images/icons/logo.png" alt="IMG-LOGO">
+    			</a>
+    			<div class="header-icons">
+    				<a href="#" class="header-wrapicon1 dis-block">
+    					<img src="<?php echo $this->getAssetsURL();?>/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+    				</a>
+    			</div>
+    		</div>
+    	</div>
+    	<!-- Header Mobile -->
+    	<div class="wrap_header_mobile">
+    		<!-- Logo moblie -->
+    		<a href="index.html" class="logo-mobile">
+    			<img src="<?php echo $this->getAssetsURL();?>/images/icons/logo.png" alt="IMG-LOGO">
+    		</a>
+    		<!-- Button show menu -->
+    		<div class="btn-show-menu">
+    			<!-- Header Icon mobile -->
+    			<div class="header-icons-mobile">
+    				<a href="#" class="header-wrapicon1 dis-block">
+    					<img src="<?php echo $this->getAssetsURL();?>/images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+    				</a>
+    				<span class="linedivide2"></span>
+    				<div class="header-wrapicon2">
+    					<img src="<?php echo $this->getAssetsURL();?>/images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+    					<span class="header-icons-noti">0</span>
+    					<!-- Header cart noti -->
+    					<div class="header-cart header-dropdown">
+    						<ul class="header-cart-wrapitem">
+    							<li class="header-cart-item">
+    								<div class="header-cart-item-img">
+    									<img src="<?php echo $this->getAssetsURL();?>/images/item-cart-01.jpg" alt="IMG">
+    								</div>
+    								<div class="header-cart-item-txt">
+    									<a href="#" class="header-cart-item-name">
+    										White Shirt With Pleat Detail Back
+    									</a>
+    									<span class="header-cart-item-info">
+    										1 x $19.00
+    									</span>
+    								</div>
+    							</li>
+    							<li class="header-cart-item">
+    								<div class="header-cart-item-img">
+    									<img src="<?php echo $this->getAssetsURL();?>/images/item-cart-02.jpg" alt="IMG">
+    								</div>
+    								<div class="header-cart-item-txt">
+    									<a href="#" class="header-cart-item-name">
+    										Converse All Star Hi Black Canvas
+    									</a>
+    
+    									<span class="header-cart-item-info">
+    										1 x $39.00
+    									</span>
+    								</div>
+    							</li>
+    							<li class="header-cart-item">
+    								<div class="header-cart-item-img">
+    									<img src="<?php echo $this->getAssetsURL();?>/images/item-cart-03.jpg" alt="IMG">
+    								</div>
+    
+    								<div class="header-cart-item-txt">
+    									<a href="#" class="header-cart-item-name">
+    										Nixon Porter Leather Watch In Tan
+    									</a>
+    									<span class="header-cart-item-info">
+    										1 x $17.00
+    									</span>
+    								</div>
+    							</li>
+    						</ul>
+    						<div class="header-cart-total">
+    							Total: $75.00
+    						</div>
+    						<div class="header-cart-buttons">
+    							<div class="header-cart-wrapbtn">
+    								<!-- Button -->
+    								<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+    									View Cart
+    								</a>
+    							</div>
+    							<div class="header-cart-wrapbtn">
+    								<!-- Button -->
+    								<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+    									Check Out
+    								</a>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+    				<span class="hamburger-box">
+    					<span class="hamburger-inner"></span>
+    				</span>
+    			</div>
+    		</div>
+    	</div>
+    	<!-- Menu Mobile -->
+    	<div class="wrap-side-menu" >
+    		<nav class="side-menu">
+    			<ul class="main-menu">
+    				<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
+    					<span class="topbar-child1">
+    						Free shipping for standard order over $100
+    					</span>
+    				</li>
+    				<li class="item-topbar-mobile p-l-20 p-t-8 p-b-8">
+    					<div class="topbar-child2-mobile">
+    						<span class="topbar-email">
+    							fashe@example.com
+    						</span>
+    						<div class="topbar-language rs1-select2">
+    							<select class="selection-1" name="time">
+    								<option>USD</option>
+    								<option>EUR</option>
+    							</select>
+    						</div>
+    					</div>
+    				</li>
+    				<li class="item-topbar-mobile p-l-10">
+    					<div class="topbar-social-mobile">
+    						<a href="#" class="topbar-social-item fa fa-facebook"></a>
+    						<a href="#" class="topbar-social-item fa fa-instagram"></a>
+    						<a href="#" class="topbar-social-item fa fa-pinterest-p"></a>
+    						<a href="#" class="topbar-social-item fa fa-snapchat-ghost"></a>
+    						<a href="#" class="topbar-social-item fa fa-youtube-play"></a>
+    					</div>
+    				</li>
+    				<li class="item-menu-mobile">
+    					<a href="index.html">Home</a>
+    					<ul class="sub-menu">
+    						<li><a href="index.html">Homepage V1</a></li>
+    						<li><a href="home-02.html">Homepage V2</a></li>
+    						<li><a href="home-03.html">Homepage V3</a></li>
+    					</ul>
+    					<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+    				</li>
+    				<li class="item-menu-mobile"><a href="product.html">Shop</a></li>
+    				<li class="item-menu-mobile"><a href="product.html">Sale</a></li>
+    				<li class="item-menu-mobile"><a href="cart.html">Features</a></li>
+    				<li class="item-menu-mobile"><a href="blog.html">Blog</a></li>
+    				<li class="item-menu-mobile"><a href="about.html">About</a></li>
+    				<li class="item-menu-mobile"><a href="contact.html">Contact</a></li>
+    			</ul>
+    		</nav>
+    	</div>
+    </header>
+   
+	<!-- MAIN CONTENT -->
+	<div id="conntent"><?php echo $this->contents; ?></div>
+	<!-- FOOTER -->
+    <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
+    	<div class="flex-w p-b-90">
+    		<div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
+    			<h4 class="s-text12 p-b-30">GET IN TOUCH</h4>
+    			<div>
+    				<p class="s-text7 w-size27">
+    					Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+    				</p>
+       				<div class="flex-m p-t-30">
+    					<a href="#" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
+    					<a href="#" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
+    					<a href="#" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
+    					<a href="#" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
+    					<a href="#" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+    			<h4 class="s-text12 p-b-30">Categories</h4>
+    			<ul>
+    				<li class="p-b-9"><a href="#" class="s-text7">Men</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">Women</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">Dresses</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">Sunglasses</a></li>
+    			</ul>
+    		</div>
+    		<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+    			<h4 class="s-text12 p-b-30">Links</h4>
+    			<ul>
+    				<li class="p-b-9"><a href="#" class="s-text7">Search</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">About Us</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">Contact Us</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">Returns</a></li>
+    			</ul>
+    		</div>
+    		<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+    			<h4 class="s-text12 p-b-30">Help</h4>
+    			<ul>
+    				<li class="p-b-9"><a href="#" class="s-text7">Track Order</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">Returns</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">Shipping</a></li>
+    				<li class="p-b-9"><a href="#" class="s-text7">FAQs</a></li>
+    			</ul>
+    		</div>
+    		<div class="w-size8 p-t-30 p-l-15 p-r-15 respon3">
+    			<h4 class="s-text12 p-b-30">Newsletter</h4>
+    			<form>
+    				<div class="effect1 w-size9">
+    					<input class="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com">
+    					<span class="effect1-line"></span>
+    				</div>
+    				<div class="w-size2 p-t-20">
+    					<!-- Button -->
+    					<button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">Subscribe</button>
+    				</div>
+       			</form>
+    		</div>
+    	</div>
+    	<div class="t-center p-l-15 p-r-15">
+    		<div class="t-center s-text8 p-t-20">
+    			Copyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    		</div>
+    	</div>
+    </footer>
+	<!-- BACK TO TOP -->
+    <div class="btn-back-to-top bg0-hov" id="myBtn">
+    	<span class="symbol-btn-back-to-top">
+    		<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+    	</span>
     </div>
-	<!-- JS File-->
-    <script type="text/javascript" src="assets/vendor/slick/slick.min.js"></script>
-	<script type="text/javascript" src="assets/js/slick-custom.js"></script>
-	<script type="text/javascript" src="assets/js/main.js"></script>
+	<!-- JS FILE -->
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/animsition/js/animsition.min.js"></script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/js/popper.js"></script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/select2/select2.min.js"></script>
+	<script type="text/javascript">
+		$(".selection-1").select2({
+	    	minimumResultsForSearch: 20,
+	    	dropdownParent: $('#dropDownSelect1')
+	    });
+	    $(".selection-2").select2({
+	    	minimumResultsForSearch: 20,
+	    	dropdownParent: $('#dropDownSelect2')
+	    });
+	</script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/slick/slick.min.js"></script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/js/slick-custom.js"></script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/countdowntime/countdowntime.js"></script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/lightbox2/js/lightbox.min.js"></script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		$('.block2-btn-addcart').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+			});
+		});
+
+		$('.block2-btn-addwishlist').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+			});
+		});
+	</script>
+	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/parallax100/parallax100.js"></script>
+	<script type="text/javascript">
+        $('.parallax100').parallax100();
+	</script>
+	<script src="<?php echo $this->getAssetsURL();?>/js/main.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function () {
+		/* Login */
+		$("#login").submit(function(e){
+		    e.preventDefault();
+            var form = $(this);
+		    $.ajax({
+		    	url: "<?php echo $this->getControllerURL('user', 'checkLogin'); ?>",
+                type: 'POST',
+		    	data: form.serialize(),
+		    	success:
+		    	    function(result){
+						switch(result){
+							case "0":
+							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin');
+								break;
+						    case "1":
+							    alert("Incorrect username/password.");
+								break;
+							case "2":
+							    alert("Please enter both username and password.");
+							default: break;
+						}
+                    }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
-<!--
-=========================================================
-* ArchitectUI HTML Theme Dashboard - v1.0.0
-=========================================================
-* Product Page: https://dashboardpack.com
-* Copyright 2019 DashboardPack (https://dashboardpack.com)
-* Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+

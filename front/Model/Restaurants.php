@@ -3,17 +3,16 @@ class Restaurants {
 	public function getRestaurant($restaurantId) {
 		$stmt = Application::DBPrepQuery( "
 			SELECT 
-				`restaurant_id`,
-				`restaurant_name`,
-				`branch_name`,
-				`short_desc`,
-                `full_desc`,
-				`business_hours`,
-				`address`,
-				`latitude`,
-				`longitude`,
-				`website`,
-				`phone_no`
+				`restaurant`.`restaurant_id`,
+				`restaurant`.`restaurant_name`,
+				`restaurant`.`branch_name`,
+				`restaurant`.`short_desc`,
+				`restaurant`.`full_desc`,
+				`restaurant`.`business_hours`,
+				`restaurant`.`address`,
+				`restaurant`.`website`,
+				`restaurant`.`phone_no`,
+				`restaurant`.`image`
 			FROM `restaurant`
 			WHERE `restaurant_id` = ?;
 		");
@@ -25,31 +24,75 @@ class Restaurants {
 		}
 		return false;
 	}
-	public function updateRestaurant($restaurantId, $restaurantName, $branchName, $shortDesc, $longDesc, $hours, $address, $longitude, $latitude, $website, $phoneno, $image){
-		$response = false;
-		if ($restaurantId) {
-			$stmt = Application::DBPrepQuery( "
-				UPDATE 
-					`restaurant`
-				SET `restaurant_name` = ?,
-				    `branch_name` = ?,
-					`short_desc` = ?,
-					`full_desc` = ?,
-					`business_hours` = ?,
-					`address` = ?,
-					`longitude` = ?,
-					`latitude` = ?,
-					`website` = ?,
-					`phone_no` = ?,
-					`image` = ?
-				WHERE `restaurant_id` = ?;
-		    ");
-			$stmt->bind_param("ssssssddsssi", $restaurantName, $branchName, $shortDesc, $longDesc, $hours, $address, $longitude, $latitude, $website, $phoneno, $image, $restaurantId);
-			$result = $stmt->execute();
-			if ($result) {
-				$response = true;
-			}
+	public function getNewRestaurants($sort = 'date_created', $order = 'DESC', $limit = '3') {
+		$restaurants = array();
+		$result = Application::DBQuery( "
+			SELECT 
+				`restaurant`.*
+			FROM `restaurant`
+			ORDER BY `restaurant`.`$sort` $order
+			LIMIT $limit;
+		");
+		while ($row = $result->fetch_assoc()) {
+			$restaurants[] = $row;
 		}
-		return $response;
+		return $restaurants;
+	}
+	public function getRestaurants($name = '', $longitude, $latitude, $sort = '') {
+		$restaurants = array();
+		$name = '%'.$name.'%';
+		$limit = 12;
+		$filterVacant = ($sort == "vacant") ? " AND `s`.`status_id` = 0" : "";
+		$orderByCount = ($sort != "nearest") ? "`count` DESC," : "";
+		$stmt = Application::DBPrepQuery( "
+			SELECT 
+				`r`.*,
+				`s`.*,
+				count(`s`.`seat_id`) AS `count`,
+				( ACOS( COS( RADIANS(?)) 
+                    * COS( RADIANS(`r`.`latitude`))
+                    * COS( RADIANS(`r`.`longitude`) - RADIANS(?))
+                    + SIN( RADIANS(?))
+                    * SIN( RADIANS(`r`.`latitude`))
+                    ) * 6371
+				) AS distance_in_km
+			FROM `restaurant` `r`
+			LEFT JOIN `seat` `s` on `s`.`restaurant_id` = `r`.`restaurant_id`
+			WHERE (`r`.`restaurant_name` LIKE ?)
+				  $filterVacant
+		    GROUP BY `r`.`restaurant_id`
+			ORDER BY 
+			    $orderByCount
+				distance_in_km ASC
+			LIMIT 0, $limit;
+		");
+		
+		/* SELECT r.restaurant_id
+      , r.restaurant_name
+      , r.address
+      , r.latitude
+      , r.longitude
+
+      , ( ACOS( COS( RADIANS( 13.750000  ) ) 
+              * COS( RADIANS( r.latitude ) )
+              * COS( RADIANS( r.longitude ) - RADIANS( 121.050000 ) )
+              + SIN( RADIANS( 13.750000  ) )
+              * SIN( RADIANS( r.latitude ) )
+          )
+        * 6371
+        ) AS distance_in_km
+
+  FROM restaurant r
+ ORDER BY distance_in_km ASC
+ LIMIT 100*/
+ 
+ 
+		$stmt->bind_param("ssss", $latitude, $longitude, $latitude, $name);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		while ($row = $result->fetch_assoc()) {
+			$restaurants[] = $row;
+		}
+		return $restaurants;
 	}
 }
