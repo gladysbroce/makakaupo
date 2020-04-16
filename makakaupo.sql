@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2020 at 04:19 PM
+-- Generation Time: Apr 16, 2020 at 03:49 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -80,7 +80,7 @@ CREATE TABLE `seat` (
   `floor_id` int(10) NOT NULL,
   `row_no` int(5) NOT NULL,
   `col_no` int(5) NOT NULL,
-  `status_id` int(5) NOT NULL DEFAULT '0',
+  `status_id` int(2) NOT NULL DEFAULT '0',
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -89,32 +89,46 @@ CREATE TABLE `seat` (
 --
 
 INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, `status_id`, `date_modified`) VALUES
-(21, 2, 1, 25, 1, 0, '2020-03-08 15:42:15'),
-(22, 2, 1, 25, 20, 2, '2020-03-08 15:42:15'),
-(23, 4, 3, 1, 1, 1, '2020-03-08 16:20:16'),
-(25, 4, 1, 1, 1, 0, '2020-03-10 21:51:12'),
-(29, 1, 1, 2, 2, 2, '2020-04-10 20:56:08'),
-(30, 1, 1, 2, 3, 2, '2020-04-10 20:56:08'),
-(31, 1, 1, 3, 2, 1, '2020-04-10 20:56:08'),
-(32, 1, 1, 3, 3, 2, '2020-04-10 20:56:08'),
-(33, 1, 2, 2, 3, 0, '2020-04-10 20:56:08'),
-(34, 1, 2, 2, 4, 0, '2020-04-10 20:56:08'),
-(35, 1, 2, 3, 3, 0, '2020-04-10 20:56:08'),
-(36, 2, 2, 3, 4, 0, '2020-04-10 20:56:08'),
-(37, 1, 3, 2, 4, 2, '2020-04-10 20:56:08'),
-(38, 1, 3, 2, 5, 2, '2020-04-10 20:56:08'),
-(39, 1, 3, 3, 4, 2, '2020-04-10 20:56:08'),
-(40, 1, 3, 3, 5, 2, '2020-04-10 20:56:08'),
-(41, 1, 4, 2, 5, 0, '2020-04-10 20:56:08'),
-(42, 1, 4, 2, 6, 0, '2020-04-10 20:56:08'),
-(43, 1, 4, 3, 5, 0, '2020-04-10 20:56:08'),
-(44, 1, 4, 3, 6, 0, '2020-04-10 20:56:08'),
-(45, 1, 1, 2, 4, 0, '2020-04-10 20:59:50'),
-(46, 1, 1, 3, 4, 0, '2020-04-10 20:59:50'),
-(47, 1, 1, 1, 1, 0, '2020-04-10 21:30:24'),
-(48, 1, 1, 1, 20, 0, '2020-04-10 21:30:24'),
-(49, 1, 1, 25, 1, 0, '2020-04-10 21:30:24'),
-(50, 1, 1, 25, 20, 0, '2020-04-10 21:30:24');
+(1, 1, 1, 1, 1, 0, '2020-04-16 21:03:40'),
+(2, 1, 1, 1, 20, 0, '2020-04-16 21:03:40'),
+(3, 1, 1, 25, 1, 0, '2020-04-16 21:03:40'),
+(4, 1, 1, 25, 20, 0, '2020-04-16 21:03:40'),
+(5, 1, 2, 1, 2, 1, '2020-04-16 21:03:40'),
+(6, 1, 2, 1, 19, 0, '2020-04-16 21:03:40'),
+(7, 1, 2, 25, 2, 0, '2020-04-16 21:03:40'),
+(8, 1, 2, 25, 19, 0, '2020-04-16 21:03:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seat_log`
+--
+
+CREATE TABLE `seat_log` (
+  `seat_log_id` int(50) NOT NULL,
+  `restaurant_id` int(10) NOT NULL,
+  `floor_id` int(10) NOT NULL,
+  `row_no` int(5) NOT NULL,
+  `col_no` int(5) NOT NULL,
+  `status_id` int(2) NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `seat_log`
+--
+
+INSERT INTO `seat_log` (`seat_log_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, `status_id`, `date_created`) VALUES
+(1, 1, 1, 1, 1, 1, '2020-04-15 21:03:50'),
+(2, 1, 1, 1, 20, 1, '2020-04-14 21:03:53'),
+(3, 1, 2, 1, 2, 1, '2020-04-13 21:03:57'),
+(4, 1, 2, 1, 2, 2, '2020-04-12 21:03:59'),
+(5, 1, 1, 1, 1, 2, '2020-04-11 21:04:48'),
+(6, 1, 1, 1, 1, 0, '2020-04-16 21:04:50'),
+(7, 1, 1, 1, 20, 2, '2020-04-16 21:05:13'),
+(8, 1, 1, 1, 20, 0, '2020-04-16 21:05:13'),
+(9, 1, 2, 1, 2, 1, '2020-04-16 21:05:25'),
+(10, 1, 2, 1, 2, 1, '2020-04-16 21:05:26');
 
 -- --------------------------------------------------------
 
@@ -176,6 +190,12 @@ ALTER TABLE `seat`
   ADD PRIMARY KEY (`seat_id`);
 
 --
+-- Indexes for table `seat_log`
+--
+ALTER TABLE `seat_log`
+  ADD PRIMARY KEY (`seat_log_id`);
+
+--
 -- Indexes for table `seat_status`
 --
 ALTER TABLE `seat_status`
@@ -201,7 +221,13 @@ ALTER TABLE `restaurant`
 -- AUTO_INCREMENT for table `seat`
 --
 ALTER TABLE `seat`
-  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `seat_log`
+--
+ALTER TABLE `seat_log`
+  MODIFY `seat_log_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user`
