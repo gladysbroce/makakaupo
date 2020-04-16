@@ -3,6 +3,7 @@ class Status extends System {
 	public function __construct() {
 		parent::__construct();
 		$this->_seats = new Seats();
+		$this->_logs = new Logs();
 	}
 	public function index()	{
 		$this->menu = "status";
@@ -19,7 +20,10 @@ class Status extends System {
 		$seat = isset($_POST["seat"]) ? $_POST["seat"] : "";
 		$status = isset($_POST["status"]) ? $_POST["status"] : 0;
 		if ($restaurant_id && $seat) {
-		    $this->_seats->updateSeat($restaurant_id, $seat["floor_id"], $seat["row_no"], $seat["col_no"], $status);
+		    $response = $this->_seats->updateSeat($restaurant_id, $seat["floor_id"], $seat["row_no"], $seat["col_no"], $status);
+			if ($response) {
+				$this->_logs->addLog($restaurant_id, $seat["floor_id"], $seat["row_no"], $seat["col_no"], $status);
+			}
 		}
 	}
 	public function updateAll() {

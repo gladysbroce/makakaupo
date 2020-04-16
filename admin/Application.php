@@ -4,7 +4,7 @@ class Application {
 	const
 		HOST = 'localhost',
 		USER = 'root',
-		PW = '',
+		PW = 'root',
 		DB = 'makakaupo';
 	private $_controller = '',
 		$_action = '',

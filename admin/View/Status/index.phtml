@@ -25,7 +25,6 @@ $(document).ready(function () {
 			$(this).removeClass("seat-reserved");
 			$(this).addClass("seat-vacant");
 		}
-		console.log(status);
 		// Update status in db
 		var seat_data = $(this).attr('id').split("_");
 	    var seat = {"floor_id": seat_data[0],
@@ -34,15 +33,7 @@ $(document).ready(function () {
 		$.ajax({
             url: "<?php echo $this->getBaseURL()."status/update" ?>",
             type: 'POST',
-			data: {"restaurant_id": 1, "seat": seat, "status": status},
-			success:
-			    function(data){
-                   alert("ok!");
-                },
-			error:
-			    function(data){
-                   alert("error!");
-                }
+			data: {"restaurant_id": 1, "seat": seat, "status": status}
         });
     });
 	/* Set all seats to vacant/occupied/reserved */
@@ -98,29 +89,35 @@ $(document).ready(function () {
 	</div>
 </div>
 <div class="w-size28 respon5">
-	<div class="wrap-slick3 flex-sb flex-w">
-		<div class="wrap-slick3-dots"></div>
-		<div class="slick3">
-		    <?php foreach ($this->floors  as $floor => $seats): ?>
-				<div class="item-slick3" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $floor?>.jpg">
-					<div class="workspace">
-				    	<?php for($x=1; $x<=25; $x++){ ?>
-				    	    <?php for($y=1; $y<=20; $y++){ ?>
-				    	        <div class="seat-space 
-				    			            <?php echo ($x == 25) ? "seat-last-row": ""; ?>
-				    						<?php echo ($y == 20) ? "seat-last-col": ""; ?>" 
-				    			     id="<?php echo $floor."_".$x."_".$y;?>">
-				    			</div>
-				    	    <?php } ?>
-				    		<br />
-				    	<?php } ?>
-				    </div>
-			    </div>
-			<?php endforeach ?>
-		</div>
-	</div>
-	Set all to:
-	<button class="mb-2 mr-2 btn btn-focus btn-all" id="vacant">Vacant</button>
-	<button class="mb-2 mr-2 btn btn-focus btn-all" id="occupied">Occupied</button>
-	<button class="mb-2 mr-2 btn btn-focus btn-all" id="reserved">Reserved</button>
+    <?php if ($this->floors){ ?>
+	    <div class="wrap-slick3 flex-sb flex-w">
+	    	<div class="wrap-slick3-dots"></div>
+	    	<div class="slick3">
+	    	    
+	    	    <?php foreach ($this->floors  as $floor => $seats): ?>
+	    			<div class="item-slick3" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $floor?>.jpg">
+	    				<div class="workspace">
+	    			    	<?php for($x=1; $x<=25; $x++){ ?>
+	    			    	    <?php for($y=1; $y<=20; $y++){ ?>
+	    			    	        <div class="seat-space 
+	    			    			            <?php echo ($x == 25) ? "seat-last-row": ""; ?>
+	    			    						<?php echo ($y == 20) ? "seat-last-col": ""; ?>" 
+	    			    			     id="<?php echo $floor."_".$x."_".$y;?>">
+	    			    			</div>
+	    			    	    <?php } ?>
+	    			    		<br />
+	    			    	<?php } ?>
+	    			    </div>
+	    		    </div>
+	    		<?php endforeach ?>
+        
+	    	</div>
+	    </div>
+	    Set all to:
+	    <button class="mb-2 mr-2 btn btn-focus btn-all" id="vacant">Vacant</button>
+	    <button class="mb-2 mr-2 btn btn-focus btn-all" id="occupied">Occupied</button>
+	    <button class="mb-2 mr-2 btn btn-focus btn-all" id="reserved">Reserved</button>
+	<?php } else { ?>
+	    Please create your restaurant layout on the Seat Layout Creator page.
+	<?php } ?>
 </div>

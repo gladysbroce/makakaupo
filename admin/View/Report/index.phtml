@@ -19,7 +19,8 @@
 			    <h5 class="card-title">
 				    Customers
 			        <div class="dropdown d-inline-block float-r">
-                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light btn-sm">This Week</button>
+						<input type="text" id="tbl1_start" class="date tbl1_date" autocomplete="off" /> ~ 
+						<input type="text" id="tbl1_end" class="date tbl1_date" autocomplete="off" />
                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
                             <button type="button" tabindex="0" class="dropdown-item">This Week</button>
                             <button type="button" tabindex="0" class="dropdown-item">This Month</button>
@@ -28,7 +29,7 @@
                         </div>
                     </div>
 				</h5>
-                <div class="table-responsive">
+                <div id="customerTbl" class="table-responsive">
                     <table class="mb-0 table">
                         <thead>
                         <tr>
@@ -38,13 +39,13 @@
                         </tr>
                         </thead>
                         <tbody>
-						<?php for($i=0; $i<10; $i++){ ?>
+						<?php foreach ($this->customerLogs  as $key=>$val): ?>
                         <tr>
-                            <th scope="row"><?=$i+1?></th>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
+                            <th scope="row"><?php echo $key+1; ?></th>
+                            <td><?php echo $val["date"]; ?></td>
+                            <td><?php echo $val["count"]; ?></td>
                         </tr>
-						<?php } ?>
+						<?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
@@ -57,7 +58,8 @@
 			    <h5 class="card-title">
 			        Top Seats
 				 	 <div class="dropdown d-inline-block float-r">
-                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light btn-sm">Today</button>
+                        <input type="text" id="tbl2_start" class="date" autocomplete="off" /> ~ 
+						<input type="text" id="tbl2_end" class="date" autocomplete="off" />
                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
                             <button type="button" tabindex="0" class="dropdown-item">This Week</button>
                             <button type="button" tabindex="0" class="dropdown-item">This Month</button>
@@ -66,7 +68,7 @@
                         </div>
                     </div>
 			    </h5>
-                <div class="table-responsive">
+                <div id="seatTbl" class="table-responsive">
                     <table class="mb-0 table">
                         <thead>
                         <tr>
@@ -91,3 +93,30 @@
         </div>
     </div>
 </div>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+    $(".date").datepicker()
+        .datepicker("setDate", new Date())
+		.datepicker("option", "dateFormat", "yy-mm-dd");
+});
+$(".tbl1_date").datepicker({
+    onSelect: function(d, i) {
+		if (d !== i.lastVal){
+			var start = $("#tbl1_start").val();
+			var end   = $("#tbl1_end").val();
+			$.ajax({
+                url: "<?php echo $this->getBaseURL()."report/getCustomerLogs" ?>",
+                type: 'POST',
+		    	data: {"start": start, "end": end},
+		    	success: 
+				    function(data){
+					    $("#customerTbl").html(data);
+                    }
+            });
+        }
+        
+    }
+});
+</script>
