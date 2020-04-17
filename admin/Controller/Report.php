@@ -7,23 +7,83 @@ class Report extends System {
 	public function index()	{
 		$this->menu = "report";
 		$restaurant_id = 1;
+		date_default_timezone_set('Asia/Manila');
 		$today = date("Y-m-d");
 		$start = $today." 00:00:00";
 		$end   = $today." 23:59:59";
 		$this->customerLogs = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end);
+		$this->seatLogs = $this->_logs->getTopSeats($restaurant_id, $start, $end);
 		$this->setTemplate('View/Report/index.phtml');
 	}
-	
-	public function getCustomerLogs()	{
+	public function getLogs()	{
 		$restaurant_id = 1;
-		$today = date("Y-m-d");
+		$tbl       = isset($_POST["tbl"])   ? $_POST["tbl"]   : 1;
 		$startDate = isset($_POST["start"]) ? $_POST["start"] : "";
 		$endDate   = isset($_POST["end"])   ? $_POST["end"]   : "";
+		$page = 1;
 		if ($startDate && $endDate) {
 		    $start = $startDate." 00:00:00";
 		    $end   = $endDate." 23:59:59";
-		    $this->customerLogs = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end);
-			$this->setTemplate('View/Report/customer.phtml', false);
+			if ($tbl == 1) {
+		        $this->customerLogs = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end, $page);
+			    $this->setTemplate('View/Report/customer.phtml', false);
+			} else {
+				$this->seatLogs = $this->_logs->getTopSeats($restaurant_id, $start, $end, $page);
+			    $this->setTemplate('View/Report/seat.phtml', false);
+			}
 		}
+	}
+	private function _array2csv(array &$array){
+       if (count($array) == 0) {
+         return null;
+       }
+       ob_start();
+       $df = fopen("php://output", 'w');
+       fputcsv($df, array_keys(reset($array)));
+       foreach ($array as $row) {
+          fputcsv($df, $row);
+       }
+       fclose($df);
+       return ob_get_clean();
+    }
+    private function _download_send_headers($filename) {
+        // disable caching
+        $now = gmdate("D, d M Y H:i:s");
+        header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+        header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
+        header("Last-Modified: {$now} GMT");
+    
+        // force download  
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+    
+        // disposition / encoding on response body
+        header("Content-Disposition: attachment;filename={$filename}");
+        header("Content-Transfer-Encoding: binary");
+    }
+	public function export() {
+		$data = array();
+		$restaurant_id = 1;
+		$tbl       = isset($_GET["tbl"])   ? $_GET["tbl"]   : 1;
+		$startDate = isset($_GET["start"]) ? $_GET["start"] : "";
+		$endDate   = isset($_GET["end"])   ? $_GET["end"]   : "";
+		$page = 1;
+		if ($startDate && $endDate) {
+		    $start = $startDate." 00:00:00";
+		    $end   = $endDate." 23:59:59";
+			if ($tbl == 1) {
+		        $data = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end, $page);
+			} else {
+				$data = $this->_logs->getTopSeats($restaurant_id, $start, $end, $page);
+			}
+		}
+		/*echo $startDate;
+		echo $endDate;
+		echo $tbl;
+		print_r($data);*/
+		$this->_download_send_headers("data_export_" . date("Y-m-d") . ".csv");
+        echo $this->_array2csv($data);
+		die();
 	}
 }

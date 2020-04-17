@@ -1,5 +1,7 @@
 <?php
 class Logs {
+	const LIMIT = 10;
+	
 	public function addLog($restaurantId, $floorId, $rowNo, $colNo, $status) {
 		$response = false;
 		if ($restaurantId && $floorId && $rowNo && $colNo && ($status >= 0 && $status <=3)) {
@@ -16,8 +18,10 @@ class Logs {
 		}
 		return $response;
 	}
-	public function getCustomersPerDay($restaurantId, $start, $end) {
-		$seats = array();
+	public function getCustomersPerDay($restaurantId, $start, $end, $page = 1) {
+		$logs = array();
+		$limit = self::LIMIT;
+		$page = ($page - 1) * $limit;
 		$stmt = Application::DBPrepQuery( "
 			SELECT
 			    DATE(`l`.`date_created`) AS `date`,
@@ -27,14 +31,47 @@ class Logs {
 			    `l`.`restaurant_id` = ? AND 
 				`l`.`status_id` = 1 AND
 				(`l`.`date_created` >= ? AND `l`.`date_created` <= ?)
-            GROUP BY DAY(`l`.`date_created`);
+            GROUP BY 
+			    DAY(`l`.`date_created`)
+		    ORDER BY
+			    `date` DESC
+			LIMIT $page, $limit;
 		");
 		$stmt->bind_param("iss", $restaurantId, $start, $end);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {
-			$seats[] = $row;
+			$logs[] = $row;
 		}
-		return $seats;
+		return $logs;
+	}
+	public function getTopSeats($restaurantId, $start, $end, $page = 1) {
+		$logs = array();
+		$limit = self::LIMIT;
+		$page = ($page - 1) * $limit;
+		$stmt = Application::DBPrepQuery( "
+			SELECT
+			    `l`.`row_no`,
+				`l`.`col_no`,
+				COUNT(*) AS `count`
+            FROM `seat_log` `l`
+			WHERE
+			    `l`.`restaurant_id` = ? AND 
+				`l`.`status_id` = 1 AND
+				(`l`.`date_created` >= ? AND `l`.`date_created` <= ?)
+            GROUP BY 
+			    `l`.`row_no`,
+				`l`.`col_no`
+		    ORDER BY
+			    `count` DESC
+			LIMIT $page, $limit;
+		");
+		$stmt->bind_param("iss", $restaurantId, $start, $end);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		while ($row = $result->fetch_assoc()) {
+			$logs[] = $row;
+		}
+		return $logs;
 	}
 }

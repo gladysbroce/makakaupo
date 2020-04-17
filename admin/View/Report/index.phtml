@@ -19,17 +19,11 @@
 			    <h5 class="card-title">
 				    Customers
 			        <div class="dropdown d-inline-block float-r">
-						<input type="text" id="tbl1_start" class="date tbl1_date" autocomplete="off" /> ~ 
-						<input type="text" id="tbl1_end" class="date tbl1_date" autocomplete="off" />
-                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-                            <button type="button" tabindex="0" class="dropdown-item">This Week</button>
-                            <button type="button" tabindex="0" class="dropdown-item">This Month</button>
-							<button type="button" tabindex="0" class="dropdown-item">This Year</button>
-							<button type="button" tabindex="0" class="dropdown-item">All Time</button>
-                        </div>
+						<input type="text" id="start-date-1" class="date" autocomplete="off" /> ~ 
+						<input type="text" id="end-date-1" class="date" autocomplete="off" />
                     </div>
 				</h5>
-                <div id="customerTbl" class="table-responsive">
+                <div id="tbl-1" class="table-responsive">
                     <table class="mb-0 table">
                         <thead>
                         <tr>
@@ -48,6 +42,14 @@
 						<?php endforeach ?>
                         </tbody>
                     </table>
+                    <ul class="pagination pagination-sm">
+                        <li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+                        <li class="page-item active"><a href="javascript:void(0);" class="page-link">1</a></li>
+                        <li class="page-item"><a href="javascript:void(0);" class="page-link">2</a></li>
+                        <li class="page-item"><a href="javascript:void(0);" class="page-link">3</a></li>
+                        <li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+                    </ul>
+					<button class="mb-2 mr-2 btn btn-focus btn-export" id="export-1">Export</button>
                 </div>
             </div>
         </div>
@@ -58,17 +60,11 @@
 			    <h5 class="card-title">
 			        Top Seats
 				 	 <div class="dropdown d-inline-block float-r">
-                        <input type="text" id="tbl2_start" class="date" autocomplete="off" /> ~ 
-						<input type="text" id="tbl2_end" class="date" autocomplete="off" />
-                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
-                            <button type="button" tabindex="0" class="dropdown-item">This Week</button>
-                            <button type="button" tabindex="0" class="dropdown-item">This Month</button>
-							<button type="button" tabindex="0" class="dropdown-item">This Year</button>
-							<button type="button" tabindex="0" class="dropdown-item">All Time</button>
-                        </div>
+                        <input type="text" id="start-date-2" class="date" autocomplete="off" /> ~ 
+						<input type="text" id="end-date-2" class="date" autocomplete="off" />
                     </div>
 			    </h5>
-                <div id="seatTbl" class="table-responsive">
+                <div id="tbl-2" class="table-responsive">
                     <table class="mb-0 table">
                         <thead>
                         <tr>
@@ -78,14 +74,14 @@
                             <th>No. of Customers</th>
                         </tr>
                         </thead>
-						<?php for($i=0; $i<10; $i++){ ?>
+						<?php foreach ($this->seatLogs  as $key=>$val): ?>
                         <tr>
-                            <th scope="row"><?=$i+1?></th>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-							<td>Table cell</td>
+                            <th scope="row"><?php echo $key+1; ?></th>
+                            <td><?php echo $val["row_no"]; ?></td>
+                            <td><?php echo $val["col_no"]; ?></td>
+							<td><?php echo $val["count"]; ?></td>
                         </tr>
-						<?php } ?>
+						<?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
@@ -96,23 +92,40 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+$(document).ready(function () {
+    $(".btn-export").on("click", function(){
+		var elem = $(this).attr("id");
+		var tbl = elem[elem.length - 1];			
+		var start = $("#start-date-"+tbl).val();
+		var end   = $("#end-date-"+tbl).val();
+		
+		window.open('<?php echo $this->getBaseURL()."report/export" ?>?tbl='+tbl+'&start='+start+'&end='+end);
+		/*$.ajax({
+            url: "<?php echo $this->getBaseURL()."report/export" ?>",
+            type: 'POST',
+			data: {"tbl": tbl, "start": start, "end": end}
+        });*/
+    });
+});
 $( function() {
     $(".date").datepicker()
         .datepicker("setDate", new Date())
 		.datepicker("option", "dateFormat", "yy-mm-dd");
 });
-$(".tbl1_date").datepicker({
+$(".date").datepicker({
     onSelect: function(d, i) {
 		if (d !== i.lastVal){
-			var start = $("#tbl1_start").val();
-			var end   = $("#tbl1_end").val();
+			var elem = $(this).attr("id");
+			var tbl = elem[elem.length - 1];			
+			var start = $("#start-date-"+tbl).val();
+			var end   = $("#end-date-"+tbl).val();
 			$.ajax({
-                url: "<?php echo $this->getBaseURL()."report/getCustomerLogs" ?>",
+                url: "<?php echo $this->getBaseURL()."report/getLogs"; ?>",
                 type: 'POST',
-		    	data: {"start": start, "end": end},
+		    	data: {"tbl": tbl, "start": start, "end": end},
 		    	success: 
 				    function(data){
-					    $("#customerTbl").html(data);
+					    $("#tbl-"+tbl).html(data);
                     }
             });
         }

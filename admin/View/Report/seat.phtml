@@ -1,18 +1,19 @@
-<div id="tbl-1" class="table-responsive">
+<div id="tbl-2" class="table-responsive">
     <table class="mb-0 table">
         <thead>
         <tr>
             <th>No.</th>
-            <th>Date</th>
+            <th>Row</th>
+			<th>Column</th>
             <th>No. of Customers</th>
         </tr>
         </thead>
-        <tbody>
-		<?php foreach ($this->customerLogs  as $key=>$val): ?>
+		<?php foreach ($this->seatLogs  as $key=>$val): ?>
         <tr>
             <th scope="row"><?php echo $key+1; ?></th>
-            <td><?php echo $val["date"]; ?></td>
-            <td><?php echo $val["count"]; ?></td>
+            <td><?php echo $val["row_no"]; ?></td>
+            <td><?php echo $val["col_no"]; ?></td>
+			<td><?php echo $val["count"]; ?></td>
         </tr>
 		<?php endforeach ?>
         </tbody>
