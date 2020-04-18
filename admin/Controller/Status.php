@@ -31,7 +31,13 @@ class Status extends System {
 		$floor_id = isset($_POST["floor_id"]) ? $_POST["floor_id"] : "";
 		$status = isset($_POST["status"]) ? $_POST["status"] : 0;
 		if ($restaurant_id && $floor_id) {
-		    $this->_seats->updateAllSeatsByFloor($restaurant_id, $floor_id, $status);
+		    $response = $this->_seats->updateAllSeatsByFloor($restaurant_id, $floor_id, $status);
+			if ($response) {
+				$seats = $this->_seats->getSeats($restaurant_id, $floor_id);
+				foreach ($seats as $seat) {
+			        $this->_logs->addLog($restaurant_id, $seat["floor_id"], $seat["row_no"], $seat["col_no"], $status);
+		        }
+			}
 		}
 	}
 }

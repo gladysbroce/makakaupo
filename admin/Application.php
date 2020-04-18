@@ -2,10 +2,10 @@
 require_once('SystemConstants.php');
 class Application {
 	const
-		HOST = 'localhost',
-		USER = 'root',
-		PW = 'root',
-		DB = 'makakaupo';
+		HOST = 'localhost',  // localhost : sql308.byethost15.com
+		USER = 'root',  // root : b15_25567107
+		PW = '', // none : systemone 
+		DB = 'makakaupo'; //makakaupo : b15_25567107_makakaupo
 	private $_controller = '',
 		$_action = '',
 		$_args = array();

@@ -22,7 +22,7 @@ class Profile extends System {
 		$latitude = $this->_getLatitude();
 		$website = $this->_getWebsite();
 		$phoneno = $this->_getPhoneNo();
-		$image = "";
+		$image = $this->_getOldImage();
 		if(!empty( $_FILES['image']['name'])){
 			$dirname = $this->getImagesPath().'restaurants';
 			$sourceFile = !empty( $_FILES['image']['tmp_name'] ) ? $_FILES['image']['tmp_name'] : $_FILES['image']['name'];
@@ -91,6 +91,12 @@ class Profile extends System {
 	private function _getPhoneNo() {
 		if (!empty($_POST['phoneno']) && $phoneno = trim($_POST['phoneno'])) {
 			return $phoneno;
+		}
+		return false;
+	}
+	private function _getOldImage() {
+		if (!empty($_POST['oldImage']) && $image = $_POST['oldImage']) {
+			return $image;
 		}
 		return false;
 	}

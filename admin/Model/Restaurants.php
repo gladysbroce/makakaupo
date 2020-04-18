@@ -13,7 +13,8 @@ class Restaurants {
 				`latitude`,
 				`longitude`,
 				`website`,
-				`phone_no`
+				`phone_no`,
+				`image`
 			FROM `restaurant`
 			WHERE `restaurant_id` = ?;
 		");

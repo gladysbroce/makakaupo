@@ -1,9 +1,10 @@
 <?php
 class Seats {
-	public function getSeats($restaurantId, $floorId) {
+	public function getSeats($restaurantId, $floorId = "") {
 		$seats = array();
 		$stmt = Application::DBPrepQuery( "
-			SELECT 
+			SELECT
+				`seat`.`floor_id`,
 				`seat`.`row_no`,
 				`seat`.`col_no`,
 				`seat_status`.`seat_status_name`

@@ -33,6 +33,29 @@ class Report extends System {
 			}
 		}
 	}
+	public function export() {
+		$data = array();
+		$restaurant_id = 1;
+		$tbl       = isset($_GET["tbl"])   ? $_GET["tbl"]   : 1;
+		$startDate = isset($_GET["start"]) ? $_GET["start"] : "";
+		$endDate   = isset($_GET["end"])   ? $_GET["end"]   : "";
+		$page = 1;
+		$filename = "";
+		if ($startDate && $endDate) {
+		    $start = $startDate." 00:00:00";
+		    $end   = $endDate." 23:59:59";
+			if ($tbl == 1) {
+		        $data = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end, $page);
+				$filename = "Customer_Logs";
+			} else {
+				$data = $this->_logs->getTopSeats($restaurant_id, $start, $end, $page);
+				$filename = "Seat_Logs";
+			}
+		}
+		$this->_downloadSendHeaders($filename."_".date("Y-m-d").".csv");
+        echo $this->_array2csv($data);
+		die();
+	}
 	private function _array2csv(array &$array){
        if (count($array) == 0) {
          return null;
@@ -46,7 +69,7 @@ class Report extends System {
        fclose($df);
        return ob_get_clean();
     }
-    private function _download_send_headers($filename) {
+    private function _downloadSendHeaders($filename) {
         // disable caching
         $now = gmdate("D, d M Y H:i:s");
         header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
@@ -62,28 +85,4 @@ class Report extends System {
         header("Content-Disposition: attachment;filename={$filename}");
         header("Content-Transfer-Encoding: binary");
     }
-	public function export() {
-		$data = array();
-		$restaurant_id = 1;
-		$tbl       = isset($_GET["tbl"])   ? $_GET["tbl"]   : 1;
-		$startDate = isset($_GET["start"]) ? $_GET["start"] : "";
-		$endDate   = isset($_GET["end"])   ? $_GET["end"]   : "";
-		$page = 1;
-		if ($startDate && $endDate) {
-		    $start = $startDate." 00:00:00";
-		    $end   = $endDate." 23:59:59";
-			if ($tbl == 1) {
-		        $data = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end, $page);
-			} else {
-				$data = $this->_logs->getTopSeats($restaurant_id, $start, $end, $page);
-			}
-		}
-		/*echo $startDate;
-		echo $endDate;
-		echo $tbl;
-		print_r($data);*/
-		$this->_download_send_headers("data_export_" . date("Y-m-d") . ".csv");
-        echo $this->_array2csv($data);
-		die();
-	}
 }
