@@ -24,7 +24,7 @@ class Restaurants {
 		}
 		return false;
 	}
-	public function getNewRestaurants($sort = 'date_created', $order = 'DESC', $limit = '3') {
+	public function getNewRestaurants($sort = 'last_modified', $order = 'DESC', $limit = '3') {
 		$restaurants = array();
 		$result = Application::DBQuery( "
 			SELECT 
@@ -66,27 +66,6 @@ class Restaurants {
 				distance_in_km ASC
 			LIMIT 0, $limit;
 		");
-		
-		/* SELECT r.restaurant_id
-      , r.restaurant_name
-      , r.address
-      , r.latitude
-      , r.longitude
-
-      , ( ACOS( COS( RADIANS( 13.750000  ) ) 
-              * COS( RADIANS( r.latitude ) )
-              * COS( RADIANS( r.longitude ) - RADIANS( 121.050000 ) )
-              + SIN( RADIANS( 13.750000  ) )
-              * SIN( RADIANS( r.latitude ) )
-          )
-        * 6371
-        ) AS distance_in_km
-
-  FROM restaurant r
- ORDER BY distance_in_km ASC
- LIMIT 100*/
- 
- 
 		$stmt->bind_param("ssss", $latitude, $longitude, $latitude, $name);
 		$stmt->execute();
 		$result = $stmt->get_result();
