@@ -628,7 +628,7 @@ iframe {
 .logo {
   display: block;
   position: absolute;
-  left: 20px;
+  left: 25px;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -982,7 +982,7 @@ li.sale-noti > a {
 }
 
 .logo-mobile img {
-  max-height: 27px;
+  max-height: 50px;
 }
 
 /*[ btn show menu ]
@@ -2337,6 +2337,40 @@ input.num-product::-webkit-outer-spin-button,
 input.num-product::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; 
+}
+
+/* Home Page - Header */
+.header-account {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.login .form-control,
+.login .btn {
+	line-height:  1;
+	padding: .5rem 0.5rem;
+}
+/* Mobile Login */
+#mobile-login {
+  display: flex;
+}
+#mobile-username {
+  flex: 0 0 49%;
+  margin-right: 2%;
+}
+#mobile-password {
+  flex: 1;
 }
 
 /* Restaurant */
