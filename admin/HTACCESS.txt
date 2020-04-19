@@ -5,8 +5,8 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l 
 RewriteCond %{HTTPS} off
-RewriteRule (.*) http://localhost/makakaupo/admin/$1 [R=301,L]
-RewriteRule ^(status|layout|profile)/(.*)$ index.php?request=$1/$2 [L]
+#RewriteRule (.*) http://localhost/makakaupo/admin/$1 [R=301,L]
+#RewriteRule ^(status|layout|profile)/(.*)$ index.php?request=$1/$2 [L]
 RewriteRule ^(report)/(.*)$ index.php?request=$1/$2 [QSA,L]
 RewriteRule ^(status|layout|profile|report)$ index.php?request=$1/index [L]
 ErrorDocument 404 http://localhost/makakaupo/admin?request=notfound/index
