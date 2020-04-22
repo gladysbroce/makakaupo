@@ -71,7 +71,7 @@ $(document).ready(function () {
 		$.ajax({
             url: "<?php echo $this->getBaseURL()."layout/add" ?>",
             type: 'POST',
-			data: {"restaurant_id": 1, "seats": added_seats}
+			data: {"seats": added_seats}
         });
 		/* Delete original seats */
 		var deleted_seats = [];
@@ -87,7 +87,7 @@ $(document).ready(function () {
 		$.ajax({
             url: "<?php echo $this->getBaseURL()."layout/delete" ?>",
             type: 'POST',
-            data: {"restaurant_id": 1, "seats": deleted_seats}
+            data: {"seats": deleted_seats}
         });
     });
 });

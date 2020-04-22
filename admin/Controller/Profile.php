@@ -2,16 +2,18 @@
 class Profile extends System {
 	public function __construct() {
 		parent::__construct();
+		if (empty($_SESSION['restaurant_id'])) {
+			header( "Location: " . $this->getSiteURL());
+			die();
+		}
 		$this->_restaurants = new Restaurants();
 	}
 	public function index()	{
 		$this->menu = "profile";
-		$restaurantId = 1;
-		$this->restaurant = $this->_restaurants->getRestaurant($restaurantId);
+		$this->restaurant = $this->_restaurants->getRestaurant($_SESSION['restaurant_id']);
 		$this->setTemplate('View/Profile/index.phtml');
 	}
 	public function update() {
-		$restaurantId = 1;
 		$restaurantName = $this->_getRestaurantName();
 		$branchName = $this->_getBranchName();
 		$shortDesc = $this->_getShortDesc();
@@ -27,12 +29,12 @@ class Profile extends System {
 			$dirname = $this->getImagesPath().'restaurants';
 			$sourceFile = !empty( $_FILES['image']['tmp_name'] ) ? $_FILES['image']['tmp_name'] : $_FILES['image']['name'];
 			$extension  = pathinfo( $_FILES["image"]["name"], PATHINFO_EXTENSION );
-			$targetFile =  $dirname.'/'.$restaurantId.'.'.$extension;
+			$targetFile =  $dirname.'/'.$_SESSION['restaurant_id'].'.'.$extension;
 			move_uploaded_file( $sourceFile, $targetFile );
 			$this->compress($targetFile, $targetFile, 75);
-			$image = $restaurantId.'.'.$extension;
+			$image = $_SESSION['restaurant_id'].'.'.$extension;
 		}
-		$this->restaurant = $this->_restaurants->updateRestaurant($restaurantId, $restaurantName, $branchName, $shortDesc, $fullDesc, $hours, $address, $longitude, $latitude, $website, $phoneno, $image);
+		$this->restaurant = $this->_restaurants->updateRestaurant($_SESSION['restaurant_id'], $restaurantName, $branchName, $shortDesc, $fullDesc, $hours, $address, $longitude, $latitude, $website, $phoneno, $image);
 	}
 	private function _getRestaurantName() {
 		if (!empty($_POST['name']) && $name = trim($_POST['name'])) {

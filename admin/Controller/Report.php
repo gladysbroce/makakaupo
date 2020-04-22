@@ -2,21 +2,23 @@
 class Report extends System {
 	public function __construct() {
 		parent::__construct();
+		if (empty($_SESSION['restaurant_id'])) {
+			header( "Location: " . $this->getSiteURL());
+			die();
+		} 
 		$this->_logs = new Logs();
 	}
 	public function index()	{
 		$this->menu = "report";
-		$restaurant_id = 1;
 		date_default_timezone_set('Asia/Manila');
 		$today = date("Y-m-d");
 		$start = $today." 00:00:00";
 		$end   = $today." 23:59:59";
-		$this->customerLogs = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end);
-		$this->seatLogs = $this->_logs->getTopSeats($restaurant_id, $start, $end);
+		$this->customerLogs = $this->_logs->getCustomersPerDay($_SESSION['restaurant_id'], $start, $end);
+		$this->seatLogs = $this->_logs->getTopSeats($_SESSION['restaurant_id'], $start, $end);
 		$this->setTemplate('View/Report/index.phtml');
 	}
-	public function getLogs()	{
-		$restaurant_id = 1;
+	public function getLogs() {
 		$tbl       = isset($_POST["tbl"])   ? $_POST["tbl"]   : 1;
 		$startDate = isset($_POST["start"]) ? $_POST["start"] : "";
 		$endDate   = isset($_POST["end"])   ? $_POST["end"]   : "";
@@ -25,17 +27,16 @@ class Report extends System {
 		    $start = $startDate." 00:00:00";
 		    $end   = $endDate." 23:59:59";
 			if ($tbl == 1) {
-		        $this->customerLogs = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end, $page);
+		        $this->customerLogs = $this->_logs->getCustomersPerDay($_SESSION['restaurant_id'], $start, $end, $page);
 			    $this->setTemplate('View/Report/customer.phtml', false);
 			} else {
-				$this->seatLogs = $this->_logs->getTopSeats($restaurant_id, $start, $end, $page);
+				$this->seatLogs = $this->_logs->getTopSeats($_SESSION['restaurant_id'], $start, $end, $page);
 			    $this->setTemplate('View/Report/seat.phtml', false);
 			}
 		}
 	}
 	public function export() {
 		$data = array();
-		$restaurant_id = 1;
 		$tbl       = isset($_GET["tbl"])   ? $_GET["tbl"]   : 1;
 		$startDate = isset($_GET["start"]) ? $_GET["start"] : "";
 		$endDate   = isset($_GET["end"])   ? $_GET["end"]   : "";
@@ -45,10 +46,10 @@ class Report extends System {
 		    $start = $startDate." 00:00:00";
 		    $end   = $endDate." 23:59:59";
 			if ($tbl == 1) {
-		        $data = $this->_logs->getCustomersPerDay($restaurant_id, $start, $end, $page);
+		        $data = $this->_logs->getCustomersPerDay($_SESSION['restaurant_id'], $start, $end, $page);
 				$filename = "Customer_Logs";
 			} else {
-				$data = $this->_logs->getTopSeats($restaurant_id, $start, $end, $page);
+				$data = $this->_logs->getTopSeats($_SESSION['restaurant_id'], $start, $end, $page);
 				$filename = "Seat_Logs";
 			}
 		}

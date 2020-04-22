@@ -47,7 +47,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
-	 var clickTimeout;
+	var clickTimeout;
 	 
 	/* Initialize seat status */
     var floors = <?php echo json_encode($this->floors); ?>;
@@ -84,7 +84,7 @@ $(document).ready(function () {
 		$.ajax({
             url: "<?php echo $this->getBaseURL()."status/update" ?>",
             type: 'POST',
-			data: {"restaurant_id": 1, "seat": seat, "status": status}
+			data: {"seat": seat, "status": status}
         });
 		}, 500);
     });
@@ -103,24 +103,24 @@ $(document).ready(function () {
 		var sel_floor = $('.slick-current').attr("data-slick-index");
 		var floor_id = Object.keys(floors)[sel_floor];
 		clickTimeout = setTimeout(function(){
-		$.ajax({
-            url: "<?php echo $this->getBaseURL()."status/updateAll" ?>",
-            type: 'POST',
-			data: {"restaurant_id": 1, "floor_id": floor_id, "status": status},
-			success:
-			    function(data){
-					// Update all seats in the current floor
-                    $(".seat-assign").each(function(i) {
-						var seat_data = $(this).attr('id').split("_");
-						if (floor_id == seat_data[0]) {
-						    $(this).removeClass("seat-vacant");
-						    $(this).removeClass("seat-occupied");
-						    $(this).removeClass("seat-reserved");
-						    $(this).addClass("seat-"+btn);
-						}
-                    });
-                }
-        });
+		    $.ajax({
+                url: "<?php echo $this->getBaseURL()."status/updateAll" ?>",
+                type: 'POST',
+		    	data: {"floor_id": floor_id, "status": status},
+		    	success:
+		    	    function(data){
+		    			// Update all seats in the current floor
+                        $(".seat-assign").each(function(i) {
+		    				var seat_data = $(this).attr('id').split("_");
+		    				if (floor_id == seat_data[0]) {
+		    				    $(this).removeClass("seat-vacant");
+		    				    $(this).removeClass("seat-occupied");
+		    				    $(this).removeClass("seat-reserved");
+		    				    $(this).addClass("seat-"+btn);
+		    				}
+                        });
+                    }
+            });
 		}, 500);
 	});
 });
