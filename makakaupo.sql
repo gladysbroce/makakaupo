@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2020 at 07:34 AM
+-- Generation Time: Apr 22, 2020 at 04:26 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `restaurant` (
   `restaurant_id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL,
   `restaurant_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `branch_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `short_desc` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
@@ -48,25 +49,25 @@ CREATE TABLE `restaurant` (
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `branch_name`, `short_desc`, `full_desc`, `business_hours`, `address`, `longitude`, `latitude`, `website`, `phone_no`, `image`, `last_modified`) VALUES
-(1, 'Jobeeee', 'tanauan', 'short', 'long', '10AM', 'Tanauan, Batangas, Philippines', '121.150000', '14.083330', 'www', '090', '1.jpg', '2020-04-18 03:04:35'),
-(2, 'Mang Donaldo', 'Makati', 'short', 'long', '10AM', 'Shibuya, Tokyo, Tokyo Prefecture, Japan', '139.702400', '35.669800', 'www', '090', '2.jpg', '2020-03-16 11:00:00'),
-(3, 'KMC', 'Makati', 'short', 'long', '10AM', 'Makati, Philippines', '121.033330', '14.550000', 'www', '090', '3.jpg', '2020-03-16 09:00:00'),
-(4, 'Wendies', 'Makati', 'short', 'long', '10AM', 'Mandaluyong, Philippines', '121.033330', '14.583330', 'www', '090', '4.jpg', '2020-03-16 12:00:00'),
-(5, 'ABC', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '5.jpg', '2020-03-16 12:00:00'),
-(6, 'A', 'Makati', 'short', 'long', '10AM', 'Shibuya, Tokyo, Tokyo Prefecture, Japan', '139.702400', '35.669800', 'www', '090', '6.jpg', '0000-00-00 00:00:00'),
-(7, 'B', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '7.jpg', '2020-03-16 11:00:00'),
-(8, 'C', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '8.jpg', '2020-03-16 09:00:00'),
-(9, 'D', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '9.jpg', '2020-03-16 12:00:00'),
-(10, 'E', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '10.jpg', '2020-03-16 12:00:00'),
-(11, 'F', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '11.jpg', '2020-03-16 12:00:00'),
-(12, 'G', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '12.jpg', '2020-03-16 12:00:00'),
-(13, 'X', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '13.jpg', '2020-03-16 11:00:00'),
-(14, 'Y', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '14.jpg', '2020-03-16 09:00:00'),
-(15, 'Z', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '15.jpg', '2020-03-16 12:00:00'),
-(16, 'Q', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '16.jpg', '2020-03-16 12:00:00'),
-(17, 'R', 'Makati', 'short', 'long', '10AM', 'Batangas City, Batangas, Philippines', '121.050000', '13.750000', 'www', '090', '17.jpg', '2020-03-16 12:00:00'),
-(18, 'S', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '18.jpg', '2020-03-16 12:00:00');
+INSERT INTO `restaurant` (`restaurant_id`, `user_id`, `restaurant_name`, `branch_name`, `short_desc`, `full_desc`, `business_hours`, `address`, `longitude`, `latitude`, `website`, `phone_no`, `image`, `last_modified`) VALUES
+(1, 1, 'Jobeeee', 'tanauan', 'short', 'long', '10AM', 'Tanauan, Batangas, Philippines', '121.150000', '14.083330', 'www', '090', '1.jpg', '2020-04-21 14:12:00'),
+(2, 2, 'Mang Donaldo', 'Makati', 'short', 'long', '10AM', 'Shibuya, Tokyo, Tokyo Prefecture, Japan', '139.702400', '35.669800', 'www', '090', '2.jpg', '2020-04-21 14:12:03'),
+(3, 3, 'KMC', 'Makati', 'short', 'long', '10AM', 'Makati, Philippines', '121.033330', '14.550000', 'www', '090', '3.jpg', '2020-04-21 14:12:06'),
+(4, 0, 'Wendies', 'Makati', 'short', 'long', '10AM', 'Mandaluyong, Philippines', '121.033330', '14.583330', 'www', '090', '4.jpg', '2020-03-16 12:00:00'),
+(5, 0, 'ABC', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '5.jpg', '2020-03-16 12:00:00'),
+(6, 0, 'A', 'Makati', 'short', 'long', '10AM', 'Shibuya, Tokyo, Tokyo Prefecture, Japan', '139.702400', '35.669800', 'www', '090', '6.jpg', '0000-00-00 00:00:00'),
+(7, 0, 'B', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '7.jpg', '2020-03-16 11:00:00'),
+(8, 0, 'C', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '8.jpg', '2020-03-16 09:00:00'),
+(9, 0, 'D', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '9.jpg', '2020-03-16 12:00:00'),
+(10, 0, 'E', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '10.jpg', '2020-03-16 12:00:00'),
+(11, 0, 'F', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '11.jpg', '2020-03-16 12:00:00'),
+(12, 0, 'G', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '12.jpg', '2020-03-16 12:00:00'),
+(13, 0, 'X', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '13.jpg', '2020-03-16 11:00:00'),
+(14, 0, 'Y', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '14.jpg', '2020-03-16 09:00:00'),
+(15, 0, 'Z', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '15.jpg', '2020-03-16 12:00:00'),
+(16, 0, 'Q', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '16.jpg', '2020-03-16 12:00:00'),
+(17, 0, 'R', 'Makati', 'short', 'long', '10AM', 'Batangas City, Batangas, Philippines', '121.050000', '13.750000', 'www', '090', '17.jpg', '2020-03-16 12:00:00'),
+(18, 0, 'S', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '18.jpg', '2020-03-16 12:00:00');
 
 -- --------------------------------------------------------
 
@@ -108,7 +109,10 @@ INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, 
 (17, 1, 1, 24, 19, 1, '2020-04-18 12:07:54'),
 (18, 1, 1, 24, 20, 1, '2020-04-18 12:07:54'),
 (19, 1, 1, 25, 2, 1, '2020-04-18 12:07:54'),
-(20, 1, 1, 25, 19, 1, '2020-04-18 12:07:54');
+(20, 1, 1, 25, 19, 1, '2020-04-18 12:07:54'),
+(21, 1, 1, 23, 2, 0, '2020-04-18 15:26:50'),
+(22, 2, 1, 1, 1, 0, '2020-04-21 23:43:44'),
+(23, 2, 1, 25, 20, 0, '2020-04-21 23:43:44');
 
 -- --------------------------------------------------------
 
@@ -236,8 +240,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `last_login`) VALUES
 (1, 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', '2020-03-28 04:48:35'),
-(13, 'test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'test@gmail.com', '2020-04-06 13:47:29'),
-(14, 'glad', 'c6aa1595f76142b8020e7f7ec2ddaa8ef62a4254a5819095f4f8ed4816d96123', 'gladysbroce@gmail.com', '2020-04-06 14:00:40');
+(2, 'test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'test@gmail.com', '2020-04-21 14:11:32'),
+(3, 'glad', 'c6aa1595f76142b8020e7f7ec2ddaa8ef62a4254a5819095f4f8ed4816d96123', 'gladysbroce@gmail.com', '2020-04-21 14:11:36');
 
 --
 -- Indexes for dumped tables
@@ -281,13 +285,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `seat`
 --
 ALTER TABLE `seat`
-  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `seat_log`
@@ -299,7 +303,7 @@ ALTER TABLE `seat_log`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
