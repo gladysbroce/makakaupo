@@ -3,10 +3,13 @@ class Users {
 	public function getUser($username) {
 		$stmt = Application::DBPrepQuery( "
 			SELECT 
-				`username`,
-				`password`
-			FROM `user`
-			WHERE `username` = ?;
+				`u`.`username`,
+				`u`.`password`,
+				`r`.`restaurant_id`
+			FROM `user` `u`
+			INNER JOIN `restaurant` `r` 
+			    ON `r`.`user_id` = `u`.`user_id`
+			WHERE `u`.`username` = ?;
 		");
 		$stmt->bind_param("s", $username);
 		$stmt->execute();
@@ -26,10 +29,8 @@ class Users {
 		    ");
 			$stmt->bind_param("sss", $username, $password, $email);
 			$result = $stmt->execute();
-			if ($result) {
-				$response = true;
-			}
+			$id = $stmt->insert_id;
 		}
-		return $response;
+		return $id;
 	}
 }

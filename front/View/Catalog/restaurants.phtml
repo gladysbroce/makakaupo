@@ -1,0 +1,17 @@
+<?php foreach($this->restaurants as $restaurant):?>
+    <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+	    <div class="block2">
+	        <a href="<?php echo $this->getBaseURL()."/restaurant/".$restaurant['restaurant_id']; ?>">
+	        	<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+	        	    <img src="<?php echo $this->getAssetsURL().'/images/restaurants/'.$restaurant['image']; ?>" alt="IMG-PRODUCT">
+	    			<div class="block2-overlay trans-0-4"></div>
+	        	</div>
+	        	<div class="block2-txt p-t-20">
+	        	    <span class="block2-price s-text3 dis-block"><?php echo $restaurant['restaurant_name'];?></span>
+	        		<span class="block2-price s-text3"><?php echo $restaurant['address'];?></span>
+	        	</div>
+	    	</a>
+	    </div>
+	
+    </div>
+<?php endforeach ?>

@@ -36,12 +36,12 @@
 			<h3 class="m-text5 t-center">New Restaurants</h3>
 		</div>
 		<div class="row">
-		    <?php foreach($this->newRestaurants as $newRestaurant):?>
+		    <?php foreach($this->restaurants as $restaurant):?>
 			<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-				<?php echo $newRestaurant['restaurant_name'];?>
+				<?php echo $restaurant['restaurant_name'];?>
 				<div class="block1 hov-img-zoom pos-relative m-b-30">
-				    <a href="restaurant">
-					    <img src="<?php echo $this->getAssetsURL().'/images/restaurants/'.$newRestaurant['image']; ?>" alt="IMG-BENNER">
+				    <a href="<?php echo $this->getBaseURL()."/restaurant/".$restaurant['restaurant_id']; ?>">
+					    <img src="<?php echo $this->getAssetsURL().'/images/restaurants/'.$restaurant['image']; ?>" alt="IMG-BENNER">
 					</a>
 				</div>
 			</div>
@@ -78,7 +78,5 @@
 		$("#address").attr("value", data["result"]["place_name"]);
 		$("#longitude").attr("value", data["result"]["center"][0]);
 		$("#latitude").attr("value", data["result"]["center"][1]);
-		console.log(data["result"]["center"][0]);
-		console.log(data["result"]["center"][1]);
 	});
 </script>

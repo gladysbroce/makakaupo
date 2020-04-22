@@ -3,6 +3,7 @@ class User extends System {
 	public function __construct() {
 		parent::__construct();
 		$this->_users = new Users();
+		$this->_restaurants = new Restaurants();
 	}
 	public function checkLogin() {
 		$result   = 0;
@@ -12,6 +13,7 @@ class User extends System {
 			$user = $this->_users->getUser($username);
 			if ($user && $this->_checkLoginPassword($password, $user['password'])) {
 				$_SESSION['username'] = $user['username'];
+				$_SESSION['restaurant_id'] = $user['restaurant_id'];
 			} else {
 				$result = 1;
 			}
@@ -36,8 +38,9 @@ class User extends System {
 			if (!($this->_checkRegPassword($password1, $password2))) {
 				$result = 1;
 			} else {
-				$user = $this->_users->addUser($username, hash('sha256', $password1), $email);
-		        if (!$user) {
+				$user_id = $this->_users->addUser($username, hash('sha256', $password1), $email);
+				$restaurant = $this->_restaurants->addRestaurant($user_id);
+		        if (!$restaurant) {
 					$result = 2;
 				}
 			}

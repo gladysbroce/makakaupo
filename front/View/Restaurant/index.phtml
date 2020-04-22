@@ -1,16 +1,3 @@
-<script type="text/javascript">
-$(document).ready(function () {
-	/* Set seat status */
-    var floors = <?php echo json_encode($this->floors); ?>;
-	$.each(floors, function(floor_id, floor){
-		$.each(floor, function(index, seat){
-			var seat_id = floor_id+"_"+seat["row_no"]+"_"+seat["col_no"];
-			$("#"+seat_id).addClass("seat-assign seat-"+seat["seat_status_name"]);
-			console.log(seat_id+":"+seat["seat_status_name"]);
-		});
-	});
-});
-</script>
 <!-- breadcrumb -->
 <div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
 	<a href="index.html" class="s-text16">Home
@@ -29,6 +16,7 @@ $(document).ready(function () {
 	<div class="flex-w flex-sb">
 		<div class="w-size13 p-t-30 respon5">
 	        <div class="wrap-slick3 flex-sb flex-w">
+			    <?php if($this->floors){ ?>
 	        	<div class="wrap-slick3-dots"></div>				
 				<div class="slick3">
 		            <?php foreach ($this->floors  as $floor => $seats): ?>
@@ -48,7 +36,25 @@ $(document).ready(function () {
 			            </div>
 			        <?php endforeach ?>
 		        </div>
+				<?php } else { ?>
+				    <div class="workspace">
+					    <?php for($x=1; $x<=25; $x++){ ?>
+			        	    <?php for($y=1; $y<=20; $y++){ ?>
+			        	        <div class="seat-space 
+			        			            <?php echo ($x == 25) ? "seat-last-row": ""; ?>
+			        						<?php echo ($y == 20) ? "seat-last-col": ""; ?>">
+			        			</div>
+			        	    <?php } ?>
+			        		<br />
+			        	<?php } ?>
+					</div>
+				<?php } ?>
 	        </div>
+			<?php if (isset($this->lastModified)){ ?>
+			    <div class="t-center">
+			        <span class="s-text8">Last modified: <?php echo $this->lastModified; ?></span>
+			    </div>
+			<?php }?>
 		</div>
 		<div class="w-size14 p-t-30 respon5">
 		    <div class="dis-inline-block">
@@ -103,3 +109,15 @@ $(document).ready(function () {
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function () {
+	/* Set seat status */
+    var floors = <?php echo json_encode($this->floors); ?>;
+	$.each(floors, function(floor_id, floor){
+		$.each(floor, function(index, seat){
+			var seat_id = floor_id+"_"+seat["row_no"]+"_"+seat["col_no"];
+			$("#"+seat_id).addClass("seat-assign seat-"+seat["seat_status_name"]);
+		});
+	});
+});
+</script>

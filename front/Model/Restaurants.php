@@ -38,16 +38,19 @@ class Restaurants {
 		}
 		return $restaurants;
 	}
-	public function getRestaurants($name = '', $longitude, $latitude, $sort = '') {
+	public function getRestaurants($name = '', $longitude, $latitude, $sort = '', $page = 1) {
 		$restaurants = array();
 		$name = '%'.$name.'%';
 		$limit = 12;
+		$page = ($page - 1) * $limit;
 		$filterVacant = ($sort == "vacant") ? " AND `s`.`status_id` = 0" : "";
 		$orderByCount = ($sort != "nearest") ? "`count` DESC," : "";
 		$stmt = Application::DBPrepQuery( "
 			SELECT 
-				`r`.*,
-				`s`.*,
+				`r`.`restaurant_id`,
+				`r`.`restaurant_name`,
+				`r`.`address`,
+				`r`.`image`,
 				count(`s`.`seat_id`) AS `count`,
 				( ACOS( COS( RADIANS(?)) 
                     * COS( RADIANS(`r`.`latitude`))
@@ -64,7 +67,7 @@ class Restaurants {
 			ORDER BY 
 			    $orderByCount
 				distance_in_km ASC
-			LIMIT 0, $limit;
+			LIMIT $page, $limit;
 		");
 		$stmt->bind_param("ssss", $latitude, $longitude, $latitude, $name);
 		$stmt->execute();
@@ -72,6 +75,23 @@ class Restaurants {
 		while ($row = $result->fetch_assoc()) {
 			$restaurants[] = $row;
 		}
+		//print_r($restaurants);
 		return $restaurants;
+	}
+	public function addRestaurant($user_id) {
+		$response = false;
+		if ($user_id) {
+			$stmt = Application::DBPrepQuery( "
+			    INSERT INTO 
+			    	`restaurant`(`user_id`)
+			    VALUES (?);
+		    ");
+			$stmt->bind_param("i", $user_id);
+			$result = $stmt->execute();
+			if ($result) {
+				$response = true;
+			}
+		}
+		return $response;
 	}
 }
