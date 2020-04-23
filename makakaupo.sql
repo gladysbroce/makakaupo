@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2020 at 04:26 PM
+-- Generation Time: Apr 23, 2020 at 04:55 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -208,7 +208,7 @@ INSERT INTO `seat_log` (`seat_log_id`, `restaurant_id`, `floor_id`, `row_no`, `c
 
 CREATE TABLE `seat_status` (
   `seat_status_id` int(10) NOT NULL,
-  `seat_status_name` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+  `seat_status_name` varchar(15) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -285,7 +285,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `seat`
@@ -303,7 +303,7 @@ ALTER TABLE `seat_log`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
