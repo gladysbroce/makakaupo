@@ -35,8 +35,8 @@ class Report extends System {
 			}
 		}
 	}
-	public function export() {
-		$data = array();
+	public function exportCSV() {
+		$result = array();
 		$tbl       = isset($_GET["tbl"])   ? $_GET["tbl"]   : 1;
 		$startDate = isset($_GET["start"]) ? $_GET["start"] : "";
 		$endDate   = isset($_GET["end"])   ? $_GET["end"]   : "";
@@ -46,15 +46,15 @@ class Report extends System {
 		    $start = $startDate." 00:00:00";
 		    $end   = $endDate." 23:59:59";
 			if ($tbl == 1) {
-		        $data = $this->_logs->getCustomersPerDay($_SESSION['restaurant_id'], $start, $end, $page);
+		        $result = $this->_logs->getCustomersPerDay($_SESSION['restaurant_id'], $start, $end, $page);
 				$filename = "Customer_Logs";
 			} else {
-				$data = $this->_logs->getTopSeats($_SESSION['restaurant_id'], $start, $end, $page);
+				$result = $this->_logs->getTopSeats($_SESSION['restaurant_id'], $start, $end, $page);
 				$filename = "Seat_Logs";
 			}
 		}
 		$this->_downloadSendHeaders($filename."_".date("Y-m-d").".csv");
-        echo $this->_array2csv($data);
+        echo $this->_array2csv($result);
 		die();
 	}
 	private function _array2csv(array &$array){
@@ -86,4 +86,49 @@ class Report extends System {
         header("Content-Disposition: attachment;filename={$filename}");
         header("Content-Transfer-Encoding: binary");
     }
+	public function exportPDF() {
+		$header = array();
+		$result = array();
+		$tbl       = isset($_GET["tbl"])   ? $_GET["tbl"]   : 1;
+		$startDate = isset($_GET["start"]) ? $_GET["start"] : "";
+		$endDate   = isset($_GET["end"])   ? $_GET["end"]   : "";
+		$page = 1;
+		$table = "";
+		if ($startDate && $endDate) {
+		    $start = $startDate." 00:00:00";
+		    $end   = $endDate." 23:59:59";
+			if ($tbl == 1) {
+				$header = array("Date", "No. of Customers");
+		        $result = $this->_logs->getCustomersPerDay($_SESSION['restaurant_id'], $start, $end, $page);
+				$table = "Customer Logs";
+			} else {
+				$header = array("Row", "Column", "No. of Customers");
+				$result = $this->_logs->getTopSeats($_SESSION['restaurant_id'], $start, $end, $page);
+				$table = "Top Seats";
+			}
+		}
+        require('fpdf/fpdf.php');
+        $pdf = new FPDF();
+        $pdf->AddPage();
+		// Table Name
+		$pdf->SetFont('Arial', 'B', 12);
+		$pdf->Cell(40, 10, $table);
+		$pdf->Ln();
+		// Header
+        $pdf->SetFillColor(136, 187, 228);
+		$pdf->Cell(20, 12, "No", 1, 0, 'C', 1);
+        foreach ($header as $heading) {
+        	$pdf->Cell(50, 12, $heading, 1, 0, 'C', 1);
+        }
+		// Data
+		$pdf->SetFillColor(255, 255, 255);
+		$pdf->SetFont('Arial', '', 12);
+        foreach ($result as $index => $row ) {
+        	$pdf->Ln();
+			$pdf->Cell(20, 12, $index+1, 1, 0, 'C', 1);
+        	foreach($row as $column)
+        		$pdf->Cell(50, 12, $column, 1, 0, 'C', 1);
+        }
+        $pdf->Output();
+	}
 }
