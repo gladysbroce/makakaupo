@@ -49,10 +49,10 @@
 						        	</div>
 						    	</a>
 						    </div>
-						
 					    </div>
 					<?php endforeach ?>
 				</div>
+				<div id="loader"><p>Loading more items&hellip;</p></div>
 			</div>
 		</div>
 	</div>
@@ -76,6 +76,7 @@
 $(document).ready(function () {
 	var clickTimeout;
 	var page = 1;
+	var end = 0;  // End of Page
 	/* Get Search Result */
 	$("#filterBtn").on("click", function(){
 		search();
@@ -96,30 +97,29 @@ $(document).ready(function () {
 			success:
 			    function(data){
 					$("#result").html(data);
+					end = 0;
                 }
         });
 	}
 	$(window).scroll(function() {
-        if ($(window).scrollTop() == $(document).height() - $(window).height()){
+        if (end == 0 && $(window).scrollTop() == $(document).height() - $(window).height()){
 			clearTimeout(clickTimeout);
+			$('#loader').show();
+			clickTimeout = setTimeout(function(){
 			var name      = $("#name").val();
 		    var longitude = $("#longitude").val();
 		    var latitude  = $("#latitude").val();
 		    var sort      = $("#sort").val();
 			page++;  // Increment Page #
-			clickTimeout = setTimeout(function(){
-				console.log("name"+name);
-				console.log("longitude"+longitude);
-				console.log("latitude"+latitude);
-				console.log("sort"+sort);
-				console.log("page"+page);
                 $.ajax({
                     url: "<?php echo $this->getControllerURL('catalog', 'index'); ?>",
                     type: 'get',
 			        data : {"name": name, 'longitude': longitude, 'latitude': latitude,  "sort": sort, "page": page},
 			        success:
 			            function(data){
+							$("#loader").hide();
 							$("#result").append(data);
+							if (data.trim()==''){end = 1;}  // No next page
                         }
                 });
 			}, 1000);

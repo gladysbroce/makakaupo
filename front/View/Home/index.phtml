@@ -60,14 +60,29 @@
     .mapboxgl-ctrl-geocoder {
         min-width: 100%;
     }
+
 </style>
 <script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoiZ2xhZHlzYnJvY2UiLCJhIjoiY2s4dm12a3d3MGpjNjNqbzd1NDVnN3NkeCJ9.6MLAKKbn0ssuw6JtUT9DKA';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [121.000000, 14.583330],  // Default: Manila
-        zoom: 13
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZ2xhZHlzYnJvY2UiLCJhIjoiY2s4dm12a3d3MGpjNjNqbzd1NDVnN3NkeCJ9.6MLAKKbn0ssuw6JtUT9DKA';
+	var lng, lat;
+    if ("geolocation" in navigator){  // Get current location
+        navigator.geolocation.getCurrentPosition(getPosition,setDefPosition,{timeout:10000});
+    }
+	/* Set current location if geolocation is available */
+	function getPosition(position){
+		$("#longitude").attr("value", position.coords.longitude);
+		$("#latitude").attr("value", position.coords.latitude);
+	}
+	/* Set default location to Manila if geolocation is not available */
+	function setDefPosition(){
+		$("#longitude").attr("value", 121.000000);
+		$("#latitude").attr("value", 14.583330);
+	}
+	var map = new mapboxgl.Map({
+       container: 'map',
+       style: 'mapbox://styles/mapbox/streets-v11',
+       center: [121.000000, 14.583330], // Default: Manila
+       zoom: 13
     });
     var geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
