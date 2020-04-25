@@ -1,0 +1,84 @@
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon"><i class="pe-7s-car icon-gradient bg-mean-fruit"></i></div>
+            <div>User Account
+                <div class="page-title-subheading">Update your user information.</div>
+            </div>
+        </div>
+	</div>
+</div>
+<div class="main-card card col-md-3">
+    <div class="card-body"><h5 class="card-title">Change Password <span id="user-msg"></span></h5>
+        <form action="" id="form-user" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <div class="form-row">
+            	<!-- Password -->
+	            <div class="">
+				    <div class="form-row">
+				        <div class="mb-2">
+		                    <label for="current">Current Password *</label>
+		                    <input type="password" id="current" name="current" class="mb-2 form-control"  minlength="8" maxlength="100" required>
+							<div class="invalid-feedback">Please enter your current password.</div>
+		                </div>
+					</div>
+					<div class="form-row">
+				        <div class="mb-2">
+		                    <label for="new">New Password *</label>
+		                    <input type="password" id="new" name="new" class="mb-2 form-control"  minlength="8" maxlength="100" required>
+							<div class="invalid-feedback">Please enter your new password.</div>
+		                </div>
+					</div>
+					<div class="form-row">
+				        <div class="mb-2">
+		                    <label for="confirm">Confirm New Password *</label>
+		                    <input type="password" id="confirm" name="confirm" class="mb-2 form-control"  minlength="8" maxlength="100" required>
+							<div class="invalid-feedback">Please confirm your new password.</div>
+		                </div>
+					</div>
+		            <button class="mt-1 btn btn-primary">Submit</button>
+	            </div>
+	        </div>
+        </form>
+    </div>
+</div>
+<!-- Save data -->
+<script type="text/javascript">
+$(document).ready(function () {
+	/* Change Password */
+    $("#form-user").submit(function(e){
+		e.preventDefault();
+		var form = document.getElementById("form-user");
+		//var form = $(this);
+		if (form.checkValidity() != false){
+		    $.ajax({
+		    	url: "<?php echo $this->getControllerURL('user', 'update')?>",
+                type: 'POST',
+				data: $(this).serialize(),
+		    	success:
+		    	    function(result){
+                       switch(result){
+						    case "0":
+							    $("#user-msg").text("Successfully updated!");
+								break;
+							case "1":
+							    $("#user-msg").html("Incorrect Current Password.");
+								break;
+							case "2":
+							    $("#user-msg").html("Password does not Match");
+								break;
+							case "3":
+							    $("#user-msg").html("A problem occured while updating the password.");
+								break;
+							default: break;
+						}
+                    }
+            });
+		}else {
+			$("#user-msg").text("");
+        	e.preventDefault();
+            e.stopPropagation();
+		}
+		form.classList.add('was-validated');
+    });
+});
+</script>
