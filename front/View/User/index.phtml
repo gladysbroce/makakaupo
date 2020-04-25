@@ -6,18 +6,20 @@
 					<h4 class="m-text26 p-b-36 p-t-15">
 						Create an Account
 					</h4>
-					<span id="msg"></span>
+					<div class="t-center">
+					    <span class="m-text10" id="msg"></span>
+				    </div>
 					<div class="bo4 of-hidden size15 m-b-20">
 						<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="username" placeholder="Username">
 					</div>
 					<div class="bo4 of-hidden size15 m-b-20">
-						<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password1" placeholder="Password">
+						<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password1" placeholder="Password" minlength="8" maxlength="100">
 					</div>
 					<div class="bo4 of-hidden size15 m-b-20">
-						<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password2" placeholder="Re-enter Password">
+						<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password2" placeholder="Confirm Password" minlength="8" maxlength="100">
 					</div>
 					<div class="bo4 of-hidden size15 m-b-20">
-						<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="email" placeholder="Email Address">
+						<input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="email" placeholder="Email Address">
 					</div>
 					<div class="w-size25">
 						<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">Register</button>
@@ -41,17 +43,25 @@
 		    	    function(result){
 						switch(result){
 						    case "0":
-							    $("#msg").html("Your account has been successfully registered.");
+							    $("#msg").html(
+							    	"Thank you for registering to our website.<br />An email verification has been sent to your account.");
 								break;
 							case "1":
-							    $("#msg").html("Entered password does not match.");
-								break;
-							case "2":
-							    $("#msg").html("An error has occured.");
-								break;
-						    case "3":
 							    $("#msg").html("Please enter all required fields.");
 								break;
+							case "2":
+							    $("#msg").html("Username has already been taken.");
+								break;
+							case "3":
+							    $("#msg").html("Your password and confirmation password do not match.");
+								break;
+							case "4":
+							    $("#msg").html("An error occured during registration.");
+								break;
+							case "5":
+							    $("#msg").html("An error occured while sending the email.");
+								break;
+						    
 							default: break;
 							
 						}

@@ -5,20 +5,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="<?php echo $this->getAssetsURL();?>/images/icons/favicon.png"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/themify/themify-icons.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/elegant-font/html-css/style.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/animate/animate.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/css-hamburgers/hamburgers.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/animsition/css/animsition.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/select2/select2.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/daterangepicker/daterangepicker.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/slick/slick.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/lightbox2/css/lightbox.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/css/util.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/css/main.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/themify/themify-icons.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/elegant-font/html-css/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/animate/animate.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/css-hamburgers/hamburgers.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/animsition/css/animsition.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/select2/select2.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/daterangepicker/daterangepicker.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/lightbox2/css/lightbox.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/css/util.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/css/main.css" />
     <script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!-- Mapbox -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
@@ -34,6 +34,7 @@
     <header class="header1">
     	<div class="container-menu-header">
 			<div class="topbar">
+				<span><?php echo (isset($this->verifyMsg)) ? $this->verifyMsg : "" ;?></span>
 			</div>
     		<div class="wrap_header">
     			<a href="<?php echo $this->getBaseURL();?>" class="logo">
@@ -153,7 +154,6 @@
     $(document).ready(function () {
 		/* Login */
 		$(".login").submit(function(e){
-			console.log("<?php echo $this->getControllerURL('user', 'checkLogin'); ?>");
 		    e.preventDefault();
             var form = $(this);
 		    $.ajax({
@@ -163,8 +163,11 @@
 		    	success:
 		    	    function(result){
 						switch(result){
-							case "0":
-							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin');
+							case "-1":  // Unverified Account
+							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/profile');
+								break;
+							case "0":   // Verified Account
+							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/status');
 								break;
 						    case "1":
 							    alert("Incorrect username/password.");
