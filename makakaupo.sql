@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2020 at 04:55 PM
+-- Generation Time: Apr 25, 2020 at 05:25 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.16
 
@@ -67,7 +67,11 @@ INSERT INTO `restaurant` (`restaurant_id`, `user_id`, `restaurant_name`, `branch
 (15, 0, 'Z', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '15.jpg', '2020-03-16 12:00:00'),
 (16, 0, 'Q', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '16.jpg', '2020-03-16 12:00:00'),
 (17, 0, 'R', 'Makati', 'short', 'long', '10AM', 'Batangas City, Batangas, Philippines', '121.050000', '13.750000', 'www', '090', '17.jpg', '2020-03-16 12:00:00'),
-(18, 0, 'S', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '18.jpg', '2020-03-16 12:00:00');
+(18, 0, 'S', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '18.jpg', '2020-03-16 12:00:00'),
+(19, 29, '', '', '', '', '', '', NULL, NULL, '', '', '0.png', '2020-04-25 06:40:08'),
+(47, 31, '', '', '', '', '', '', NULL, NULL, '', '', '0.png', '2020-04-25 15:18:04'),
+(48, 32, '', '', '', '', '', '', NULL, NULL, '', '', '0.png', '2020-04-25 15:18:07'),
+(49, 33, '', '', '', '', '', '', NULL, NULL, '', '', '0.png', '2020-04-25 15:19:17');
 
 -- --------------------------------------------------------
 
@@ -231,6 +235,8 @@ CREATE TABLE `user` (
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_verified` int(1) NOT NULL DEFAULT '0',
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -238,10 +244,12 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `last_login`) VALUES
-(1, 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', '2020-03-28 04:48:35'),
-(2, 'test', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 'test@gmail.com', '2020-04-21 14:11:32'),
-(3, 'glad', 'c6aa1595f76142b8020e7f7ec2ddaa8ef62a4254a5819095f4f8ed4816d96123', 'gladysbroce@gmail.com', '2020-04-21 14:11:36');
+INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `token`, `is_verified`, `last_login`) VALUES
+(1, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'gladysbroce@gmail.com', '8e1cbc65deae4737fbbe708b4efbab8d', 1, '2020-04-25 13:19:11'),
+(29, 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'gladysbroce@gmail.com', 'bafab74992b7b34cd0ffa40191229597', 0, '2020-04-25 06:38:01'),
+(31, 'a', '9be5b4ca43f00d21471b779211e5a8f5479df49041cbb3c0eacdfeeba5861aa6', 'a', '2cd178475fa7e565130a3659d99caee5', 0, '2020-04-25 15:18:04'),
+(32, 'a', '9be5b4ca43f00d21471b779211e5a8f5479df49041cbb3c0eacdfeeba5861aa6', 'a', 'b50f3b56d759dc1f6ba9fc7e80fffcb7', 0, '2020-04-25 15:18:07'),
+(33, 'a', 'ee79976c9380d5e337fc1c095ece8c8f22f91f306ceeb161fa51fecede2c4ba1', 'a@a', 'bb6b978f2b0607119824bd50d5ed3034', 0, '2020-04-25 15:19:17');
 
 --
 -- Indexes for dumped tables
@@ -285,7 +293,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `seat`
@@ -303,7 +311,7 @@ ALTER TABLE `seat_log`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
