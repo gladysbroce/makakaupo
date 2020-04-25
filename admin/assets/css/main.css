@@ -3,7 +3,11 @@
 	padding: 0px; 
 	box-sizing: border-box;
 }
-
+/* Menu */
+.disabled {
+    pointer-events:none;
+    opacity:0.6;
+}
 /* Seat Layout Creator */
 .layout {
 	max-width: 100%;
