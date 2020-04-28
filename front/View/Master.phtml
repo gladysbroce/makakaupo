@@ -29,7 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
 </head>
-<body>
+<body class="animsition">
  <!-- HEADER -->
     <header class="header1">
     	<div class="container-menu-header">
@@ -59,7 +59,7 @@
     	<!-- Header Mobile -->
     	<div class="wrap_header_mobile">
     		<!-- Logo mobile -->
-    		<a href="index.html" class="logo-mobile">
+    		<a href="<?php echo $this->getBaseURL();?>" class="logo-mobile">
     			<img src="<?php echo $this->getAssetsURL();?>/images/icons/logo.png" alt="IMG-LOGO">
     		</a>
 			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
@@ -97,7 +97,7 @@
 		</div>
     </header>
 	<!-- MAIN CONTENT -->
-	<div id="conntent"><?php echo $this->contents; ?></div>
+	<div id="content"><?php echo $this->contents; ?></div>
 	<!-- FOOTER -->
     <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
     	<div class="t-center p-l-15 p-r-15">
@@ -114,17 +114,6 @@
 	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/animsition/js/animsition.min.js"></script>
 	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/js/popper.js"></script>
 	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/select2/select2.min.js"></script>
-	<script type="text/javascript">
-		$(".selection-1").select2({
-	    	minimumResultsForSearch: 20,
-	    	dropdownParent: $('#dropDownSelect1')
-	    });
-	    $(".selection-2").select2({
-	    	minimumResultsForSearch: 20,
-	    	dropdownParent: $('#dropDownSelect2')
-	    });
-	</script>
 	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/slick/slick.min.js"></script>
 	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/js/slick-custom.js"></script>
 	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/countdowntime/countdowntime.js"></script>

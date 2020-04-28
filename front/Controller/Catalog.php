@@ -31,7 +31,4 @@ class Catalog extends System {
 		$this->restaurants = $this->_restaurants->getRestaurants($name, $longitude, $latitude, $sort);
 		$this->setTemplate('View/Catalog/restaurants.phtml', false);
 	}
-	public function getNextPage(){
-		
-	}
 }
