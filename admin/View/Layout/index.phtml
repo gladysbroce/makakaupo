@@ -13,7 +13,7 @@
 	</div>
 </div>
 <div class="w-size28 respon5">
-	<div class="wrap-slick3 flex-sb flex-w">
+	<div id="layout" class="wrap-slick3 flex-sb flex-w">
 		<div class="wrap-slick3-dots"></div>
 		<div class="slick3">
 		    <?php for ($i = 1; $i <= 4; $i++){?>
@@ -34,7 +34,10 @@
 			<?php } ?>
 		</div>
 	</div>
-	<button class="mb-2 mr-2 btn btn-focus" id="save">Save</button>
+	<div class="m-t-15 t-center">
+	    <button class="mb-2 mr-2 btn btn-focus" id="cancel" onclick="location.href='<?php echo $this->getBaseURL(); ?>layout'">Cancel</button>
+	    <button class="mb-2 mr-2 btn btn-focus" id="save">Save</button>
+	</div>
 </div>
 <script>
 $(document).ready(function () {

@@ -17,7 +17,6 @@
 	    <div class="wrap-slick3 flex-sb flex-w">
 	    	<div class="wrap-slick3-dots"></div>
 	    	<div class="slick3">
-	    	    
 	    	    <?php foreach ($this->floors  as $floor => $seats): ?>
 	    			<div class="item-slick3" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $floor?>.jpg">
 	    				<div class="workspace">
@@ -37,10 +36,12 @@
         
 	    	</div>
 	    </div>
-	    Set all to:
-	    <button class="mb-2 mr-2 btn btn-focus btn-all" id="vacant">Vacant</button>
-	    <button class="mb-2 mr-2 btn btn-focus btn-all" id="occupied">Occupied</button>
-	    <button class="mb-2 mr-2 btn btn-focus btn-all" id="reserved">Reserved</button>
+		<div class="m-t-15">
+			Set All:
+			<button class="mt-2 mb-2 ml-2 mr-2 btn btn-focus btn-all seat-vacant" id="vacant">Vacant</button>
+			<button class="mt-2 mb-2 mr-2 btn btn-focus btn-all seat-occupied" id="occupied">Occupied</button>
+			<button class="mt-2 mb-2 mr-2 btn btn-focus btn-all seat-unavailable" id="unavailable">Unavailable</button>
+		<div>
 	<?php } else { ?>
 	    Please create your restaurant layout on the Seat Layout Creator page.
 	<?php } ?>
@@ -48,7 +49,6 @@
 <script type="text/javascript">
 $(document).ready(function () {
 	var clickTimeout;
-	 
 	/* Initialize seat status */
     var floors = <?php echo json_encode($this->floors); ?>;
 	$.each(floors, function(floor_id, floor){
@@ -69,10 +69,10 @@ $(document).ready(function () {
 		} else if ($(this).hasClass("seat-occupied")) {
 			status = 2;
 			$(this).removeClass("seat-occupied");
-			$(this).addClass("seat-reserved");
+			$(this).addClass("seat-unavailable");
 		} else {
 			status = 0;
-			$(this).removeClass("seat-reserved");
+			$(this).removeClass("seat-unavailable");
 			$(this).addClass("seat-vacant");
 		}
 		// Update status in db
@@ -88,7 +88,7 @@ $(document).ready(function () {
         });
 		}, 500);
     });
-	/* Set all seats to vacant/occupied/reserved */
+	/* Set all seats to vacant/occupied/unavailable */
     $(".btn-all").on("click", function(){
 		clearTimeout(clickTimeout);
 		var status;
@@ -96,7 +96,7 @@ $(document).ready(function () {
 		switch (btn) {
 			case "vacant":   status = 0; break;
 			case "occupied": status = 1; break;
-			case "reserved": status = 2; break;
+			case "unavailable": status = 2; break;
 			default: status = 0; break;
 		}
 		// Get floor id
@@ -115,7 +115,7 @@ $(document).ready(function () {
 		    				if (floor_id == seat_data[0]) {
 		    				    $(this).removeClass("seat-vacant");
 		    				    $(this).removeClass("seat-occupied");
-		    				    $(this).removeClass("seat-reserved");
+		    				    $(this).removeClass("seat-unavailable");
 		    				    $(this).addClass("seat-"+btn);
 		    				}
                         });
