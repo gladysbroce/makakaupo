@@ -9,8 +9,8 @@
 		<div class="row">
 			<div class="col-sm-6 col-md-8 col-lg-12 p-b-50">
 				<div class="flex-sb-m flex-w p-b-35">
-					<div class="flex-w m-l-r-auto">
-						<div class="bo4 of-hidden w-size12 m-t-5 m-b-5 m-l-r-auto size11 pos-relative ">
+					<div class="flex-w m-l-r-auto" style="width:60%;">
+						<div class="bo4 of-hidden w-size12 m-t-5 m-b-5 m-l-r-auto size11 pos-relative">
 						    <button id="filterBtn" class="flex-c-m size5 ab-l-m color2 color0-hov trans-0-4" style="height:45px;">
 								<i class="fs-15 fa fa-search" aria-hidden="true"></i>
 							</button>
@@ -118,7 +118,8 @@ $(document).ready(function () {
     });
     var geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
+        mapboxgl: mapboxgl,
+		placeholder: 'Location'
     });
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 	geocoder.on('result', function(data) {

@@ -17,7 +17,7 @@ class Catalog extends System {
 		$this->longitude = $longitude;
 		$this->latitude  = $latitude;
 		$this->sort      = $sort;
-		$countTotal = $this->_restaurants->getTotalRestaurants($name, $longitude, $latitude, $sort);
+		$countTotal = $this->_restaurants->getTotalRestaurants($name, $sort);
 		if ($countTotal > 0) {
 		    $this->restaurants = $this->_restaurants->getRestaurants($name, $longitude, $latitude, $sort, $page);
 		}
@@ -34,7 +34,7 @@ class Catalog extends System {
 		$longitude = isset($_GET["longitude"])? $_GET["longitude"] : "";
 		$latitude  = isset($_GET["latitude"]) ? $_GET["latitude"]  : "";
 		$sort    = isset($_GET["sort"])    ? $_GET["sort"]          : "";
-		$countTotal = $this->_restaurants->getTotalRestaurants($name, $longitude, $latitude, $sort);
+		$countTotal = $this->_restaurants->getTotalRestaurants($name, $sort);
 		if ($countTotal > 0) {
 		    $this->restaurants = $this->_restaurants->getRestaurants($name, $longitude, $latitude, $sort);
 		}

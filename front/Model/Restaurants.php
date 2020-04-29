@@ -72,8 +72,6 @@ class Restaurants {
 			    `r`.`restaurant_name` LIKE ?
 				$filterVacant
 		    GROUP BY `r`.`restaurant_id`
-			HAVING
-			    distance_in_km < 50
 			ORDER BY 
 			    $orderByCount
 				distance_in_km ASC
@@ -87,7 +85,7 @@ class Restaurants {
 		}
 		return $restaurants;
 	}
-	public function getTotalRestaurants($name = '', $longitude, $latitude, $sort = '') {
+	public function getTotalRestaurants($name = '', $sort = '') {
 		$countTotal = 0;
 		$name = '%'.$name.'%';
 		$filterVacant = ($sort == "vacant") ? " AND `s`.`status_id` = 0" : "";
@@ -96,13 +94,7 @@ class Restaurants {
 			    count(*) AS count
 			FROM
 			    (SELECT 
-			    	( ACOS( COS( RADIANS(?)) 
-                        * COS( RADIANS(`r`.`latitude`))
-                        * COS( RADIANS(`r`.`longitude`) - RADIANS(?))
-                        + SIN( RADIANS(?))
-                        * SIN( RADIANS(`r`.`latitude`))
-                        ) * 6371
-			    	) AS distance_in_km
+				    `r`.`restaurant_id`
 			    FROM `restaurant` `r`
 			    LEFT JOIN 
 			        `seat` `s` on `s`.`restaurant_id` = `r`.`restaurant_id`
@@ -111,12 +103,10 @@ class Restaurants {
 			    	`r`.`restaurant_name` <> '' AND
 			        `r`.`restaurant_name` LIKE ?
 			    	$filterVacant
-		        GROUP BY `r`.`restaurant_id`
-			    HAVING
-			        distance_in_km < 50)
+		        GROUP BY `r`.`restaurant_id`)
 			AS x
 		");
-		$stmt->bind_param("ssss", $latitude, $longitude, $latitude, $name);
+		$stmt->bind_param("s", $name);
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while ($row = $result->fetch_assoc()) {

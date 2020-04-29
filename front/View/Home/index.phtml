@@ -86,7 +86,8 @@
     });
     var geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
+        mapboxgl: mapboxgl,
+		placeholder: 'Location'
     });
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 	geocoder.on('result', function(data) {

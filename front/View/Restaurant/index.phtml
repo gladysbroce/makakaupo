@@ -38,9 +38,14 @@
 				<?php } ?>
 	        </div>
 			<?php if (isset($this->lastModified)){ ?>
-			    <div class="t-center">
-			        <span class="s-text8">Last modified: <?php echo $this->lastModified; ?></span>
+			<div style="width:100%;">
+			    <div class="flex-w t-center p-t-25 m-l-r-auto" style="width:80%;">
+                    <div class="s-text21 m-l-r-auto pos-relative seat-vacant" style="width:30%; height:25px;">Vacant</div>
+                    <div class="s-text21 m-l-r-auto pos-relative seat-occupied" style="width:30%; height:25px;">Occupied</div>
+                    <div class="s-text21 m-l-r-auto pos-relative seat-unavailable" style="width:30%; height:25px;">Unavailable</div>
+			        <span class="s-text8 m-l-r-auto p-t-15">Last modified: <?php echo $this->lastModified; ?></span>
 			    </div>
+			</div>
 			<?php }?>
 		</div>
 		<div class="w-size14 p-t-30 respon5">
@@ -51,7 +56,7 @@
 			        <p class="s-text8 p-t-10"><?php echo $this->restaurant['short_desc']; ?></p>
 			    </div>
 			    <div class="w-size19 float-l">
-			    	<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+			    	<div class="block2-img wrap-pic-w of-hidden pos-relative">
 			    	    <img src="<?php echo $this->getAssetsURL().'/images/restaurants/'.$this->restaurant['image']; ?>" alt="IMG-PRODUCT">
 			    		<div class="block2-overlay trans-0-4"></div>
 			    	</div>

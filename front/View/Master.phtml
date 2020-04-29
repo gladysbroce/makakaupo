@@ -20,6 +20,62 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/css/util.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/css/main.css" />
     <script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!-- JS FILE -->
+	<script defer type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/animsition/js/animsition.min.js"></script>
+	<script defer type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/js/popper.js"></script>
+	<script defer type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script defer type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/slick/slick.min.js"></script>
+	<script defer type="text/javascript" src="<?php echo $this->getAssetsURL();?>/js/slick-custom.js"></script>
+	<script defer type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/countdowntime/countdowntime.js"></script>
+	<script defer type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/lightbox2/js/lightbox.min.js"></script>
+	<script defer type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/sweetalert/sweetalert.min.js"></script>
+	<script defer type="text/javascript">
+		$('.block2-btn-addcart').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+			});
+		});
+
+		$('.block2-btn-addwishlist').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+			});
+		});
+	</script>
+	<script defer src="<?php echo $this->getAssetsURL();?>/js/main.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function () {
+		/* Login */
+		$(".login").submit(function(e){
+		    e.preventDefault();
+            var form = $(this);
+		    $.ajax({
+		    	url: "<?php echo $this->getControllerURL('user', 'checkLogin'); ?>",
+                type: 'POST',
+		    	data: form.serialize(),
+		    	success:
+		    	    function(result){
+						switch(result){
+							case "-1":  // Unverified Account
+							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/profile');
+								break;
+							case "0":   // Verified Account
+							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/status');
+								break;
+						    case "1":
+							    alert("Incorrect username/password.");
+								break;
+							case "2":
+							    alert("Please enter both username and password.");
+							default: break;
+						}
+                    }
+            });
+        });
+    });
+    </script>
 	<!-- Mapbox -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
@@ -47,21 +103,19 @@
 						</button>
 					<?php } else {?>
 					    <form class="login form-inline">
-                        <div class="position-relative form-group bo4 mr-2">
-                            <label for="username" class="sr-only">Username</label>
-                            <input name="username" placeholder="Username" type="username" class="form-control">
-                        </div>
-                        <div class="position-relative form-group bo4 mr-2">
-                            <label for="password" class="sr-only">Password</label>
-                            <input name="password" placeholder="Password" type="password" class="form-control">
-                        </div>
-                        <button class="btn btn-dark mr-2">
-						    Login
-						</button>
-						<button class="btn btn-dark" onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'">
-						    Register
-						</button>
-                    </form>
+							<div class="position-relative form-group bo4 mr-2">
+								<label for="username" class="sr-only">Username</label>
+								<input name="username" placeholder="Username" type="username" class="form-control">
+							</div>
+							<div class="position-relative form-group bo4 mr-2">
+								<label for="password" class="sr-only">Password</label>
+								<input name="password" placeholder="Password" type="password" class="form-control">
+							</div>
+							<button class="btn btn-dark mr-2">Login</button>
+							<button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'">
+								Register
+							</button>
+						</form>
 					<?php } ?>
 				</div>
     		</div>
@@ -107,7 +161,7 @@
 				    	    <li class="item-topbar-mobile p-t-8 p-b-8">
 						        <div class="flex-c-m">
 				    	    	    <button class="btn btn-dark mr-2">Login</button>
-				    	            <button onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'" class="btn btn-dark">Register</button>
+				    	            <button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'" >Register</button>
 						    	</div>
 				    	    </li>
 						<?php } ?>
@@ -119,9 +173,9 @@
 	<!-- MAIN CONTENT -->
 	<div id="content"><?php echo $this->contents; ?></div>
 	<!-- FOOTER -->
-    <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
+    <footer class="bg6 p-t-40 p-b-30 p-l-45 p-r-45">
     	<div class="t-center p-l-15 p-r-15">
-    		<div class="t-center s-text8 p-t-20">Copyright © 2018 Colorlib</div>
+    		<div class="t-center s-text8">Copyright © 2018 Colorlib</div>
     	</div>
     </footer>
 	<!-- BACK TO TOP -->
@@ -130,66 +184,6 @@
     		<i class="fa fa-angle-double-up" aria-hidden="true"></i>
     	</span>
     </div>
-	<!-- JS FILE -->
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/animsition/js/animsition.min.js"></script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/js/popper.js"></script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/slick/slick.min.js"></script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/js/slick-custom.js"></script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/countdowntime/countdowntime.js"></script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/lightbox2/js/lightbox.min.js"></script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/sweetalert/sweetalert.min.js"></script>
-	<script type="text/javascript">
-		$('.block2-btn-addcart').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to cart !", "success");
-			});
-		});
-
-		$('.block2-btn-addwishlist').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to wishlist !", "success");
-			});
-		});
-	</script>
-	<script type="text/javascript" src="<?php echo $this->getAssetsURL();?>/vendor/parallax100/parallax100.js"></script>
-	<script type="text/javascript">
-        $('.parallax100').parallax100();
-	</script>
-	<script src="<?php echo $this->getAssetsURL();?>/js/main.js"></script>
-	<script type="text/javascript">
-    $(document).ready(function () {
-		/* Login */
-		$(".login").submit(function(e){
-		    e.preventDefault();
-            var form = $(this);
-		    $.ajax({
-		    	url: "<?php echo $this->getControllerURL('user', 'checkLogin'); ?>",
-                type: 'POST',
-		    	data: form.serialize(),
-		    	success:
-		    	    function(result){
-						switch(result){
-							case "-1":  // Unverified Account
-							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/profile');
-								break;
-							case "0":   // Verified Account
-							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/status');
-								break;
-						    case "1":
-							    alert("Incorrect username/password.");
-								break;
-							case "2":
-							    alert("Please enter both username and password.");
-							default: break;
-						}
-                    }
-            });
-        });
-    });
-    </script>
 </body>
 </html>
 
