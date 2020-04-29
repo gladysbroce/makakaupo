@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 25, 2020 at 10:36 AM
+-- Generation Time: Apr 29, 2020 at 12:41 PM
 -- Server version: 5.7.25-28-log
 -- PHP Version: 7.3.16
 
@@ -67,8 +67,7 @@ INSERT INTO `restaurant` (`restaurant_id`, `user_id`, `restaurant_name`, `branch
 (15, 0, 'Z', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '15.jpg', '2020-03-16 12:00:00'),
 (16, 0, 'Q', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '16.jpg', '2020-03-16 12:00:00'),
 (17, 0, 'R', 'Makati', 'short', 'long', '10AM', 'Batangas City, Batangas, Philippines', '121.050000', '13.750000', 'www', '090', '17.jpg', '2020-03-16 12:00:00'),
-(18, 0, 'S', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '18.jpg', '2020-03-16 12:00:00'),
-(35, 22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.png', '2020-04-25 06:22:39');
+(18, 0, 'S', 'Makati', 'short', 'long', '10AM', 'Makati City', '121.033330', '14.550000', 'www', '090', '18.jpg', '2020-03-16 12:00:00');
 
 -- --------------------------------------------------------
 
@@ -112,10 +111,12 @@ INSERT INTO `seat` (`seat_id`, `restaurant_id`, `floor_id`, `row_no`, `col_no`, 
 (19, 1, 1, 25, 2, 1, '2020-04-18 12:07:54'),
 (20, 1, 1, 25, 19, 1, '2020-04-18 12:07:54'),
 (21, 1, 1, 23, 2, 0, '2020-04-18 15:26:50'),
-(22, 2, 1, 1, 1, 0, '2020-04-21 23:43:44'),
-(23, 2, 1, 25, 20, 0, '2020-04-21 23:43:44'),
+(22, 2, 1, 1, 1, 1, '2020-04-21 23:43:44'),
+(23, 2, 1, 25, 20, 1, '2020-04-21 23:43:44'),
 (24, 1, 4, 1, 1, 0, '2020-04-25 01:45:47'),
-(25, 1, 4, 1, 1, 0, '2020-04-25 01:45:53');
+(25, 1, 4, 1, 1, 0, '2020-04-25 01:45:53'),
+(26, 2, 1, 24, 11, 0, '2020-04-29 15:35:46'),
+(27, 2, 1, 24, 12, 0, '2020-04-29 15:35:46');
 
 -- --------------------------------------------------------
 
@@ -201,7 +202,65 @@ INSERT INTO `seat_log` (`seat_log_id`, `restaurant_id`, `floor_id`, `row_no`, `c
 (61, 1, 1, 24, 19, 1, '2020-04-18 13:02:34'),
 (62, 1, 1, 24, 20, 1, '2020-04-18 13:02:34'),
 (63, 1, 1, 25, 2, 1, '2020-04-18 13:02:34'),
-(64, 1, 1, 25, 19, 1, '2020-04-18 13:02:34');
+(64, 1, 1, 25, 19, 1, '2020-04-18 13:02:34'),
+(65, 2, 1, 1, 1, 1, '2020-04-29 15:13:04'),
+(66, 2, 1, 1, 1, 2, '2020-04-29 15:13:16'),
+(67, 2, 1, 1, 1, 1, '2020-04-29 15:13:25'),
+(68, 2, 1, 25, 20, 1, '2020-04-29 15:13:25'),
+(69, 2, 1, 1, 1, 1, '2020-04-29 15:13:28'),
+(70, 2, 1, 25, 20, 1, '2020-04-29 15:13:28'),
+(71, 2, 1, 1, 1, 2, '2020-04-29 15:13:31'),
+(72, 2, 1, 25, 20, 2, '2020-04-29 15:13:31'),
+(73, 2, 1, 1, 1, 0, '2020-04-29 15:13:33'),
+(74, 2, 1, 25, 20, 0, '2020-04-29 15:13:33'),
+(75, 2, 1, 1, 1, 0, '2020-04-29 15:13:45'),
+(76, 2, 1, 25, 20, 0, '2020-04-29 15:13:45'),
+(77, 2, 1, 1, 1, 1, '2020-04-29 15:13:48'),
+(78, 2, 1, 25, 20, 1, '2020-04-29 15:13:48'),
+(79, 2, 1, 1, 1, 0, '2020-04-29 15:13:49'),
+(80, 2, 1, 25, 20, 0, '2020-04-29 15:13:49'),
+(81, 2, 1, 1, 1, 1, '2020-04-29 15:14:09'),
+(82, 2, 1, 25, 20, 1, '2020-04-29 15:14:09'),
+(83, 2, 1, 1, 1, 2, '2020-04-29 15:14:10'),
+(84, 2, 1, 25, 20, 2, '2020-04-29 15:14:10'),
+(85, 2, 1, 1, 1, 0, '2020-04-29 15:14:12'),
+(86, 2, 1, 25, 20, 0, '2020-04-29 15:14:13'),
+(87, 2, 1, 1, 1, 1, '2020-04-29 15:14:16'),
+(88, 2, 1, 25, 20, 1, '2020-04-29 15:14:16'),
+(89, 2, 1, 1, 1, 2, '2020-04-29 15:14:17'),
+(90, 2, 1, 25, 20, 2, '2020-04-29 15:14:18'),
+(91, 2, 1, 1, 1, 0, '2020-04-29 15:14:20'),
+(92, 2, 1, 25, 20, 0, '2020-04-29 15:14:20'),
+(93, 2, 1, 1, 1, 1, '2020-04-29 15:14:37'),
+(94, 2, 1, 25, 20, 1, '2020-04-29 15:14:37'),
+(95, 2, 1, 1, 1, 0, '2020-04-29 15:14:48'),
+(96, 2, 1, 25, 20, 0, '2020-04-29 15:14:48'),
+(97, 2, 1, 1, 1, 2, '2020-04-29 15:14:51'),
+(98, 2, 1, 25, 20, 2, '2020-04-29 15:14:51'),
+(99, 2, 1, 1, 1, 1, '2020-04-29 15:14:53'),
+(100, 2, 1, 25, 20, 1, '2020-04-29 15:14:53'),
+(101, 2, 1, 1, 1, 1, '2020-04-29 15:15:01'),
+(102, 2, 1, 25, 20, 1, '2020-04-29 15:15:02'),
+(103, 2, 1, 1, 1, 2, '2020-04-29 15:15:10'),
+(104, 2, 1, 25, 20, 2, '2020-04-29 15:15:10'),
+(105, 2, 1, 1, 1, 1, '2020-04-29 15:15:13'),
+(106, 2, 1, 25, 20, 1, '2020-04-29 15:15:13'),
+(107, 2, 1, 1, 1, 2, '2020-04-29 15:15:15'),
+(108, 2, 1, 25, 20, 2, '2020-04-29 15:15:15'),
+(109, 2, 1, 1, 1, 0, '2020-04-29 15:15:19'),
+(110, 2, 1, 25, 20, 0, '2020-04-29 15:15:19'),
+(111, 2, 1, 1, 1, 0, '2020-04-29 15:15:25'),
+(112, 2, 1, 25, 20, 0, '2020-04-29 15:15:25'),
+(113, 2, 1, 1, 1, 0, '2020-04-29 15:15:41'),
+(114, 2, 1, 25, 20, 0, '2020-04-29 15:15:41'),
+(115, 2, 1, 1, 1, 0, '2020-04-29 15:15:41'),
+(116, 2, 1, 25, 20, 0, '2020-04-29 15:15:41'),
+(117, 2, 1, 1, 1, 0, '2020-04-29 15:15:42'),
+(118, 2, 1, 25, 20, 0, '2020-04-29 15:15:42'),
+(119, 2, 1, 1, 1, 0, '2020-04-29 15:15:53'),
+(120, 2, 1, 25, 20, 0, '2020-04-29 15:15:53'),
+(121, 2, 1, 1, 1, 1, '2020-04-29 15:16:05'),
+(122, 2, 1, 25, 20, 1, '2020-04-29 15:16:05');
 
 -- --------------------------------------------------------
 
@@ -221,7 +280,7 @@ CREATE TABLE `seat_status` (
 INSERT INTO `seat_status` (`seat_status_id`, `seat_status_name`) VALUES
 (0, 'vacant'),
 (1, 'occupied'),
-(2, 'reserved');
+(2, 'unavailable');
 
 -- --------------------------------------------------------
 
@@ -231,7 +290,7 @@ INSERT INTO `seat_status` (`seat_status_id`, `seat_status_name`) VALUES
 
 CREATE TABLE `user` (
   `user_id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -244,8 +303,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `token`, `is_verified`, `last_login`) VALUES
-(1, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '', NULL, 0, '2020-04-25 14:18:28'),
-(22, 'test', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'gladysbroce@gmail.com', 'a250a608cac375845351a247fab152e1', 1, '2020-04-25 07:00:22');
+(1, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '', NULL, 0, '2020-04-29 15:02:39'),
+(2, 'test', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'gladysbroce@gmail.com', 'a250a608cac375845351a247fab152e1', 1, '2020-04-29 08:02:26'),
+(3, 'admin123', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'gladysbroce@gmail.com', '8509512c8ade3462e9f15fb6a683205a', 0, '2020-04-29 08:11:51');
 
 --
 -- Indexes for dumped tables
@@ -255,7 +315,8 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `token`, `is_ver
 -- Indexes for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  ADD PRIMARY KEY (`restaurant_id`);
+  ADD PRIMARY KEY (`restaurant_id`),
+  ADD KEY `restaurant_name` (`restaurant_name`);
 
 --
 -- Indexes for table `seat`
@@ -279,7 +340,8 @@ ALTER TABLE `seat_status`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -289,25 +351,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `restaurant_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `seat`
 --
 ALTER TABLE `seat`
-  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `seat_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `seat_log`
 --
 ALTER TABLE `seat_log`
-  MODIFY `seat_log_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `seat_log_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
