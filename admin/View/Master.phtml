@@ -18,9 +18,11 @@
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
-            <div class="app-header__logo">
-                <div class="logo-src"></div>
-                <div class="header__pane ml-auto">
+            <div class="app-header__logo" style="width:auto; display:flex;">
+			    <a href="<?php echo $this->getSiteURL();?>">
+                    <div class="logo-src"></div>
+				</a>
+                <div class="header__pane ml-auto" style="display:none;">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
                             <span class="hamburger-box">
@@ -74,7 +76,9 @@
 		<div class="app-main">
             <div class="app-sidebar sidebar-shadow">
                 <div class="app-header__logo">
-                    <div class="logo-src"></div>
+				    <a href="<?php echo $this->getSiteURL();?>">
+                        <div class="logo-src"></div>
+					</a>
                     <div class="header__pane ml-auto">
                         <div>
                             <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -113,7 +117,7 @@
                                     <i class="metismenu-icon pe-7s-mouse"></i>Seat Status 
                                 </a>
                             </li>
-                            <li>
+                            <li class="<?php echo ($_SESSION['is_verified'] == 0) ? 'disabled' : ''?>">
 							    <a class="<?=($this->menu == "layout")?"mm-active":""?>" href="<?php echo $this->getBaseURL()."layout"; ?>">
 								    <i class="metismenu-icon pe-7s-pen"></i>Seat Layout Creator
 								</a>

@@ -2,11 +2,12 @@
 class User extends System {
 	public function __construct() {
 		parent::__construct();
-		if (empty($_SESSION['restaurant_id'])) {
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+		    $this->_users = new Users();
+	    } else {
 			header( "Location: " . $this->getSiteURL());
 			die();
 		}
-		$this->_users = new Users();
 	}
 	public function index()	{
 		$this->menu = "user";

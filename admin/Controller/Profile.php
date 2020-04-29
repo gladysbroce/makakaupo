@@ -2,11 +2,12 @@
 class Profile extends System {
 	public function __construct() {
 		parent::__construct();
-		if (empty($_SESSION['restaurant_id'])) {
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+		    $this->_restaurants = new Restaurants();
+	    } else {
 			header( "Location: " . $this->getSiteURL());
 			die();
 		}
-		$this->_restaurants = new Restaurants();
 	}
 	public function index()	{
 		$this->menu = "profile";

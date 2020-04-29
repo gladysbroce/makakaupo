@@ -4,7 +4,7 @@ class Logout extends System {
 		parent::__construct();
 	}
 	public function index() {
-		if (!empty($_SESSION['username'])){
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
 			session_unset();
 			session_destroy();
 		} 
