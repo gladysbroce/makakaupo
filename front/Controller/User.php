@@ -15,6 +15,7 @@ class User extends System {
 				if ($user['is_verified'] == 0){
 					$result = -1;
 				}
+				$_SESSION['loggedin'] = true;
 				$_SESSION['user_id'] = $user['user_id'];
 				$_SESSION['username'] = $user['username'];
 				$_SESSION['restaurant_id'] = $user['restaurant_id'];

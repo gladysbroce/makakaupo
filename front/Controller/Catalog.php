@@ -5,6 +5,7 @@ class Catalog extends System {
 		$this->_restaurants = new Restaurants();
 	}
 	public function index(){
+		$this->restaurants = array();
 		$name      = isset($_GET["name"])     ? trim($_GET["name"]): "";
 		$address   = isset($_GET["address"])  ? $_GET["address"]   : "";
 		$longitude = isset($_GET["longitude"])? $_GET["longitude"] : "";
@@ -16,7 +17,11 @@ class Catalog extends System {
 		$this->longitude = $longitude;
 		$this->latitude  = $latitude;
 		$this->sort      = $sort;
-		$this->restaurants = $this->_restaurants->getRestaurants($name, $longitude, $latitude, $sort, $page);
+		$countTotal = $this->_restaurants->getTotalRestaurants($name, $longitude, $latitude, $sort);
+		if ($countTotal > 0) {
+		    $this->restaurants = $this->_restaurants->getRestaurants($name, $longitude, $latitude, $sort, $page);
+		}
+		$this->displayNext = ($page * 12 < $countTotal) ? "block" : "none";
 		if ($page == 1){
 		    $this->setTemplate('View/Catalog/index.phtml');
 		} else {
@@ -24,11 +29,16 @@ class Catalog extends System {
 		}
 	}
 	public function search(){
+		$this->restaurants = array();
 		$name      = isset($_GET["name"])     ? trim($_GET["name"]): "";
 		$longitude = isset($_GET["longitude"])? $_GET["longitude"] : "";
 		$latitude  = isset($_GET["latitude"]) ? $_GET["latitude"]  : "";
 		$sort    = isset($_GET["sort"])    ? $_GET["sort"]          : "";
-		$this->restaurants = $this->_restaurants->getRestaurants($name, $longitude, $latitude, $sort);
+		$countTotal = $this->_restaurants->getTotalRestaurants($name, $longitude, $latitude, $sort);
+		if ($countTotal > 0) {
+		    $this->restaurants = $this->_restaurants->getRestaurants($name, $longitude, $latitude, $sort);
+		}
+		$this->displayNext = (12 < $countTotal) ? "block" : "none";
 		$this->setTemplate('View/Catalog/restaurants.phtml', false);
 	}
 }

@@ -4,26 +4,26 @@
 	<p class="m-text13 t-center">Find available seats</p>
 </section>
 <!-- Content page -->
-<section class="bgwhite p-t-55 p-b-65">
+<section class="bgwhite p-t-35 p-b-35">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6 col-md-8 col-lg-12 p-b-50">
 				<div class="flex-sb-m flex-w p-b-35">
-					<div class="flex-w">
-						<div class="bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 size11 pos-relative">
+					<div class="flex-w m-l-r-auto">
+						<div class="bo4 of-hidden w-size12 m-t-5 m-b-5 m-l-r-auto size11 pos-relative ">
 						    <button id="filterBtn" class="flex-c-m size5 ab-l-m color2 color0-hov trans-0-4" style="height:45px;">
 								<i class="fs-15 fa fa-search" aria-hidden="true"></i>
 							</button>
 							<input type="text" id="name" class="sizefull s-text7 p-l-45 p-r-10" value="<?php echo $this->name;?>" placeholder="Restaurant Name">
 						</div>
-						<div class="bo4 w-size12 m-t-5 m-b-5 m-r-10 size11">
+						<div class="bo4 w-size12 m-t-5 m-b-5 m-r-10 m-l-r-auto size11">
 							<div id="map"></div>
                             <div id="geocoder" class="geocoder"></div>
 						    <input type="hidden" id="address"   name="address" />
 	            	        <input type="hidden" id="longitude" name="longitude" />
 	            	        <input type="hidden" id="latitude"  name="latitude" />
 						</div>
-						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10 size11">
+						<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-l-r-auto size11">
 							<select id="sort" class="selection-1">
 							    <option disabled>Sort by:</option>
 								<option value="nearest" <?php echo ($this->sort == "nearest") ? "selected" : ""; ?>>Nearest Restaurants</option>
@@ -39,7 +39,7 @@
 					    <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 						    <div class="block2">
 						        <a href="<?php echo $this->getBaseURL()."/restaurant/".$restaurant['restaurant_id']; ?>">
-						        	<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+						        	<div class="block2-img wrap-pic-w of-hidden pos-relative">
 						        	    <img src="<?php echo $this->getAssetsURL().'/images/restaurants/'.$restaurant['image']; ?>" alt="IMG-PRODUCT">
 						    			<div class="block2-overlay trans-0-4"></div>
 						        	</div>
@@ -51,8 +51,8 @@
 						    </div>
 					    </div>
 					<?php endforeach ?>
+					<div id="loader" style="display:<?php echo $this->displayNext; ?>"><p>Loading more items&hellip;</p></div>
 				</div>
-				<div id="loader"><p>Loading more items&hellip;</p></div>
 			</div>
 		</div>
 	</div>
@@ -131,8 +131,6 @@ $(document).ready(function () {
 $(document).ready(function () {
 	var clickTimeout;
 	var page = 1;
-	var end = 0;  // End of Page
-	/* Get Search Result */
 	$("#filterBtn").on("click", function(){
 		search();
     });
@@ -152,16 +150,15 @@ $(document).ready(function () {
 			success:
 			    function(data){
 					$("#result").html(data);
-					end = 0;
                 }
         });
 	}
 	$(document.body).on('touchmove', loadNext); // for mobile
     $(window).on('scroll', loadNext);
     function loadNext(){
-		if (end == 0 && $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ){
+		if ($("#loader").is(":visible") && $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ){
 			clearTimeout(clickTimeout);
-			$('#loader').show();
+			
 			clickTimeout = setTimeout(function(){
 			var name      = $("#name").val();
 		    var longitude = $("#longitude").val();
@@ -176,7 +173,6 @@ $(document).ready(function () {
 			            function(data){
 							$("#loader").hide();
 							$("#result").append(data);
-							if (data.trim()==''){end = 1;}  // No next page
                         }
                 });
 			}, 1000);
