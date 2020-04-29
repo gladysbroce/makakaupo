@@ -93,12 +93,15 @@
 }
 .seat-vacant {
 	background-color: #14A76C;  /* green */
+	border-color: #14A76C;
 }
 .seat-occupied {
 	background-color: #FC4445;  /* red */
+	border-color: #FC4445;
 }
-.seat-reserved {
-	background-color: #F4976C;  /* orange */
+.seat-unavailable {
+	background-color: #585858;  /* gray */
+	border-color: #585858;
 }
 .seat-add {
 	background-color: #05386B;  /* blue */
