@@ -8,6 +8,6 @@ RewriteCond %{REQUEST_FILENAME} !-l
 #RewriteRule (.*) https://localhost/makakaupo/$1 [R=301,L]
 RewriteRule ^(restaurant)/(.*)$ index.php?request=$1/index/$2 [L]
 RewriteRule ^(user|catalog)/(.+)$ index.php?request=$1/$2 [QSA,L]
-RewriteRule ^(about|home|catalog)(.*)$ index.php?request=$1/index [QSA,L]
+RewriteRule ^(home|catalog)(.*)$ index.php?request=$1/index [QSA,L]
 ErrorDocument 404 http://localhost/makakaupo?request=notfound/index
 </IfModule>
