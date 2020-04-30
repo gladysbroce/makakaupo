@@ -36,14 +36,14 @@ class User extends System {
 	}
 	public function add() {
 		$result    = 0;
-		$username  = $_POST['username'];
-		$password1 = $_POST['password1'];
-		$password2 = $_POST['password2'];
-		$email     = $_POST['email'];
+		$username  = trim($_POST['username']);
+		$password1 = trim($_POST['password1']);
+		$password2 = trim($_POST['password2']);
+		$email     = trim($_POST['email']);
 		if (empty($username) || empty($password1) || empty($password2) || empty($email)) {
 			$result = 1;  // Error: Incomplete input 
 		} else {
-            if ($this->_checkRegUsername($username)){
+            if (!($this->_checkRegUsername($username))){
             	$result = 2;  // Error: Invalid Username
             } else {
 				if (!($this->_checkRegPassword($password1, $password2))) {
@@ -67,7 +67,8 @@ class User extends System {
 	}
 	private function _checkRegUsername($username) {
 	    $user = $this->_users->getUser($username);
-	    $result = ($user) ? false : true;
+	    $result = (!$user) ? true : false;
+		return $result;
 	}
 	private function _checkRegPassword($password1, $password2) {
 		return ($password1 === $password2) ? true : false;

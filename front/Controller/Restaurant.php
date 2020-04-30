@@ -22,7 +22,8 @@ class Restaurant extends System {
 		if ($this->floors) {
 		    $log = $this->_logs->getLastModified($restaurantId);
 			$date = new DateTime($log['date_created']);
-            $this->lastModified = $date->format('F n, Y g:i A');
+			$date->add(new DateInterval('PT8H'));
+            $this->lastModified = $date->format('F j, Y g:i A');
 		}
 		$this->setTemplate( 'View/Restaurant/index.phtml' );
 	}

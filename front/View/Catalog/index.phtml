@@ -50,7 +50,7 @@
 						    </div>
 					    </div>
 					<?php endforeach ?>
-					<div id="loader" style="display:<?php echo $this->displayNext; ?>"><p>Loading more items&hellip;</p></div>
+					<div id="loader" class="m-l-r-auto" style="display:<?php echo $this->displayNext; ?>"><p>Loading more items&hellip;</p></div>
 				</div>
 			</div>
 		</div>
@@ -158,7 +158,6 @@ $(document).ready(function () {
     function loadNext(){
 		if ($("#loader").is(":visible") && $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ){
 			clearTimeout(clickTimeout);
-			
 			clickTimeout = setTimeout(function(){
 			var name      = $("#name").val();
 		    var longitude = $("#longitude").val();
