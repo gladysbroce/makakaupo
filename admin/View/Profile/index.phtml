@@ -17,28 +17,28 @@
 				    <div class="form-row">
 				        <div class="col-md-6 mb-2">
 		                    <label for="name">Restaurant Name *</label>
-		                    <input type="text" id="name" name="name" class="mb-2 form-control" value="<?php echo $this->restaurant['restaurant_name']; ?>" required>
+		                    <input type="text" id="name" name="name" class="mb-2 form-control" value="<?php echo $this->restaurant['restaurant_name']; ?>"  maxlength="50" required />
 							<div class="invalid-feedback">Please provide a restaurant name.</div>
 		                </div>
 				        <div class="col-md-6 mb-2">
 					        <label for="branch">Branch Name</label>
-				            <input type="text" id="branch" name="branch" class="mb-2 form-control" value="<?php echo $this->restaurant['branch_name']; ?>">
+				            <input type="text" id="branch" name="branch" class="mb-2 form-control" value="<?php echo $this->restaurant['branch_name']; ?>" maxlength="50" />
 		                </div>
 					</div>
 					<div class="form-row">
 					    <div class="col-md-6 mb-2 form-group">
 					        <label for="website">Website</label>
-				            <input type="text" id="website" name="website" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>">
+				            <input type="text" id="website" name="website" class="mb-2 form-control" value="<?php echo $this->restaurant['website']; ?>" maxlength="50" />
 					    </div>
 					    <div class="col-md-6 mb-2 form-group">
 					        <label for="phoneno">Phone Number</label>
-				            <input type="text" id="phoneno" name="phoneno" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>">
+				            <input type="text" id="phoneno" name="phoneno" class="mb-2 form-control" value="<?php echo $this->restaurant['phone_no']; ?>" maxlength="20" />
 					    </div>
 					</div>
 					<div class="form-row">
 						<div class="col-md-6 mb-2 form-group">
 					        <label for="hours">Business Hours</label>
-				            <input type="text" id="hours" name="hours" class="mb-2 form-control" value="<?php echo $this->restaurant['business_hours']; ?>">
+				            <input type="text" id="hours" name="hours" class="mb-2 form-control" value="<?php echo $this->restaurant['business_hours']; ?>" maxlength="30" />
 					    </div>
 					    <div class="col-md-6 mb-2 form-group">
 					        <label for="image">Restaurant Photo</label>
@@ -48,11 +48,11 @@
 					</div>
 					<div class="position-relative form-group">
 					    <label for="shortDesc">Short Description</label>
-				        <textarea id="shortDesc" name="shortDesc" class="form-control"><?php echo $this->restaurant['short_desc']; ?></textarea>
+				        <textarea id="shortDesc" name="shortDesc" class="form-control" maxlength="500"><?php echo $this->restaurant['short_desc']; ?></textarea>
 					</div>
 					<div class="position-relative form-group">
 					    <label for="fullDesc">Full Description</label>
-				        <textarea id="fullDesc" name="fullDesc" class="form-control"><?php echo $this->restaurant['full_desc']; ?></textarea>
+				        <textarea id="fullDesc" name="fullDesc" class="form-control" maxlength="500"><?php echo $this->restaurant['full_desc']; ?></textarea>
 					</div>
 		            <button class="mt-1 btn btn-primary">Submit</button>
 	            </div>
