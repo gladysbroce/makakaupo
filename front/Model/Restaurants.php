@@ -24,7 +24,7 @@ class Restaurants {
 		}
 		return false;
 	}
-	public function getNewRestaurants($sort = 'last_modified', $order = 'DESC', $limit = '3') {
+	public function getNewRestaurants($limit = '3') {
 		$restaurants = array();
 		$result = Application::DBQuery( "
 			SELECT 
@@ -34,7 +34,7 @@ class Restaurants {
 			    `restaurant_name` IS NOT NULL AND 
 				`restaurant_name` <> ''
 			ORDER BY 
-			    `restaurant`.`$sort` $order
+			    `restaurant`.`date_created` DESC
 			LIMIT $limit;
 		");
 		while ($row = $result->fetch_assoc()) {
@@ -48,7 +48,6 @@ class Restaurants {
 		$limit = 12;
 		$page = ($page - 1) * $limit;
 		$filterVacant = ($sort == "vacant") ? " AND `s`.`status_id` = 0" : "";
-		$orderByCount = ($sort != "nearest") ? "`count` DESC," : "";
 		$stmt = Application::DBPrepQuery( "
 			SELECT 
 				`r`.`restaurant_id`,
@@ -72,8 +71,7 @@ class Restaurants {
 			    `r`.`restaurant_name` LIKE ?
 				$filterVacant
 		    GROUP BY `r`.`restaurant_id`
-			ORDER BY 
-			    $orderByCount
+			ORDER BY
 				distance_in_km ASC
 			LIMIT $page, $limit;
 		");
@@ -119,8 +117,8 @@ class Restaurants {
 		if ($user_id) {
 			$stmt = Application::DBPrepQuery( "
 			    INSERT INTO 
-			    	`restaurant`(`user_id`)
-			    VALUES (?);
+			    	`restaurant`(`user_id`, `date_created`)
+			    VALUES (?, NOW());
 		    ");
 			$stmt->bind_param("i", $user_id);
 			$result = $stmt->execute();
