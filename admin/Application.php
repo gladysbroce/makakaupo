@@ -1,10 +1,10 @@
 <?php
 class Application {
 	const
-		HOST = 'localhost',  // localhost
-		USER = 'root',       // utpc4c2ddpz4b
-		PW = '',             // 8twwva6hqbh7
-		DB = 'makakaupo';    //db3yeypkcucun9
+		HOST = 'localhost',
+		USER = 'root',
+		PW = '',
+		DB = 'makakaupo';
 	private $_controller = '',
 		$_action = '',
 		$_args = array();
