@@ -84,7 +84,7 @@ class User extends System {
         $link = '<a href="'.$url.'">'.$url.'</a>';
 		require("sendgrid-php/sendgrid-php.php");
 		$email = new \SendGrid\Mail\Mail(); 
-		$email->setFrom("noreply@makakaupo.ga", "Makakaupo");
+		$email->setFrom("", "");  // Email Address, Name
 		$email->setSubject("Registration Verification");
 		$email->addTo($recipientEmail, $username);
 		$email->addContent(
