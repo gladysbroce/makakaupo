@@ -96,7 +96,7 @@ class User extends System {
 		    "Regards,<br/>".
 		    "Makakaupo Support Team"
 		);
-		$sendgrid = new \SendGrid('');
+		$sendgrid = new \SendGrid(''); // SendGrid API Key
 		try {
 		    $response = $sendgrid->send($email);
 		} catch (Exception $e) {
