@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
-	<title>Makakaupo</title>
+	<meta http-equiv="Cache-control" content="public">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Makakaupo</title>
 	<link rel="icon" type="image/png" href="<?php echo $this->getAssetsURL();?>/images/icons/favicon.png"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/vendor/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->getAssetsURL();?>/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
@@ -30,7 +31,6 @@
 	<script defer src="<?php echo $this->getAssetsURL();?>/js/main.js"></script>
 	<script type="text/javascript">
     $(document).ready(function () {
-		/* Login */
 		$(".login").submit(function(e){
 		    e.preventDefault();
             var form = $(this);
@@ -41,18 +41,15 @@
 		    	success:
 		    	    function(result){
 						switch(result){
-							case "-1":  // Unverified Account
+							case "-1":
 							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/profile');
 								break;
-							case "0":   // Verified Account
+							case "0":
 							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/status');
 								break;
-						    case "1":
-								swal("Incorrect username or password.");
+							default: 
+							    swal(result);
 								break;
-							case "2":
-							    swal("Please enter both username and password.");
-							default: break;
 						}
                     }
             });
@@ -85,10 +82,10 @@
 						    Admin Page
 						</button>
 					<?php } else {?>
-					    <form class="login form-inline">
+					    <form class="login form-inline" method="post">
 							<div class="position-relative form-group bo4 mr-2">
 								<label for="username" class="sr-only">Username</label>
-								<input name="username" placeholder="Username" type="username" class="form-control">
+								<input name="username" placeholder="Username" type="text" class="form-control">
 							</div>
 							<div class="position-relative form-group bo4 mr-2">
 								<label for="password" class="sr-only">Password</label>

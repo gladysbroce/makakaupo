@@ -52,7 +52,8 @@
 		    <div class="dis-inline-block">
 		        <div class="w-size20 float-l">
 			        <h4 class="product-detail-name m-text16 p-b-13"><?php echo $this->restaurant['restaurant_name']; ?></h4>
-			        <p class="s-text8 p-t-10"><?php echo $this->restaurant['branch_name']; ?></p>
+			        <p class="s-text8 p-t-10"><?php echo !empty($this->restaurant['branch_name']) ? $this->restaurant['branch_name'].' Branch': ''; ?></p>
+					<p class="s-text8 p-t-10"><?php echo $this->restaurant['address']; ?></p>
 			        <p class="s-text8 p-t-10"><?php echo $this->restaurant['short_desc']; ?></p>
 			    </div>
 			    <div class="w-size19 float-l">
@@ -79,7 +80,6 @@
 					<i class="up-mark fs-12 color1 fa fa-plus" aria-hidden="true"></i>
 				</h5>
 				<div class="dropdown-content dis-none p-t-15 p-b-23">
-					<p class="s-text8">Address: <?php echo $this->restaurant['address']; ?></p>
 					<p class="s-text8">Business Hours: <?php echo $this->restaurant['business_hours']; ?></p>
 				</div>
 			</div>

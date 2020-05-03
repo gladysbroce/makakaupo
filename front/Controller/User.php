@@ -21,10 +21,10 @@ class User extends System {
 				$_SESSION['restaurant_id'] = $user['restaurant_id'];
 				$_SESSION["is_verified"] = $user['is_verified'];
 			} else {
-				$result = 1;  // Error: Invalid Password
+				$result = "Incorrect username or password.";
 			}
 		} else {
-			$result = 2; // Error: Incomplete input
+			$result = "Please enter both username and password.";
 		}
 		echo $result;
 	}

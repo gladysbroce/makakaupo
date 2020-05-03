@@ -1,13 +1,17 @@
+<IfModule mod_headers.c>
+	Header set X-XSS-Protection "1; mode=block"
+	Header always append X-Frame-Options SAMEORIGIN
+	Header set X-Content-Type-Options nosniff
+</IfModule>
 <IfModule mod_rewrite.c>
-Options +FollowSymLinks
-
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-l 
-#RewriteCond %{HTTPS} off
-#RewriteRule (.*) https://localhost/makakaupo/$1 [R=301,L]
-RewriteRule ^(restaurant)/(.*)$ index.php?request=$1/index/$2 [L]
-RewriteRule ^(user|catalog)/(.+)$ index.php?request=$1/$2 [QSA,L]
-RewriteRule ^(home|catalog)(.*)$ index.php?request=$1/index [QSA,L]
-ErrorDocument 404 http://localhost/makakaupo?request=notfound/index
+    Options +FollowSymLinks
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-l 
+    #RewriteCond %{HTTPS} off
+    #RewriteRule (.*) https://localhost/makakaupo/$1 [R=301,L]
+    RewriteRule ^(restaurant)/(.*)$ index.php?request=$1/index/$2 [L]
+    RewriteRule ^(user|catalog)/(.+)$ index.php?request=$1/$2 [QSA,L]
+    RewriteRule ^(home|catalog)(.*)$ index.php?request=$1/index [QSA,L]
+    ErrorDocument 404 http://localhost/makakaupo?request=notfound/index
 </IfModule>
