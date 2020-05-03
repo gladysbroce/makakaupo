@@ -1,10 +1,10 @@
 <?php
 class Application {
 	const
-		HOST = 'localhost',
-		USER = 'root',
+		HOST = '',
+		USER = '',
 		PW = '',
-		DB = 'makakaupo';
+		DB = '';
 	private $_controller = '',
 		$_action = '',
 		$_args = array();
@@ -19,7 +19,7 @@ class Application {
 		if (!empty($controller) && class_exists($controller )) {
 			$this->_controller = $controller;
 		} else {
-			die('No controller exists');		// TODO show 404 page???
+			die('No controller exists');
 		}
 		return $this;
 	}	
@@ -27,7 +27,7 @@ class Application {
 		if (!empty($action) && method_exists($this->getController(), $action )) {
 			$this->_action = $action;
 		} else {
-			//die( 'No method exists' );		// TODO show 404 page???
+			//die( 'No method exists' );
 		}
 		return $this;
 	}
