@@ -96,7 +96,7 @@ class User extends System {
 		    "Regards,<br/>".
 		    "Makakaupo Support Team"
 		);
-		$sendgrid = new \SendGrid('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');
+		$sendgrid = new \SendGrid('');
 		try {
 		    $response = $sendgrid->send($email);
 		} catch (Exception $e) {
