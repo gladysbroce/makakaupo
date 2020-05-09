@@ -18,18 +18,16 @@ class Layout extends System {
 		}
 		$this->setTemplate('View/Layout/index.phtml');
 	}
-	public function add() {
-		$seats = isset($_POST["seats"]) ? $_POST["seats"] : "";
-		if ($seats) {
-		    foreach ($seats as $seat) {
+	public function update() {
+		$added_seats   = isset($_POST["added_seats"])   ? $_POST["added_seats"]   : "";
+		$deleted_seats = isset($_POST["deleted_seats"]) ? $_POST["deleted_seats"] : "";
+		if ($added_seats) {
+		    foreach ($added_seats as $seat) {
 		    	$this->_seats->addSeat($_SESSION['restaurant_id'], $seat["floor_id"], $seat["row_no"], $seat["col_no"]);
 		    }
 		}
-	}
-	public function delete() {
-		$seats = isset($_POST["seats"]) ? $_POST["seats"] : "";
-		if ($seats) {
-		    foreach ($seats as $seat) {
+		if ($deleted_seats) {
+		    foreach ($deleted_seats as $seat) {
 		    	$this->_seats->deleteSeat($_SESSION['restaurant_id'], $seat["floor_id"], $seat["row_no"], $seat["col_no"]);
 		    }
 		}
