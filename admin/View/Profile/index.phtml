@@ -9,7 +9,7 @@
 	</div>
 </div>
 <div class="main-card mb-3 card">
-    <div class="card-body"><h5 class="card-title">Restaurant Information <span id="profile-msg"></span></h5>
+    <div class="card-body"><h5 class="card-title">Restaurant Information</h5>
         <form action="" method="post" id="form-profile" enctype="multipart/form-data" class="needs-validation" novalidate>
             <div class="form-row">
             	<!-- Basic Info -->
@@ -54,7 +54,6 @@
 					    <label for="fullDesc">Full Description</label>
 				        <textarea id="fullDesc" name="fullDesc" class="form-control" maxlength="500"><?php echo $this->restaurant['full_desc']; ?></textarea>
 					</div>
-		            <button class="mt-1 btn btn-primary">Submit</button>
 	            </div>
 	            <!-- Map -->
 	            <div class="col-md-6">
@@ -64,6 +63,10 @@
 	            	<input type="hidden" id="latitude" name="latitude" value="<?php echo $this->restaurant['latitude']; ?>" />
 				    <div id="map"></div>
 	            </div>
+				<div class="m-t-20 m-l-r-auto">
+					<button class="mb-2 mr-2 btn btn-dark" type="button" id="cancel">Cancel</button>
+					<button class="mb-2 btn btn-dark">Submit</button>
+				</div>
 	        </div>
         </form>
     </div>
@@ -71,28 +74,51 @@
 <!-- Save data -->
 <script type="text/javascript">
 $(document).ready(function () {
+	/* Cancel changes */
+	$("#cancel").on("click", function(){
+		swal({
+			title: "Are you sure?",
+			text: "Your changes will be lost when you continue this action.",
+			icon: "warning",
+			buttons: true
+		})
+		.then((yes) => {
+			if (yes) {
+				location.href = "<?php echo $this->getBaseURL()?>profile";
+			}
+		});
+	});
 	/* Update profile information */
     $("#form-profile").submit(function(e){
 		e.preventDefault();
-		var form = document.getElementById("form-profile");
-		if (form.checkValidity() != false){
-		    $.ajax({
-		    	url: "<?php echo $this->getControllerURL('profile', 'update')?>",
-                type: 'POST',
-				data: new FormData(this),
-			    processData: false,
-                contentType: false,
-		    	success:
-		    	    function(data){
-                       $("#profile-msg").text("Successfully updated!");
-                    }
-            });
-		}else {
-			$("#profile-msg").text("");
-        	e.preventDefault();
-            e.stopPropagation();
-		}
-		form.classList.add('was-validated');
+		swal({
+			title: "Are you sure?",
+			text: "This change will be applied to your account once submitted.",
+			icon: "warning",
+			buttons: true
+		})
+		.then((yes) => {
+			if (yes){
+				var form = document.getElementById("form-profile");
+				if (form.checkValidity() != false){
+					$.ajax({
+						url: "<?php echo $this->getControllerURL('profile', 'update')?>",
+						type: 'POST',
+						data: new FormData(this),
+						processData: false,
+						contentType: false,
+						success:
+							function(data){
+							   swal("Success!", "You have successfully updated your restaurant profile.", "success");
+							}
+					});
+				}else {
+					e.preventDefault();
+					e.stopPropagation();
+				}
+				form.classList.add('was-validated');
+			}
+		});
     });
 });
 </script>

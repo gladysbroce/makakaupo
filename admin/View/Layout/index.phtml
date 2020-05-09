@@ -17,7 +17,7 @@
 		<div class="slick3">
 		    <?php for ($i = 1; $i <= 4; $i++){?>
 			<div class="item-slick3 floor<?php echo $x?>" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $i?>.jpg">
-				<div class="workspace">
+				<div class="workspace workspace-layout">
 					<?php for($x=1; $x<=25; $x++){ ?>
 					    <?php for($y=1; $y<=20; $y++){ ?>
 					        <div class="seat-cell 
@@ -33,9 +33,9 @@
 			<?php } ?>
 		</div>
 	</div>
-	<div class="m-t-15 t-center">
-	    <button class="mb-2 mr-2 btn btn-focus" id="cancel" onclick="location.href='<?php echo $this->getBaseURL(); ?>layout'">Cancel</button>
-	    <button class="mb-2 mr-2 btn btn-focus" id="save">Save</button>
+	<div class="m-t-20 t-center">
+	    <button class="mb-2 mr-2 btn btn-dark" id="cancel">Cancel</button>
+	    <button class="mb-2 btn btn-dark" id="save">Save</button>
 	</div>
 </div>
 <script>
@@ -58,39 +58,60 @@ $(document).ready(function () {
 			$(this).addClass("seat-add");
 		}
     });
+	/* Cancel changes */
+	$("#cancel").on("click", function(){
+		swal({
+			title: "Are you sure?",
+			text: "Your changes will be lost when you continue this action.",
+			icon: "warning",
+			buttons: true
+		})
+		.then((yes) => {
+			if (yes) {
+				location.href = "<?php echo $this->getBaseURL()?>layout";
+			}
+		});
+	});
 	/* Save seat layout */
     $("#save").on("click", function(){
-		/* Add new seat */
-		var added_seats = [];
-		$(".seat-add").each(function(i) {
-			if (!$(this).hasClass("seat-orig")){
-                var seat_data = $(this).attr('id').split("_");
-			    added_seats[i] = {"floor_id": seat_data[0],
-			                "row_no": seat_data[1],
-			                "col_no": seat_data[2]};
+		swal({
+			title: "Are you sure?",
+			text: "These changes will be applied to your layout once submitted.",
+			icon: "warning",
+			buttons: true
+		})
+		.then((yes) => {
+			if (yes){
+				/* Add new seat */
+				var added_seats = [];
+				$(".seat-add").each(function(i) {
+					if (!$(this).hasClass("seat-orig")){
+						var seat_data = $(this).attr('id').split("_");
+						added_seats[i] = {"floor_id": seat_data[0],
+									"row_no": seat_data[1],
+									"col_no": seat_data[2]};
+					}
+				});
+				/* Delete original seats */
+				var deleted_seats = [];
+				$(".seat-del").each(function(i) {
+					if ($(this).hasClass("seat-orig")){
+						var seat_data = $(this).attr('id').split("_");
+						deleted_seats[i] = {"floor_id": seat_data[0],
+									"row_no": seat_data[1],
+									"col_no": seat_data[2]};
+					}
+				});
+				$.ajax({
+					url: "<?php echo $this->getBaseURL()."layout/update" ?>",
+					type: 'POST',
+					data: {"added_seats": added_seats, "deleted_seats": deleted_seats},
+					success: function(){
+						swal("Good job!", "Your seat layout has been saved.", "success");
+					}
+				});
 			}
-        });
-		$.ajax({
-            url: "<?php echo $this->getBaseURL()."layout/add" ?>",
-            type: 'POST',
-			data: {"seats": added_seats}
-        });
-		/* Delete original seats */
-		var deleted_seats = [];
-		$(".seat-del").each(function(i) {
-			if ($(this).hasClass("seat-orig")){
-                var seat_data = $(this).attr('id').split("_");
-			    console.log(seat_data[0]);
-			    deleted_seats[i] = {"floor_id": seat_data[0],
-			                "row_no": seat_data[1],
-			                "col_no": seat_data[2]};
-			}
-        });
-		$.ajax({
-            url: "<?php echo $this->getBaseURL()."layout/delete" ?>",
-            type: 'POST',
-            data: {"seats": deleted_seats}
-        });
+		});
     });
 });
 </script>

@@ -18,7 +18,7 @@
 	    	<div class="slick3">
 	    	    <?php foreach ($this->floors  as $floor => $seats): ?>
 	    			<div class="item-slick3" data-thumb="<?php echo $this->getAssetsURL();?>/images/thumb-item-<?php echo $floor?>.jpg">
-	    				<div class="workspace">
+	    				<div class="workspace workspace-status">
 	    			    	<?php for($x=1; $x<=25; $x++){ ?>
 	    			    	    <?php for($y=1; $y<=20; $y++){ ?>
 	    			    	        <div class="seat-space 
@@ -59,7 +59,6 @@ $(document).ready(function () {
 	/* Set seat status */
     $(".seat-assign").on("click", function(){
 		clearTimeout(clickTimeout);
-		// Update seat color
 		var status;
 		if ($(this).hasClass("seat-vacant")) {
 			status = 1;
@@ -74,7 +73,6 @@ $(document).ready(function () {
 			$(this).removeClass("seat-unavailable");
 			$(this).addClass("seat-vacant");
 		}
-		// Update status in db
 		var seat_data = $(this).attr('id').split("_");
 	    var seat = {"floor_id": seat_data[0],
 			        "row_no": seat_data[1],
@@ -85,42 +83,53 @@ $(document).ready(function () {
             type: 'POST',
 			data: {"seat": seat, "status": status}
         });
-		}, 500);
+		}, 200);
     });
 	/* Set all seats to vacant/occupied/unavailable */
     $(".btn-all").on("click", function(){
-		clearTimeout(clickTimeout);
-		var status;
-		var btn = $(this).attr('id');
-		switch (btn) {
-			case "vacant":   status = 0; break;
-			case "occupied": status = 1; break;
-			case "unavailable": status = 2; break;
-			default: status = 0; break;
-		}
-		// Get floor id
-		var sel_floor = $('.slick-current').attr("data-slick-index");
-		var floor_id = Object.keys(floors)[sel_floor];
-		clickTimeout = setTimeout(function(){
-		    $.ajax({
-                url: "<?php echo $this->getBaseURL()."status/updateAll" ?>",
-                type: 'POST',
-		    	data: {"floor_id": floor_id, "status": status},
-		    	success:
-		    	    function(data){
-		    			// Update all seats in the current floor
-                        $(".seat-assign").each(function(i) {
-		    				var seat_data = $(this).attr('id').split("_");
-		    				if (floor_id == seat_data[0]) {
-		    				    $(this).removeClass("seat-vacant");
-		    				    $(this).removeClass("seat-occupied");
-		    				    $(this).removeClass("seat-unavailable");
-		    				    $(this).addClass("seat-"+btn);
-		    				}
-                        });
-                    }
-            });
-		}, 500);
+		swal({
+		  title: "Are you sure?",
+		  text: "This status will be applied to all seats on this floor!",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((yes) => {
+		  if (yes) {
+			var btn = $(this).attr('id');
+			var status;
+			switch (btn) {
+				case "vacant":   status = 0; break;
+				case "occupied": status = 1; break;
+				case "unavailable": status = 2; break;
+				default: status = 0; break;
+			}
+			var sel_floor = $('.slick-current').attr("data-slick-index");
+			var floor_id = Object.keys(floors)[sel_floor];
+			$.ajax({
+				url: "<?php echo $this->getBaseURL()."status/updateAll" ?>",
+				type: 'POST',
+				data: {"floor_id": floor_id, "status": status},
+				success:
+					function(data){
+						$(".seat-assign").each(function(i) {
+							var seat_data = $(this).attr('id').split("_");
+							if (floor_id == seat_data[0]) {
+								$(this).removeClass("seat-vacant");
+								$(this).removeClass("seat-occupied");
+								$(this).removeClass("seat-unavailable");
+								$(this).addClass("seat-"+btn);
+							}
+						});
+						swal("Success!", "All seats on this floor were set to "+btn+".", "success");
+					},
+				fail:
+					function(){
+						swal("Something went wrong.", "Please try again.", "error");
+					}
+			});
+		  }
+		});
 	});
 });
 </script>

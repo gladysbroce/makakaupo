@@ -16,14 +16,13 @@
     <div class="col-lg-6">
         <div class="main-card mb-3 card">
             <div class="card-body">
-			    <h5 class="card-title">
-				    Customers
-			        <div class="dropdown d-inline-block w-full p-t-10">
-						<input type="text" id="start-date-1" class="date form-control float-l" autocomplete="off" style="width:45%;"/>
-						<span class="float-l t-center" style="width:10%;">~</span> 
-						<input type="text" id="end-date-1" class="date form-control float-l" autocomplete="off" style="width:45%;"/>
-                    </div>
-				</h5>
+			    <h5 class="card-title">Customers</h5>
+				<div class="dropdown d-inline-block w-full p-b-10">
+					<div class="float-l t-center" style="width:15%;"><span id="date-label">FROM</span></div>
+					<input type="text" id="start-date-1" class="date form-control float-l" autocomplete="off" style="width:38%;"/>
+					<div class="float-l t-center" style="width:9%;"><span id="date-label">TO</span></div>
+					<input type="text" id="end-date-1" class="date form-control float-l" autocomplete="off" style="width:38%;"/>
+                </div>
                 <div id="tbl-1" class="table-responsive">
                     <table class="mb-0 table">
                         <thead>
@@ -43,8 +42,10 @@
 						<?php endforeach ?>
                         </tbody>
                     </table>
-					<button class="mb-2 mr-2 btn btn-focus btn-csv" id="btn-csv-1">Export CSV</button>
-					<button class="mb-2 mr-2 btn btn-focus btn-pdf" id="btn-pdf-1">Generate PDF</button>
+					<div class="m-t-20 t-center">
+						<button class="mb-2 mr-2 btn btn-dark btn-csv" id="btn-csv-1">Export CSV</button>
+						<button class="mb-2 btn btn-dark btn-pdf" id="btn-pdf-1">Generate PDF</button>
+					</div>
                 </div>
             </div>
         </div>
@@ -52,14 +53,13 @@
 	<div class="col-lg-6">
         <div class="main-card mb-3 card">
             <div class="card-body">
-			    <h5 class="card-title">
-			        Top Seats
-					<div class="dropdown d-inline-block w-full p-t-10">
-						<input type="text" id="start-date-2" class="date form-control float-l" autocomplete="off" style="width:45%;"/>
-						<span class="float-l t-center" style="width:10%;">~</span> 
-						<input type="text" id="end-date-2" class="date form-control float-l" autocomplete="off" style="width:45%;"/>
-                    </div>
-			    </h5>
+			    <h5 class="card-title">Top Seats</h5>
+				<div class="dropdown d-inline-block w-full p-b-10">
+					<div class="float-l t-center" style="width:15%;"><span id="date-label">FROM</span></div>
+					<input type="text" id="start-date-2" class="date form-control float-l" autocomplete="off" style="width:38%;"/>
+					<div class="float-l t-center" style="width:9%;"><span id="date-label">TO</span></div>
+					<input type="text" id="end-date-2" class="date form-control float-l" autocomplete="off" style="width:38%;"/>
+                </div>
                 <div id="tbl-2" class="table-responsive">
                     <table class="mb-0 table">
                         <thead>
@@ -80,8 +80,10 @@
 						<?php endforeach ?>
                         </tbody>
                     </table>
-					<button class="mb-2 mr-2 btn btn-focus btn-csv" id="btn-csv-2">Export CSV</button>
-					<button class="mb-2 mr-2 btn btn-focus btn-pdf" id="btn-pdf-2">Generate PDF</button>
+					<div class="m-t-20 t-center">
+						<button class="mb-2 mr-2 btn btn-dark btn-csv" id="btn-csv-2">Export CSV</button>
+						<button class="mb-2 btn btn-dark btn-pdf" id="btn-pdf-2">Generate PDF</button>
+					</div>
                 </div>
             </div>
         </div>
