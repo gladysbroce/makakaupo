@@ -1,12 +1,9 @@
-<section class="bgwhite p-t-35 p-b-60">
+<section class="bgwhite p-t-30 p-b-30">
 	<div class="container register" style="max-width:450px">
 		<div class="row">
-			<div class="col-md-12 p-b-30">
+			<div class="col-md-12">
 				<form id="register" method="post">
 					<h4 class="m-text26 p-b-20">Create an Account</h4>
-					<div class="t-center">
-					    <span class="s-text3" id="msg"></span>
-				    </div>
 					<div class="bo4 of-hidden size15 m-b-20">
 						<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="username" placeholder="Username" maxlength="50">
 					</div>
@@ -29,7 +26,6 @@
 </section>
 <script type="text/javascript">
 $(document).ready(function () {
-	/* Register */
 	$("#register").submit(function(e){
 	    e.preventDefault();
         var form = $(this);
@@ -41,29 +37,30 @@ $(document).ready(function () {
 	    	    function(result){
 					switch(result){
 					    case "0":
-						    $("#msg").html(
-						    	"Thank you for registering to our website.<br />An email verification has been sent to your account.");
+						    swal("Success!", "Thank you for registering to our website. An email verification has been sent to your account.", "success");
 							break;
 						case "1":
-						    $("#msg").html("Please enter all required fields.");
+							swal("Registration Error", "Please fill out all fields.", "error");
 							break;
 						case "2":
-						    $("#msg").html("Username has already been taken.");
+							swal("Registration Error", "Username has already been taken.", "error");
 							break;
 						case "3":
-						    $("#msg").html("Your password and confirmation password do not match.");
+							swal("Registration Error", "Please enter a matching password and confirmation password.", "error");
 							break;
 						case "4":
-						    $("#msg").html("An error occured during registration.");
+							swal("Registration Error", "An error occurred during the registration. Please try again.", "error");
 							break;
 						case "5":
-						    $("#msg").html("An error occured while sending the email.");
+							swal("Registration Error", "An error occured while sending the email.", "error");
 							break;
-					    
 						default: break;
-						
 					}
-                }
+                },
+			fail:
+				function(){
+				    swal("Registration Error", "Something went wrong. Please try again.", "error");
+				}
         });
     });
 });

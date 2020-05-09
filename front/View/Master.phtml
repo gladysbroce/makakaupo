@@ -47,11 +47,21 @@
 							case "0":
 							    $(location).attr('href', '<?php echo $this->getSiteURL();?>/admin/status');
 								break;
+							case "1":
+							    swal("Login Error", "Incorrect username or password.", "error");
+								break;
+							case "2":
+							    swal("Login Error", "Please enter both username and password.", "error");
+								break;
 							default: 
-							    swal(result);
+							    swal("Login Error", "Something went wrong. Please try again.", "error");
 								break;
 						}
-                    }
+                    },
+			fail:
+				function(){
+				    swal("Login Error", "Something went wrong. Please try again.", "error");
+				}
             });
         });
     });
@@ -66,104 +76,109 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
 </head>
 <body class="animsition">
- <!-- HEADER -->
-    <header class="header1">
-    	<div class="container-menu-header">
-			<div class="topbar">
-				<span><?php echo (isset($this->verifyMsg)) ? $this->verifyMsg : "" ;?></span>
-			</div>
-    		<div class="wrap_header">
-    			<a href="<?php echo $this->getBaseURL();?>" class="logo">
-    				<img src="<?php echo $this->getAssetsURL();?>/images/icons/logo.png" alt="IMG-LOGO">
-    			</a>
-				<div class="header-account">
-				    <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){?>
-					    <button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getBaseURL(); ?>/admin'">
-						    Admin Page
-						</button>
-					<?php } else {?>
-					    <form class="login form-inline" method="post">
-							<div class="position-relative form-group bo4 mr-2">
-								<label for="username" class="sr-only">Username</label>
-								<input name="username" placeholder="Username" type="text" class="form-control">
-							</div>
-							<div class="position-relative form-group bo4 mr-2">
-								<label for="password" class="sr-only">Password</label>
-								<input name="password" placeholder="Password" type="password" class="form-control">
-							</div>
-							<button class="btn btn-dark mr-2">Login</button>
-							<button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'">
-								Register
-							</button>
-						</form>
-					<?php } ?>
-				</div>
-    		</div>
-    	</div>
-    	<!-- Header Mobile -->
-    	<div class="wrap_header_mobile">
-    		<!-- Logo mobile -->
-    		<a href="<?php echo $this->getBaseURL();?>" class="logo-mobile">
-    			<img src="<?php echo $this->getAssetsURL();?>/images/icons/logo.png" alt="IMG-LOGO">
-    		</a>
-			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-				<span class="hamburger-box">
-					<span class="hamburger-inner"></span>
-				</span>
-			</div>
-    	</div>
-		<!-- Menu Mobile -->
-		<div class="wrap-side-menu" >
-			<nav class="side-menu">
-			    <form class="login">
-				    <ul class="main-menu">
-					    <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){?>
-						    <li class="item-topbar-mobile p-t-8 p-b-8">
-							    <div class="flex-c-m">
-									<button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getBaseURL(); ?>/admin'">
-										Admin Page
+	<div id="page-container">
+		<div id="content-wrap">
+			<!-- HEADER -->
+			<header class="header1">
+				<div class="container-menu-header">
+					<div class="topbar">
+						<span><?php echo (isset($this->verifyMsg)) ? $this->verifyMsg : "" ;?></span>
+					</div>
+					<div class="wrap_header">
+						<a href="<?php echo $this->getBaseURL();?>" class="logo">
+							<img src="<?php echo $this->getAssetsURL();?>/images/icons/logo.png" alt="IMG-LOGO">
+						</a>
+						<div class="header-account">
+							<?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){?>
+								<button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getBaseURL(); ?>/admin'">
+									Admin Page
+								</button>
+							<?php } else {?>
+								<form class="login form-inline" method="post">
+									<div class="position-relative form-group bo4 mr-2">
+										<label for="username" class="sr-only">Username</label>
+										<input name="username" placeholder="Username" type="text" class="form-control">
+									</div>
+									<div class="position-relative form-group bo4 mr-2">
+										<label for="password" class="sr-only">Password</label>
+										<input name="password" placeholder="Password" type="password" class="form-control">
+									</div>
+									<button class="btn btn-dark mr-2">Login</button>
+									<button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'">
+										Register
 									</button>
-								</div>
-							</li>
-					    <?php } else {?>
-				    	    <li class="item-topbar-mobile p-l-15 p-r-15 p-t-8 p-b-8">
-						        <div id="mobile-login">
-				    	    	    <div id="mobile-username" class="bo4">
-                                        <label for="username" class="sr-only">Username</label>
-                                        <input name="username" placeholder="Username" type="username" class="form-control">
-                                    </div>
-						    	    <div id="mobile-password" class="bo4">
-                                        <label for="password" class="sr-only">Password</label>
-                                        <input name="password" placeholder="Password" type="password" class="form-control">
-                                    </div>
-						    	</div>
-				    	    </li>
-				    	    <li class="item-topbar-mobile p-t-8 p-b-8">
-						        <div class="flex-c-m">
-				    	    	    <button class="btn btn-dark mr-2">Login</button>
-				    	            <button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'" >Register</button>
-						    	</div>
-				    	    </li>
-						<?php } ?>
-				    </ul>
-				</form>
-			</nav>
+								</form>
+							<?php } ?>
+						</div>
+					</div>
+				</div>
+				<!-- Header Mobile -->
+				<div class="wrap_header_mobile">
+					<!-- Logo mobile -->
+					<a href="<?php echo $this->getBaseURL();?>" class="logo-mobile">
+						<img src="<?php echo $this->getAssetsURL();?>/images/icons/logo.png" alt="IMG-LOGO">
+					</a>
+					<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</div>
+				</div>
+				<!-- Menu Mobile -->
+				<div class="wrap-side-menu" >
+					<nav class="side-menu">
+						<form class="login">
+							<ul class="main-menu">
+								<?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){?>
+									<li class="item-topbar-mobile p-t-8 p-b-8">
+										<div class="flex-c-m">
+											<button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getBaseURL(); ?>/admin'">
+												Admin Page
+											</button>
+										</div>
+									</li>
+								<?php } else {?>
+									<li class="item-topbar-mobile p-l-15 p-r-15 p-t-8 p-b-8">
+										<div id="mobile-login">
+											<div id="mobile-username" class="bo4">
+												<label for="username" class="sr-only">Username</label>
+												<input name="username" placeholder="Username" type="username" class="form-control">
+											</div>
+											<div id="mobile-password" class="bo4">
+												<label for="password" class="sr-only">Password</label>
+												<input name="password" placeholder="Password" type="password" class="form-control">
+											</div>
+										</div>
+									</li>
+									<li class="item-topbar-mobile p-t-8 p-b-8">
+										<div class="flex-c-m">
+											<button class="btn btn-dark mr-2">Login</button>
+											<button type="button" class="btn btn-dark" onclick="location.href='<?php echo $this->getControllerURL('user', 'register'); ?>'" >Register</button>
+										</div>
+									</li>
+								<?php } ?>
+							</ul>
+						</form>
+					</nav>
+				</div>
+			</header>
+			<!-- MAIN CONTENT -->
+			<div id="content"><?php echo $this->contents; ?></div>
 		</div>
-    </header>
-	<!-- MAIN CONTENT -->
-	<div id="content"><?php echo $this->contents; ?></div>
-	<!-- FOOTER -->
-    <footer class="bg6 p-t-40 p-b-30 p-l-45 p-r-45">
-    	<div class="t-center p-l-15 p-r-15">
-    		<div class="t-center s-text8">Copyright © 2018 Colorlib</div>
-    	</div>
-    </footer>
+		<!-- FOOTER -->
+		<footer class="bg6 p-t-40 p-b-30 p-l-45 p-r-45">
+			<div class="t-center p-l-15 p-r-15">
+				<div class="t-center s-text8">Copyright © 2018 Colorlib</div>
+			</div>
+		</footer>
+	
 	<!-- BACK TO TOP -->
     <div class="btn-back-to-top bg0-hov" id="myBtn">
     	<span class="symbol-btn-back-to-top">
     		<i class="fa fa-angle-double-up" aria-hidden="true"></i>
     	</span>
     </div>
+	</div>
 </body>
 </html>
 
