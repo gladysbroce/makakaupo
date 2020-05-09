@@ -2338,7 +2338,24 @@ input.num-product::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; 
 }
-
+/* Sweet Alert */
+.swal-modal .swal-text {
+    text-align: center;
+}
+/* Footer */
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+#content-wrap {
+  padding-bottom: 6rem;
+}
+footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	height: 6rem;
+}
 /* Home Page - Header */
 .header-account {
   display: -webkit-box;
@@ -2378,7 +2395,6 @@ input.num-product::-webkit-inner-spin-button {
 	max-width: 100%;
 	background-color: yellow;
 }
-
 .wrap-slick3-dots {
   width: 100%;
 }
@@ -2429,7 +2445,7 @@ input.num-product::-webkit-inner-spin-button {
 .workspace {
 	width: 100%;
 	height: 100%;
-	background-color: #DEF2F1;
+	background-color: #EBEDEF;
 }
 .seat-space {
 	width: 4%;
