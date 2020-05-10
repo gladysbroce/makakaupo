@@ -2461,14 +2461,14 @@ footer {
 	margin-right: 0px;
 }
 .seat-vacant {
-	background-color: #14A76C;  /* green */
-	border-color: #14A76C;
+	background-color: #3B945E;  /* green */
+	border-color: #3B945E;
 }
 .seat-occupied {
-	background-color: #FC4445;  /* red */
-	border-color: #FC4445;
+	background-color: #e0474c;  /* red */
+	border-color: #e0474c;
 }
 .seat-unavailable {
-	background-color: #585858;  /* gray */
-	border-color: #585858;
+	background-color: #5A5560;  /* gray */
+	border-color: #5A5560;
 }
