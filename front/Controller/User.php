@@ -113,7 +113,7 @@ class User extends System {
         } else {
             $this->verifyMsg = "Your account verification has failed.";
         }
-        $this->restaurants = $this->_restaurants->getNewRestaurants('last_modified', 'DESC', 3);
+        $this->restaurants = $this->_restaurants->getNewRestaurants(3);
         $this->setTemplate('View/Home/index.phtml');
     }
 }
